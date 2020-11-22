@@ -1,22 +1,31 @@
 # 配置管理
+------
 
-本地模式时：
->请求URL: http://dev-ip-addr:port:/api/config
->请求类型: POST
->HTTP头：token = , 使用登陆时返回的token
+## 说明
+
 >请求消息体:JSON
 >返回消息体:JSON, retcode = 0时正确， 非0时出错
 
-智云模式时：
+独立模式时：
+>请求URL: http://dev-ip-addr:port:/api/config
+>请求类型: POST
+>HTTP头：token = , 使用登陆时返回的token
+
+其它模式时：
+>请求类型: POST
+>object = "config"
+>HTTP头：token = , 使用登陆时返回的token
 >消息体、返回体相关，无HTTP相关内容
 
-1. 查询设备的配置项：
+#### 查询设备的配置项：
 
 - 请求
 
 ```json
 {
-    "action": "list"
+    "object":"config",
+    "action": "list",
+    "reqid":192839         // 透传值，设备内唯一
 }
 ```
 
@@ -25,41 +34,43 @@
 ```json
 {
     "params": [
-        {
-            "key": "manufacturer",
-            "modified": "2020-04-26 13:57:07",
-            "options": "ro",
-            "value": "BaShi Technology Ltd. co,"
-        },
-
+    {
+        "key":"org-id",
+        "value":"Bashi Technology",
+        "class":"interactive",
+        "desc" : "组织，与GMT 0 相差的分钟数",
+        "options" : "cp"
+    },
         ...
-
-        {
-            "key": "device-id",
-            "modified": "2020-04-26 13:57:07",
-            "options": "ro",
-            "value": "KssDeLd5m6wYRiNXKFCHqe"
-        }
+    {
+        "key":"door-id",
+        "value":"Build1 Door2",
+        "class":"interactive",
+        "desc" : "当前门禁机管理的门的名称",
+        "options" : "cp"
+    },
     ],
+    "reqid":192839,         // 透传值，设备内唯一
     "retcode": 0
 }
 ```
 
-> options: ro表示只读， wr表示可配置可写，cp表壳可配置可写并且控制平台要用
+>  options: wr表示可配置可写，cp表壳可配置可写并且控制平台要用
+>  options: 使用时请与给的配置列表保持一致；
 
-2. 获取设备的配置：
+####  获取设备的配置：
 
 - 请求
 
 ```json
 {
+    "object":"config",
     "action": "get",
+    "reqid":192839,         // 透传值，设备内唯一
     "params": [
         "relay-mode",
         "therm-mode",
-        "algm-threshold",
-        "rs485-start-data",
-        "rs485-close-data"
+        "algm-threshold"
     ]
 }
 ```
@@ -79,25 +90,22 @@
         },
         {
             "algm-threshold": "0.8"
-        },
-        {
-            "rs485-start-data": "open-door-rs485-data"
-        },
-        {
-            "rs485-close-data": "close-door-rs485-data"
         }
     ],
+    "reqid":192839,         // 透传值，设备内唯一
     "retcode": 0
 }
 ```
 
-3. 配置设备
+####  配置设备
 
 - 请求
 
 ```json
 {
+    "object":"config",
     "action": "set",
+    "reqid":192839,         // 透传值，设备内唯一
     "params": [
         {
             "relay-mode": "enable"
@@ -127,331 +135,460 @@
             "algm-threshold": "0.8"
         }
     ],
+    "reqid":192839,         // 透传值，设备内唯一
     "retcode": 0
 }
 ```
 
-4. 配置说明
+####  配置说明
 
 以下为可配置数据
 
 ```json
 {
-    // 设备管理模式，目前支持: none, 仅提供本地http服务， cloud:接入八识智云，local：本地，TCP管理模式
-    {
-        "key":"manager-mode",
-        "value":"none",
-        "options" : "ro",
-    },
+    "items":[
 
-    // 设备运行模式：none 无模式， lock 门锁模式， acs 门禁模式， advt 广告模式
-    // 部分型号没有门锁模式、门禁模式
-    {
-        "key":"device-mode",
-        "value":"advt",
-        "options" : "cp",
-    },
-
-    // 设备使用者组织名，可自定义, 32 bytes
     {
         "key":"org-id",
         "value":"Bashi Technology",
-        "options" : "wr",
+        "class":"interactive",
+        "desc" : "组织，与GMT 0 相差的分钟数",
+        "options" : "cp"
     },
 
-    // 设备门，可自定义, 32 bytes
     {
         "key":"door-id",
-        "value":"main door",
-        "options" : "wr",
-    },
-
-
-    // 智云服务器地址与端口号
-    {
-        "key":"cloud-server-address",
-        "value":"127.0.0.1",
-        "options" : "wr",
+        "value":"Build1 Door2",
+        "class":"interactive",
+        "desc" : "当前门禁机管理的门的名称",
+        "options" : "cp"
     },
 
     {
-        "key":"cloud-server-port",
-        "value":"8000",
-        "options" : "wr",
+        "key":"show-mode",
+        "value":"desc",
+        "class":"interactive",
+        "desc" : "显示模式，name - 仅姓名, desc - 姓名+部门, none - 不显示文字",
+        "options" : "cp"
     },
 
-    // 智云平台断开后重连接时延，秒数
     {
-        "key":"cloud-reconnect-duration" ,
-        "value": "16",
-        "options" : "wr",
+        "key":"device-mode",
+        "value":"advt",
+        "class":"interactive",
+        "desc" : "设备模式，acs - 门禁模式，lock - 门锁模式，advt - 广告模式，therm - 测温模式",
+        "options" : "cp"
     },
 
-    // 智云平台心跳时延，秒数
     {
-        "key":"hearbeat-duration" ,
-        "value": "5",
-        "options" : "wr",
+        "key":"voice-mode",
+        "value":"default",
+        "class":"interactive",
+        "desc" : "声音模式， disable - 无语音提示，default - 默认语音提示，user - 用户自定义",
+        "options" : "cp"
     },
 
-    // 本地服务端口号
     {
-        "key":"local-server-port",
-        "value":"8000",
-        "options" : "wr",
+        "key":"lang-mode",
+         "value":"cn",
+         "class":"interactive",
+         "desc" : "语言配置，使用的文字、语音语言",
+         "options" : "cp"
     },
 
-    // 本地服务模式，管理服务器地址/端口/访问路径，用于事件通知
+    {
+        "key":"timezone",
+        "value":"-480",
+        "class":"interactive",
+        "desc" : "时区，与GMT 0 相差的分钟数",
+        "options":"cp"
+    },
+
+    {
+        "key":"ether-ipv4-address-mode",
+        "value":"dynamic",
+        "class":"network",
+        "desc" : "以太网模式，dynamic - 动态获取IP，static - 静态IP地址模式",
+        "options" : "wr"
+    },
+
+    {
+        "key":"ether-ipv4-address",
+        "value":"192.168.20.10",
+        "class":"network",
+        "desc" : "以太网地址，静态IP地址模式时配置的本机IP地址",
+        "options" : "wr"
+    },
+
+    {
+        "key":"ether-ipv4-mask",
+        "value":"255.255.255.0",
+        "class":"network",
+        "desc" : "以太网掩码，静态IP地址模式时配置的本机IP地址掩码",
+        "options" : "wr"
+    },
+
+    {
+        "key":"ether-ipv4-gw",
+        "value":"192.168.20.1",
+        "class":"network",
+        "desc" : "以太网网关，静态IP地址模式时配置的网关",
+        "options" : "wr"
+    },
+
+    {
+        "key":"ether-dns-server",
+        "value":"114.114.114.114",
+        "class":"network",
+        "desc" : "以太网网关，静态IP地址模式时配置的DNS服务器",
+        "options" : "wr"
+    },
+
+    {
+        "key":"4g-mode",
+        "value":"disable",
+        "class":"network",
+        "desc" : "4G模式，disable - 不支持，enable - 支持",
+        "options" : "wr"
+    },
+
+    {
+        "key":"ble-mode",
+        "value":"none",
+        "class":"network",
+        "desc" : "蓝牙模式，none - 不支持，door - 远程开门， attendance - 考勤",
+        "options" : "wr"
+    },
+    
+    {
+        "key":"wifi-mode",
+        "value":"ap",
+        "class":"network",
+        "desc" : "WIFI模式，none 不使能wifi, ap - 热点模式，sta - 站点模式，mixed - 混合模式",
+        "options" : "wr"
+    },
+
+    {
+        "key":"wifiap-ssid",
+        "value":"walos-wifi-abc",
+        "class":"network",
+        "desc" : "WIFI热点模式SSID，热点模式时配置",
+        "options" : "wr"
+    },
+
+    {
+        "key":"wifiap-passwd",
+        "value":"1234567890",
+        "class":"network",
+        "desc" : "WIFI热点模式密码，热点模式时配置",
+        "options" : "wr"
+    },
+
+    {
+        "key":"wifista-ssid",
+        "value":"walos-wifi-abc",
+        "class":"network",
+        "desc" : "WIFI站点模式时连接的热点SSID",
+        "options" : "wr"
+    },
+
+    {
+        "key":"wifista-passwd",
+        "value":"1234567890",
+        "class":"network",
+        "desc" : "WIFI站点模式时连接的热点密码",
+        "options" : "wr"
+    },
+
+    {
+        "key":"manager-mode",
+        "value":"cloud",
+        "class":"manager",
+        "desc" : "管理模式，cloud - 接入八识云，local - 接入门禁控制器， none - 仅提供web服务，wechat - 接入企业微信， client - HTTP客户端",
+        "options" : "wr"
+    },
+
     {
         "key":"manager-server-address",
         "value":"127.0.0.1",
-        "options" : "wr",
+        "class":"manager",
+        "desc" : "管理服务器地址",
+        "options" : "wr"
     },
 
     {
         "key":"manager-server-port",
         "value":"3000",
-        "options" : "wr",
+        "class":"manager",
+        "desc" : "管理服务器端口",
+        "options" : "wr"
     },
 
     {
         "key":"manager-server-path",
         "value":"report",
-        "options" : "wr",
+        "class":"manager",
+        "desc" : "管理服务器路径",
+        "options" : "wr"
     },
 
-    // 设备支持的最大纪录数
     {
-        "key":"user-logr-max",
-        "value": "40000",
-        "options" : "wr",
+        "key":"hearbeat-duration" ,
+        "value": "5",
+        "class":"manager",
+        "desc" : "心跳间隔，三次心跳丢失会断开重连接",
+        "options" : "wr"
     },
-
-    // 提示信息显示时延
-    {
-        "key":"tips-duration",
-        "value": "2",
-        "options" : "cp",
-    },
-
-    // 广告显示时延
-    {
-        "key":"advertising-duration",
-        "value": "10",
-        "options" : "cp",
-    },
-
-    // 开门时延
-    {
-        "key":"door-duration",
-        "value": "3",
-        "options" : "cp",
-    },
-
-    // 系统信息显示时延
-    {
-        "key":"info-duration",
-        "value":"10",
-        "options" : "cp",
-    },
-
-    // 人脸识别模式：none：无算法， detect:人脸检测，reco：人脸识别，mask：口罩提醒，qrcode: 二维码
-    // 当前仅支持人脸识别、人脸检测
-    {
-        "key":"algm-mode",
-        "value":"reco",
-        "options" : "ro"
-    },
-
-    // 是否支持访客：none：不支持, qrcode： 访客二维码； code：键盘访客码， mixed： 两都同时支持
-    {
-        "key":"visitor-mode",
-        "value":"none",
-        "options" : "cp",
-    },
-
-    // 是否使用RS485端口，none:不支持，door:支持开门，voice:支持语音播放，therm:支持测温输入, user: 用户透传指令
+    
     {
         "key":"rs485-mode",
         "value":"none",
-        "options" : "cp",
+        "class":"peripherals",
+        "desc" : "继电器模式， none - 不工作，door - 开门，voice - 语音输出， therm - 测温， user - 用户定义",
+        "options" : "cp"
     },
 
-    // 是否支持语音播放：default: 支持，默认方式； disable：不支持；user: 定制用户定制方式（不使用）
-    {
-        "key":"voice-mode",
-        "value":"default",
-        "options" : "cp",
-    },
-
-    // 无线模式： none - 不启用, 4g - 启用4G模块
-    {
-        "key":"cell-mode",
-        "value":"none",
-        "options" : "cp",
-    },
-
-    // wifi模式： none - 不启用, sta - 客户端模式， ap - 热点模式， mixed - 双模式
-    {
-        "key":"wifi-mode",
-        "value":"mixed",
-        "options" : "cp",
-    },
-
-    // 是否支持继电器开门：enable:支持, disable：不支持
     {
         "key":"relay-mode",
         "value":"enable",
-        "options" : "cp",
+        "class":"peripherals",
+        "desc" : "继电器模式， disable - 继电器不工作，enable - 继电器工作",
+        "options" : "cp"
     },
 
-    // 是否支持测温模块: none 不支持， wrist:腕温， forehead：额温
     {
         "key":"therm-mode",
         "value":"none",
-        "options" : "cp",
+        "class":"peripherals",
+        "desc" : "测温模式， none - 不工作，wrist - 腕温，forehead - 额温",
+        "options" : "cp"
     },
 
-    // 测温模块修正值
     {
         "key":"therm-fix",
         "value":"0",
-        "options":"cp",
+        "class":"peripherals",
+        "desc" : "测温修正值",
+        "options":"cp"
     },
 
-    // 测温模块阈值，合格最低值
     {
         "key":"therm-normal",
-        "value":"34.5",
-        "options":"cp",
+        "value":"32.0",
+        "class":"peripherals",
+        "desc" : "测温最低有效值",
+        "options":"cp"
     },
-    // 测温模块阈值，告警最低值
+
     {
         "key":"therm-alarm",
         "value":"37.5",
-        "options":"cp",
+        "class":"peripherals",
+        "desc" : "测温报警值",
+        "options":"cp"
     },
 
-    // 是否支持事件通知：enable：支持， disable：不支持
     {
-        "key":"event-mode",
-        "value":"enable",
-        "options" : "wr",
-    },
-
-    // 识别算法比对阈值
-    {
-        "key":"algm-threshold",
-        "value":"0.5",
-        "options" : "cp",
-    },
-
-    // 识别距离,默认1米左右，部分产品配置不支持可配置
-    {
-        "key":"algm-distance",
-        "value":"1",
-        "options" : "cp",
-    },
-
-    // 产品语言： cn - 中文， en - 英文， 支持的语言种类视硬件版本情况
-    {
-        "key":"lang-mode",
-         "value":"cn",
-         "options" : "wr"
-    },
-
-   // none - 不显示姓名， name - 仅显示姓名， desc - 显示姓名、部门。 默认desc
-    {
-        "key":"show-mode",
-         "value":"desc",
+        "key":"alarm-door",
+         "value":"disable",
+         "class":"peripherals",
+         "desc" : "报警输入-开门状态，disable - 不使能，enable - 使能",
          "options" : "cp"
     },
 
-    // single - 任何一种认证可开门， card - 先刷卡后识别人脸再开门， face - 先识别人脸再刷卡开门， therm - 先识别人脸再测温开门
     {
-        "key":"auth-mode",
-         "value":"single",
+        "key":"alarm-fire",
+         "value":"disable",
+         "class":"peripherals",
+         "desc" : "报警输入-火警状态，disable - 不使能，enable - 使能",
          "options" : "cp"
     },
 
-    // 仅定制版本支持
-    // 门禁常开常闭策略，比如指定时段门一直打开不关闭
     {
-        "key":"open-mode",
-        "value":"siw879273ks",
-        "options" : "wr"
+        "key":"alarm-disassemble",
+         "value":"disable",
+         "class":"peripherals",
+         "desc" : "报警输入-防拆状态，disable - 不使能，enable - 使能",
+         "options" : "cp"
     },
 
-    // 仅定制版本支持
-    // 门禁常闭策略，比如指定时段门一直关闭不打开
     {
-        "key":"close-mode",
-        "value":"879273ksss",
-        "options" : "wr"
+        "key":"alarm-push",
+         "value":"disable",
+         "class":"peripherals",
+         "desc" : "报警输入-开门开关，disable - 不使能，enable - 使能",
+         "options" : "cp"
     },
 
-    // 门卡类型, none - 无门禁卡支持， id - 仅读取卡原生ID匹配； en, - 加密卡（encryption）；as - 非对称加密卡（async，仅定制型号支持）
+    {
+        "key":"wigan",
+         "value":"disable",
+         "class":"peripherals",
+         "desc" : "韦根口，disable - 不使能，enable - 使能",
+         "options" : "cp"
+    },
+
     {
         "key":"card-mode",
-        "value":"id",
-        "options":"cp"
+        "value":"none",
+        "class":"peripherals",
+        "desc" : "刷卡模式， none - 无刷卡，id - id卡， en - 加密卡， as - 非对称加密卡",
+        "options": "cp"
     },
 
-    // 门卡读取密钥, 6 bytes值， base64编码
     {
-        "key":"card-keya",
-        "value":"8279sj9",
-        "options":"cp"
+        "key":"visitor-mode",
+        "value":"none",
+        "class":"peripherals",
+        "desc" : "访客模式，none - 不支持，qrcode - 二维码读头， code - 密码输入， all - 都支持",
+        "options" : "cp"
     },
-
-    // 门卡写入密钥, 6 bytes值， base64编码
+    
     {
-        "key":"card-keyb",
-        "value":"8skskjj==",
-        "options":"cp"
-    },
-
-   // 音量配置
-    {
-        "key":"volume",
+        "key":"volume-in",
         "value":"100",
-        "options":"cp"
+        "class":"peripherals",
+        "desc" : "声音输入，输入音频大小，1～100",
+        "options" : "cp"
     },
 
-    // LCD屏亮度
+    {
+        "key":"volume-out",
+        "value":"100",
+        "class":"peripherals",
+        "desc" : "声音输出，输出音频大小，1～100",
+        "options" : "cp"
+    },
+
+    {
+        "key":"light-rgb",
+        "value":"100",
+        "class":"peripherals",
+        "desc" : "补光灯强弱，白光补光大小，1～100",
+        "options" : "cp"
+    },
+
+    {
+        "key":"light-ir",
+        "value":"100",
+        "class":"peripherals",
+        "desc" : "补光灯强弱，红外补光大小，1～100",
+        "options" : "cp"
+    },
+
     {
         "key":"lcd-light",
         "value":"100",
-        "options":"cp"
-    },
-
-    // 红外补光灯亮度
-    {
-        "key":"ir-light",
-        "value":"100",
-        "options":"cp"
-    },
-
-    // 白光补光灯亮度
-    {
-        "key":"rgb-light",
-        "value":"100",
-        "options":"cp"
-    },
-
-
-    // RS485动作发送数据，分为开、关两部分
-    {
-        "key":"rs485-start-data",
-        "value":"open-door-rs485-data",
-        "options" : "cp",
+        "class":"peripherals",
+        "desc" : "屏幕背光亮度，1～100",
+        "options" : "cp"
     },
 
     {
-        "key":"rs485-close-data",
-        "value":"close-door-rs485-data",
-        "options" : "cp",
+        "key":"auth-mode",
+        "value":"single",
+        "class":"algorithm",
+        "desc" : "核验模式，single - 刷卡或人脸，card - 刷卡+人脸， therm - 人脸+测温",
+        "options" : "cp"
+    },
+
+    {
+        "key":"algm-threshold",
+        "value":"0.5",
+        "class":"algorithm",
+        "desc" : "识别阈值，根据算法不同，此值不同",
+        "options" : "cp"
+    },
+
+    {
+        "key":"algm-alive",
+        "value":"enable",
+        "class":"algorithm",
+        "desc" : "是否带活体检测，disable - 无活体检测， enable - 带活体检测",
+        "options" : "cp"
+    },
+
+    {
+        "key":"algm-face-size-min",
+        "value":"120",
+        "class":"algorithm",
+        "desc" : "人脸像素数，最小值",
+        "options" : "cp"
+    },
+
+    {
+        "key":"algm-face-size-max",
+        "value":"1080",
+        "class":"algorithm",
+        "desc" : "人脸像素数，最大值",
+        "options" : "cp"
+    },
+
+    {
+        "key":"algm-face-clear",
+        "value":"92",
+        "class":"algorithm",
+        "desc" : "人脸清晰度阈值，用于人脸特征提取",
+        "options" : "cp"
+    },
+
+    {
+        "key":"algm-face-zone-x",
+        "value":"0",
+        "class":"algorithm",
+        "desc" : "人脸识别与人脸检测区域范围，像素数。x,y,w,h",
+        "options" : "cp"
+    },
+
+    {
+        "key":"algm-face-zone-y",
+        "value":"0",
+        "class":"algorithm",
+        "desc" : "人脸识别与人脸检测区域范围，像素数。x,y,w,h",
+        "options" : "cp"
+    },
+    
+    {
+        "key":"algm-face-zone-w",
+        "value":"1080",
+        "class":"algorithm",
+        "desc" : "人脸识别与人脸检测区域范围，像素数。x,y,w,h",
+        "options" : "cp"
+    },
+    
+    {
+        "key":"algm-face-zone-h",
+        "value":"1920",
+        "class":"algorithm",
+        "desc" : "人脸识别与人脸检测区域范围，像素数。x,y,w,h",
+        "options" : "cp"
+    },
+
+    {
+        "key":"algm-face-angle-yaw",
+        "value":"45",
+        "class":"algorithm",
+        "desc" : "人脸角度， yaw - 偏航角(-90, 90)正左转；负右转",
+        "options" : "cp"
+    },
+
+    {
+        "key":"algm-face-angle-roll",
+        "value":"45",
+        "class":"algorithm",
+        "desc" : "人脸角度， roll - 横滚角(-90, 90)正：左低右高；负：左高右低",
+        "options" : "cp"
+    },
+
+    {
+        "key":"algm-face-angle-pitch",
+        "value":"30",
+        "class":"algorithm",
+        "desc" : "人脸角度， pitch - 仰角(-90, 90)正：仰视；负：俯视",
+        "options" : "cp"
     }
+
+    ]
 }
 
 ```

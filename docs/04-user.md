@@ -1,25 +1,52 @@
 # 帐户管理
+-----------
 
-本地模式时：
->请求URL: http://dev-ip-addr:port:/api/user
+#### 说明
+
 >请求类型: POST
 >HTTP头：token = , 使用登陆时返回的token
 >请求消息体:JSON
 >返回消息体:JSON, retcode = 0时正确， 非0时出错
-**上传用户数据时，请求URL为http://dev-ip-addr:port:/api/upload**
 
-智云模式时：
+独立模式时：
+>请求URL: http://dev-ip-addr:port:/api/user
+>HTTP头：token = , 使用登陆时返回的token
+
+其它模式时：
+>请求类型: POST
+>object = "user"
+>HTTP头：token = , 使用登陆时返回的token
 >消息体、返回体相关，无HTTP相关内容
 
 **限制条件： userid 不超过32字节， name不超过32字节， desc不超过32字节， others不超过32字节， rule不超过32字节**
 
-1. 列举用户：
+#### 用户对象
+
+```json
+{
+    "userid": "1avsoHu2EeqZmH943F8eUg",     // 用户ID，全局唯一
+    "name": "李四",     // 用户姓名，必填
+    "desc": "研发部",   // 用户部门/住宅门牌号等，可不填写
+    "others": "17763548853",    // 附加信息，可用于梯控等场景，可不填写
+    "effect": 1619019996,       // 用户生效时间，不填则当前时刻，EPOCH值
+    "expire": 1619519996,       // 用户过期时间，不填则当前时刻+1年
+    "rule": "Iksiwim",          // 用户开门规则，默认识别即通过，可不填写
+    "state": 0,                 // 用户状态，暂内部使用，可不填写
+    "feature": "data...."       // base64编码的用户特征值，由设备计算，平台不填写
+}
+```
+
+对用户的操作与数据库的CRUD类似，增加了枚举设备中的所有用户，所有的信息以此为准
+
+#### 列举用户
 
 - 请求
 
 ```json
 {
+    "object":"user",
     "action": "list",
+    "reqid":129393,
     "offset": 1,
     "limit": 2
 }
@@ -33,11 +60,14 @@
 
 ```json
 {
+    "reqid":129393,
+    "retcode": 0,
     "params": [
         {
             "create_datetime": "2020-04-27 18:39:56",
             "desc": "研发部",
-            "expired": 1619519996,
+            "effect": 1609519996,
+            "expire": 1619519996,
             "modify_datetime": "2020-04-27 18:39:56",
             "name": "李四.张三",
             "others": "17763548853",
@@ -48,7 +78,8 @@
         {
             "create_datetime": "2020-04-27 18:39:56",
             "desc": "国际贸易部",
-            "expired": 1619519996,
+            "effect": 1609519996,
+            "expire": 1619519996,
             "modify_datetime": "2020-04-27 18:39:56",
             "name": "张三.李四",
             "others": "18563548853",
@@ -57,16 +88,17 @@
             "userid": "1aw6wHu2EeqZmH943F8eUg=="
         }
     ],
-    "retcode": 0
 ```
 
-2. 添加用户：
+#### 添加用户
 
 - 请求
 
 ```json
 {
+    "object":"user",
     "action": "add",
+    "reqid":129393,
     "params": [
         {
             "userid": "1avsoHu2EeqZmH943F8eUg==",
@@ -90,14 +122,6 @@
 }
 ```
 
->userid : 唯一标志用户的ID，不超过32字节的文本字符串；必填
->name : 用户名；必填
->desc : 用户部门或楼宇单元或其它说明信息； 选填
->others ： 用户手机号；选填
->rule : 开门策略，配置的开发策略； 选填，如不填侧使用默认配置，全时段可刷脸开门
->expire : 用户过期时间，格式需要保持一致；必填
->feature ： 由算法生成的特征值，选填
-
 - 响应
 
 ```json
@@ -112,17 +136,20 @@
             "ops":0
         }
     ],
+    "reqid":129393,
     "retcode": 0
 }
 ```
 
-3. 删除用户
+#### 删除用户
 
 - 请求
 
 ```json
 {
+    "object":"user",
     "action": "del",
+    "reqid":129393,
     "params": [
         {
             "userid": "1avsoHu2EeqZmH943F8eUg=="
@@ -150,17 +177,20 @@
             "ops":0
         }
     ],
+    "reqid":129393,
     "retcode": 0
 }
 ```
 
-4. 修改用户
+#### 修改用户
 
 - 请求
 
 ```json
 {
+    "object":"user",
     "action": "update",
+    "reqid":129393,
     "params": [
         {
             "userid": "1avsoHu2EeqZmH943F8eUg==",
@@ -183,13 +213,6 @@
     ]
 }
 ```
->userid : 唯一标志用户的ID，不超过32字节的文本字符串；必填
->name : 用户名；选填
->desc : 用户部门或其它说明信息； 选填
->others ： 用户手机号；选填
->rule : 开门策略，配置的开发策略； 选填，如不填侧使用默认配置，全时段可刷脸开门
->expire : 用户过期时间，格式需要保持一致；选填
->feature ： 由算法生成的特征值，选填
 
 - 响应
 
@@ -221,17 +244,20 @@
             "ops":0
         }
     ],
+    "reqid":129393,
     "retcode": 0
 }
 ```
 
-5. 查询用户
+#### 查询用户
 
 - 请求
 
 ```json
 {
+    "object":"user",
     "action": "info",
+    "reqid":129393,
     "params": [
         {
             "userid": "1avsoHu2EeqZmH943F8eUg=="
@@ -243,8 +269,6 @@
 }
 ```
 
->userid : 唯一标志用户的ID，不超过32字节的文本字符串；必填
-
 - 响应
 
 ```json
@@ -276,11 +300,12 @@
             "ops":0
         }
     ],
+    "reqid":129393,
     "retcode": 0
 }
 ```
 
-6. 上传用户文件
+#### 上传用户文件
 
 **上传用户文件，单次数据长度必须在256kB以内，其data数据在转base64前应以256kB长度切片**
 
@@ -288,7 +313,10 @@
 
 ```json
 {
+    "object":"user",
     "action":"upload",
+    "reqid":129393,
+
     "filesize":32678,
     "filename":"1aw6wHu2EeqZmH943F8eUg==.nv12",
     "offset":4096,
@@ -297,8 +325,7 @@
 }
 ```
 
->type : 上传数据的类型，用户文件
->filename : 用户ID + 后缀
+>filename : 用户ID + 后缀, nv12时为nv12文件，png时为PNG文件，使用512x512的人脸图片，做底库使用
 >filesize : 文件总的长度
 >offset : 当前数据片段起始位置
 >size : 当前数据片段长度
@@ -308,40 +335,39 @@
 
 ```json
 {
+    "reqid":129393,
     "retcode":0
 }
 ```
 
-7. 生成用户文件
+#### 生成用户文件
 
-根据上传的用户nv12/nv21数据，生成所需要的UI或识别特征码数据
+根据上传的用户数据，生成所需要的UI与识别特征码数据
 
 - 请求
 
 ```json
 {
+    "object":"user",
     "action": "gen",
+    "reqid":129393,
     "params": [
         {
             "userid": "1avsoHu2EeqZmH943F8eUg==",
-            "type":"feature"
         },
         {
             "userid": "1aw6wHu2EeqZmH943F8eUg==",
-            "type":"all"
         }
     ]
 }
 ```
-
->type : feature 用当前的算法生成feature数据， ui 生成UI所需的图片， all 生成两者
->userid : 指定用户的ID号
 
 - 响应
 
 ```json
 {
     "retcode":0,
+    "reqid":129393,
     "params": [
         {
             "userid": "1avsoHu2EeqZmH943F8eUg==",
@@ -355,26 +381,29 @@
 }
 ```
 
-8. 下载帐户文件
+#### 下载帐户文件
 
 - 请求
 
 ```json
 {
+    "object":"user",
     "action":"download",
+    "reqid":129393,
     "filename":"1aw6wHu2EeqZmH943F8eUg==.nv12",
     "offset":0,
     "size": 4096,
 }
 ```
 
-> filename : 用户ID+文件后缀名，.nv12 上传的用户文件, .bmp 生成的UI文件
+> filename : 用户ID+文件后缀名，.nv12/.png 上传的用户文件, .bmp 生成的UI文件
 
 - 响应
 
 ```json
 {
-    "action":"pushdata",
+    "reqid":129393,
+
     "filename":"1aw6wHu2EeqZmH943F8eUg==.nv12",
     "filesize":32678,
     "offset":0,

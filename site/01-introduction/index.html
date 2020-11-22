@@ -202,7 +202,9 @@
 <p>典型的HTTP协议任务：
 - 任务：服务器向设备响应心跳时带有的任务</p>
 <pre><code class="language-json">{
+    &quot;object&quot;:&quot;heartbeat&quot;,
     &quot;action&quot;: &quot;pong&quot;,   // 设备发向服务器的心跳为 ping
+    &quot;reqid&quot;:192839,         // 透传值，设备内唯一
     &quot;task&quot;:{
         &quot;object&quot;:&quot;user&quot;,            // user, rule, visitor, card, advt ...
         &quot;action&quot;:&quot;insert&quot;           // insert, remove, update, lookup, list
@@ -214,7 +216,8 @@
 </ul>
 <pre><code class="language-json">{
     &quot;object&quot;:&quot;user&quot;,
-    &quot;action&quot;: &quot;insert&quot;
+    &quot;action&quot;: &quot;insert&quot;,
+    &quot;reqid&quot;:192839         // 透传值，设备内唯一
 }
 </code></pre>
 <ul>
@@ -223,6 +226,7 @@
 <pre><code class="language-json">{
     &quot;object&quot;:&quot;user&quot;,
     &quot;action&quot;: &quot;insert&quot;,
+    &quot;reqid&quot;:192839,         // 透传值，设备内唯一
     &quot;params&quot;: [
         {
             &quot;userid&quot;: &quot;1avsoHu2EeqZmH943F8eUg&quot;,
@@ -250,6 +254,7 @@
 </ul>
 <pre><code class="language-json">{
     &quot;retcode&quot;: 0,
+    &quot;reqid&quot;:192839,         // 透传值，设备内唯一
     &quot;params&quot;: [
         { 
             &quot;userid&quot;:&quot;1avsoHu2EeqZmH943F8eUg&quot;,
@@ -289,7 +294,8 @@
 - 请求， 服务器向设备发送请求</p>
 <pre><code class="language-json">{
     &quot;object&quot;:&quot;info&quot;,
-    &quot;action&quot;: &quot;info&quot;
+    &quot;action&quot;: &quot;info&quot;,
+    &quot;reqid&quot;:192839         // 透传值，设备内唯一
 }
 </code></pre>
 <ul>
@@ -300,6 +306,7 @@
     &quot;algm-version&quot;  : &quot;v1.1.0&quot;,             // 算法版本号
     &quot;hardware-version&quot; : &quot;v1.2.0&quot;,          // 硬件载体版本号
     &quot;device-id&quot; : &quot;device-id&quot;,
+    &quot;reqid&quot;:192839,        // 透传值，设备内唯一
     &quot;retcode&quot;:0
 }
 </code></pre>
@@ -324,7 +331,9 @@ HTTP头：token = 登陆前获取info信息可不填写，其它必须填写登�
 <li>请求</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;action&quot;: &quot;info&quot;
+    &quot;object&quot;:&quot;info&quot;,
+    &quot;action&quot;: &quot;info&quot;,
+    &quot;reqid&quot;:192839         // 透传值，设备内唯一
 }
 </code></pre>
 <ul>

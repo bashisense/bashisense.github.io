@@ -82,6 +82,18 @@
                 <ul class="current">
                     <li class="toctree-l1 current"><a class="reference internal current" href="./">规则管理</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_2">说明</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">规则对象</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_4">添加开门策略</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_5">删除开门策略</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_6">更新开门策略</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_7">列举开门策略</a>
+    </li>
     </ul>
                     </li>
                 </ul>
@@ -134,66 +146,85 @@
             <div class="section">
               
                 <h1 id="_1">策略管理</h1>
-<p>本地模式时：</p>
+<hr />
+<h4 id="_2">说明</h4>
 <blockquote>
-<p>请求URL: http://dev-ip-addr:port:/api/rule
-请求类型: POST
+<p>请求类型: POST
 HTTP头：token = , 使用登陆时返回的token
 请求消息体:JSON
 返回消息体:JSON, retcode = 0时正确， 非0时出错</p>
 </blockquote>
-<p>智云模式时：</p>
+<p>独立模式时：</p>
 <blockquote>
-<p>消息体、返回体相关，无http相关内容</p>
+<p>请求URL: http://dev-ip-addr:port:/api/rule
+HTTP头：token = , 使用登陆时返回的token</p>
 </blockquote>
-<p><strong>开门策略最多不超过32个</strong>
-<strong>id 大小不超过32Bytes</strong></p>
-<ol>
-<li>
-<p>添加开门策略</p>
-</li>
-<li>
-<p>请求</p>
-</li>
-</ol>
+<p>其它模式时：</p>
+<blockquote>
+<p>请求类型: POST
+object = "user"
+HTTP头：token = , 使用登陆时返回的token
+消息体、返回体相关，无HTTP相关内容</p>
+</blockquote>
+<p><strong>id 大小不超过32Bytes</strong></p>
+<h4 id="_3">规则对象</h4>
 <pre><code class="language-json">{
+    &quot;id&quot;:&quot;EeqZmH943F8&quot;,
+    &quot;rules&quot; : [
+        {
+            &quot;rule&quot;:&quot;* 12 * * * *&quot;,   // crontab 规则
+            &quot;effect&quot;: 129392,   // 生效时间
+            &quot;expire&quot;: 10292929, // 过期时间
+        },
+
+        {
+            &quot;rule&quot;:&quot;18:00-23 * * * *&quot;,   // crontab 规则
+            &quot;effect&quot;: 129392,   // 生效时间
+            &quot;expire&quot;: 10292929, // 过期时间
+        },
+    ]
+}
+</code></pre>
+<h4 id="_4">添加开门策略</h4>
+<ul>
+<li>请求</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;object&quot;:&quot;rule&quot;,
     &quot;action&quot;:&quot;add&quot;,
-
+    &quot;reqid&quot;:298299,
     &quot;id&quot;:&quot;EeqZmH943F8&quot;,
-    &quot;mode&quot;:&quot;week&quot;,
-    &quot;days&quot;:&quot;0111110&quot;,
-    &quot;start&quot;:152029302,
-    &quot;end&quot;:15929203
+    &quot;rules&quot; : [
+        {
+            &quot;rule&quot;:&quot;* 12 * * * *&quot;,   // crontab 规则
+            &quot;effect&quot;: 129392,   // 生效时间
+            &quot;expire&quot;: 10292929, // 过期时间
+        },
+
+        {
+            &quot;rule&quot;:&quot;18:00-23 * * * *&quot;,   // crontab 规则
+            &quot;effect&quot;: 129392,   // 生效时间
+            &quot;expire&quot;: 10292929, // 过期时间
+        },
+    ]
 }
 </code></pre>
-<blockquote>
-<p>id : 策略ID号，自定义策略ID从100开始，100以内为保留ID号
-mode : 策略模式， week 按周循环，month 按月循环
-days : 是否使能，0表示当天不使能， 1表示当天使能
-start : 规则起始时间
-end : 规则结束时间</p>
-</blockquote>
 <ul>
 <li>响应</li>
 </ul>
 <pre><code class="language-json">{
     &quot;retcode&quot;:0,
-    &quot;rule&quot;:101
+    &quot;reqid&quot;:298299,
 }
 </code></pre>
-<blockquote>
-<p>rule : 本地序号，递增</p>
-</blockquote>
-<ol>
-<li>
-<p>删除开门策略</p>
-</li>
-<li>
-<p>请求</p>
-</li>
-</ol>
+<h4 id="_5">删除开门策略</h4>
+<ul>
+<li>请求</li>
+</ul>
 <pre><code class="language-json">{
+    &quot;object&quot;:&quot;rule&quot;,
     &quot;action&quot;:&quot;del&quot;,
+    &quot;reqid&quot;:298299,
     &quot;id&quot;:&quot;EeqZmH943F8&quot;,
 }
 </code></pre>
@@ -204,49 +235,48 @@ end : 规则结束时间</p>
     &quot;retcode&quot;:0,
 }
 </code></pre>
-<ol>
-<li>
-<p>更新开门策略</p>
-</li>
-<li>
-<p>请求</p>
-</li>
-</ol>
+<h4 id="_6">更新开门策略</h4>
+<ul>
+<li>请求</li>
+</ul>
 <pre><code class="language-json">{
+    &quot;object&quot;:&quot;rule&quot;,
     &quot;action&quot;:&quot;update&quot;,
+    &quot;reqid&quot;:298299,
 
     &quot;id&quot;:&quot;EeqZmH943F8&quot;,
-    &quot;mode&quot;:&quot;week&quot;,
-    &quot;days&quot;:&quot;0111110&quot;,
-    &quot;start&quot;:152029302,
-    &quot;end&quot;:15929203
+    &quot;rules&quot; : [
+        {
+            &quot;rule&quot;:&quot;* 12 * * * *&quot;,   // crontab 规则
+            &quot;effect&quot;: 129392,   // 生效时间
+            &quot;expire&quot;: 10292929, // 过期时间
+        },
+
+        {
+            &quot;rule&quot;:&quot;18:00-23 * * * *&quot;,   // crontab 规则
+            &quot;effect&quot;: 129392,   // 生效时间
+            &quot;expire&quot;: 10292929, // 过期时间
+        },
+    ]
 }
 </code></pre>
-<blockquote>
-<p>id : 策略ID号，自定义策略ID从100开始，100以内为保留ID号
-mode : 策略模式， week 按周循环，month 按月循环
-days : 是否使能，0表示当天不使能， 1表示当天使能
-start : 规则起始时间
-end : 规则结束时间</p>
-</blockquote>
 <ul>
 <li>响应</li>
 </ul>
 <pre><code class="language-json">{
+    &quot;reqid&quot;:298299,
     &quot;retcode&quot;:0,
     &quot;rule&quot;:101
 }
 </code></pre>
-<ol>
-<li>
-<p>列举开门策略</p>
-</li>
-<li>
-<p>请求</p>
-</li>
-</ol>
+<h4 id="_7">列举开门策略</h4>
+<ul>
+<li>请求</li>
+</ul>
 <pre><code class="language-json">{
+    &quot;object&quot;:&quot;rule&quot;,
     &quot;action&quot;:&quot;list&quot;,
+    &quot;reqid&quot;:298299,
     &quot;offset&quot;: 0,
     &quot;limit&quot;:10
 }
@@ -259,33 +289,29 @@ limit : 本次列举的个数</p>
 <li>响应</li>
 </ul>
 <pre><code class="language-json">{
+    &quot;reqid&quot;:298299,
     &quot;retcode&quot;:0,
     &quot;params&quot;:[
         {
-            &quot;rule&quot;:102,
-            &quot;id&quot;:&quot;EeqZmH9470&quot;,
-            &quot;mode&quot;:&quot;month&quot;,
-            &quot;days&quot;:&quot;01101010101010110101010&quot;,
-            &quot;start&quot;:152029302,
-            &quot;end&quot;:15929203
+            &quot;id&quot;:&quot;EeqZmH943F8&quot;,
+            &quot;rules&quot; : [
+            {
+                &quot;rule&quot;:&quot;* 12 * * * *&quot;,   // crontab 规则
+                &quot;effect&quot;: 129392,   // 生效时间
+                &quot;expire&quot;: 10292929 // 过期时间
+            }
+            ]
         },
 
-        {
-            &quot;id&quot;:&quot;EeqZmH63F8&quot;,
-            &quot;rule&quot;:103,
-            &quot;mode&quot;:&quot;week&quot;,
-            &quot;days&quot;:&quot;0111110&quot;,
-            &quot;start&quot;:158929302,
-            &quot;end&quot;:16029203
-        },
-
-        {
-            &quot;id&quot;:&quot;EeqZmH9465&quot;,
-            &quot;rule&quot;:104,
-            &quot;mode&quot;:&quot;week&quot;,
-            &quot;days&quot;:&quot;0111110&quot;,
-            &quot;start&quot;:158929302,
-            &quot;end&quot;:16029203
+        {    
+            &quot;id&quot;:&quot;EeqZmH9243F1&quot;,
+            &quot;rules&quot; : [
+            {
+                &quot;rule&quot;:&quot;* 12 * * * *&quot;,   // crontab 规则
+                &quot;effect&quot;: 129392,   // 生效时间
+                &quot;expire&quot;: 10292929, // 过期时间
+            }
+            ]
         }
     ]
 }

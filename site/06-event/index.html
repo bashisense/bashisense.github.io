@@ -78,6 +78,16 @@
                 <ul class="current">
                     <li class="toctree-l1 current"><a class="reference internal current" href="./">事件管理</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_2">说明</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">事件对象</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_4">获取日志数据</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_5">下载日志图片</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_6">日志通知</a>
+    </li>
     </ul>
                     </li>
                 </ul>
@@ -133,29 +143,51 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="_1">日志管理</h1>
-<p>本地模式时：</p>
+                <h1 id="_1">事件管理</h1>
+<hr />
+<h4 id="_2">说明</h4>
 <blockquote>
-<p>请求URL: http://dev-ip-addr:port:/api/logr
-请求类型: POST
+<p>请求类型: POST
 HTTP头：token = , 使用登陆时返回的token
 请求消息体:JSON
 返回消息体:JSON, retcode = 0时正确， 非0时出错</p>
 </blockquote>
-<p>智云模式时：</p>
+<p>独立模式时：</p>
 <blockquote>
-<p>消息体、返回体相关，无HTTP相关内容</p>
+<p>请求URL: http://dev-ip-addr:port:/api/logr
+HTTP头：token = , 使用登陆时返回的token</p>
 </blockquote>
-<ol>
-<li>
-<p>获取日志信息：</p>
-</li>
-<li>
-<p>请求</p>
-</li>
-</ol>
+<p>其它模式时：</p>
+<blockquote>
+<p>请求类型: POST
+object = "user"
+HTTP头：token = , 使用登陆时返回的token
+消息体、返回体相关，无HTTP相关内容</p>
+</blockquote>
+<h4 id="_3">事件对象</h4>
 <pre><code class="language-json">{
-    &quot;action&quot;:&quot;info&quot;
+    &quot;seqnum&quot;: 6,                // 事件编号，设备唯一
+    &quot;timestamp&quot;: 1587985190,    // 事件发生时的时间戳
+    &quot;type&quot;:&quot;logr&quot;,          // 事件类型，logr-识别，open - 开门状态， remote - 远程开门
+                            // fire -火警告警， disa - 防拆告警， card - 刷卡， visitor 访客，
+
+    &quot;score&quot;: 1,         //  识别相似度
+    &quot;sharp&quot;: 0,         //  照片清晰度
+    &quot;therm&quot;: 0,         //  测温值
+    &quot;userid&quot;: &quot;TUID-876991&quot;, // 识别出的用户ID，或陌生人 0000开头的ID
+    &quot;data&quot;:&quot;...&quot;,       // base64编码的其它值（此值暂不填写）
+}
+````
+
+#### 获取日志信息
+
+- 请求
+
+```json
+{
+    &quot;object&quot;:&quot;event&quot;,
+    &quot;action&quot;:&quot;info&quot;,
+    &quot;reqid&quot;:82929,
 }
 </code></pre>
 <ul>
@@ -164,19 +196,18 @@ HTTP头：token = , 使用登陆时返回的token
 <pre><code class="language-json">{
     &quot;max&quot;: 9,
     &quot;min&quot;: 1,
+    &quot;reqid&quot;:82929,
     &quot;retcode&quot;: 0
 }
 </code></pre>
-<ol>
-<li>
-<p>获取日志数据：</p>
-</li>
-<li>
-<p>请求</p>
-</li>
-</ol>
+<h4 id="_4">获取日志数据</h4>
+<ul>
+<li>请求</li>
+</ul>
 <pre><code class="language-json">{
+    &quot;object&quot;:&quot;event&quot;,
     &quot;action&quot;:&quot;fetch&quot;,
+    &quot;reqid&quot;:82929,
     &quot;seqnum&quot;:6,
     &quot;count&quot;:2
 }
@@ -191,10 +222,6 @@ count ： 获取条数；选填，默认10条</p>
 <pre><code class="language-json">{
     &quot;logger&quot;: [
         {
-            &quot;face_h&quot;: 0,
-            &quot;face_w&quot;: 0,
-            &quot;face_x&quot;: 0,
-            &quot;face_y&quot;: 0,
             &quot;score&quot;: 1,
             &quot;seqnum&quot;: 6,
             &quot;sharp&quot;: 0,
@@ -203,10 +230,6 @@ count ： 获取条数；选填，默认10条</p>
             &quot;userid&quot;: &quot;TUID-876991&quot;
         },
         {
-            &quot;face_h&quot;: 0,
-            &quot;face_w&quot;: 0,
-            &quot;face_x&quot;: 0,
-            &quot;face_y&quot;: 0,
             &quot;score&quot;: 1,
             &quot;seqnum&quot;: 7,
             &quot;sharp&quot;: 0,
@@ -215,19 +238,18 @@ count ： 获取条数；选填，默认10条</p>
             &quot;userid&quot;: &quot;TUID-1039100&quot;
         }
     ],
+    &quot;reqid&quot;:82929,
     &quot;retcode&quot;: 0
 }
 </code></pre>
-<ol>
-<li>
-<p>下载日志图片</p>
-</li>
-<li>
-<p>请求</p>
-</li>
-</ol>
+<h4 id="_5">下载日志图片</h4>
+<ul>
+<li>请求</li>
+</ul>
 <pre><code class="language-json">{
+    &quot;object&quot;:&quot;event&quot;,
     &quot;action&quot;:&quot;download&quot;,
+    &quot;reqid&quot;:82929,
     &quot;type&quot;:&quot;logr&quot;,
     &quot;timestamp&quot;: 1587983490,
     &quot;offset&quot;:0,
@@ -241,7 +263,7 @@ count ： 获取条数；选填，默认10条</p>
 <li>响应</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;action&quot;:&quot;download&quot;,
+    &quot;reqid&quot;:82929,
     &quot;type&quot;:&quot;logr&quot;,
     &quot;filesize&quot;:32678,
     &quot;filename&quot;:&quot;1587983490.jpg&quot;,
@@ -250,24 +272,17 @@ count ： 获取条数；选填，默认10条</p>
     &quot;data&quot;:&quot;base64-encoded file data&quot;
 }
 </code></pre>
-<ol>
-<li>
-<p>日志通知</p>
-</li>
-<li>
-<p>云端模式时，在连接并认证后，发生事件，WalOS是直接通知云端，云端无需返回事件通知响应</p>
-</li>
-<li>
-<p>本地模式时，当配置了"manager-server-address","manager-server-port","manager-server-path",后，事件会通过HTTP请求POST方式请求URL：http://manager-server-address:manager-server-port/manager-server-path，消息体为JSON格式</p>
-</li>
-<li>
-<p>请求</p>
-</li>
-</ol>
+<h4 id="_6">日志通知</h4>
+<ul>
+<li>请求</li>
+</ul>
 <pre><code class="language-json">{
+    &quot;object&quot;:&quot;event&quot;,
+    &quot;action&quot;:&quot;event&quot;,
+
     &quot;device-id&quot;:&quot;device-id&quot;,    // 发出事件的设备ID
     &quot;seqnum&quot;: 6,                // 当前事件的序号
-    &quot;type&quot;:&quot;logr&quot;,              // 事件的类型： logr - 人脸识别， card 刷卡， opendoor远程开门成功， door-open开门状态， door-close关门状态，visitor访客进入
+    &quot;type&quot;:&quot;logr&quot;,              // 事件的类型
     &quot;timestamp&quot;:1587983490,     // 事件发生的时间戳，EPOCH时间*1000 + 毫秒数
     &quot;sharp&quot;:0.983,  // 人脸清晰度，如果有，仅logr情况下有意义
     &quot;score&quot;:0.834,  // 人脸识别的相似度，如果有，仅logr情况下有意义

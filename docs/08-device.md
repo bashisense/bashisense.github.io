@@ -1,23 +1,33 @@
 # 设备管理
+------------
 
-本地模式时：
->请求URL: http://dev-ip-addr:port:/api/device
+#### 说明
+
 >请求类型: POST
 >HTTP头：token = , 使用登陆时返回的token
 >请求消息体:JSON
 >返回消息体:JSON, retcode = 0时正确， 非0时出错
 
-智云模式时：
->消息体、返回体相关，无http相关内容
+独立模式时：
+>请求URL: http://dev-ip-addr:port:/api/device
+>HTTP头：token = , 使用登陆时返回的token
 
-设备管理接口：
-0. 查询设备信息：
+其它模式时：
+>请求类型: POST
+>object = "user"
+>HTTP头：token = , 使用登陆时返回的token
+>消息体、返回体相关，无HTTP相关内容
+
+
+#### 查询设备配置
 
 - 请求
 
 ```json
 {
+    "object":"device",
     "action":"info",
+    "reqid":1839292
 }
 ```
 
@@ -26,27 +36,22 @@
 ```json
 {
     "retcode":0,
-    // 硬件信息
+    "reqid":1839292,
 
-    // 存储信息
-
-    // 网络信息
-    "type":"eth",
-    "mode":"static",
-    "ipv4-address":"192.168.20.10",
-    "ipv4-mask":"255.255.255.0",
-    "ipv4-gateway":"192.168.20.1",
-    "ipv4-dns":"114.114.114.114"
+    // 返回设备的配置列表
+    // ....
 }
 ```
 
-1. 设置时间：
+#### 设置时间
 
 - 请求
 
 ```json
 {
+    "object":"device",
     "action":"time",
+    "reqid":1839292,
     "timezone":-480,
     "timestamp":161589233
 }
@@ -59,17 +64,20 @@
 
 ```json
 {
+    "reqid":1839292,
     "retcode":0
 }
 ```
 
-2. 设备重启
+#### 设备重启
 
 - 请求
 
 ```json
 {
-    "action":"reboot"
+    "object":"device",
+    "action":"reboot",
+    "reqid":1839292,
 }
 ```
 
@@ -77,17 +85,20 @@
 
 ```json
 {
+    "reqid":1839292,
     "retcode":0
 }
 ```
 
 
-3. 设备重置
+#### 设备重置
 
 - 请求
 
 ```json
 {
+    "object":"device",
+    "reqid":1839292,
     "action":"reset"
 }
 ```
@@ -98,27 +109,27 @@
 
 ```json
 {
+    "reqid":1839292,
     "retcode":0
 }
 ```
 
-4. 配置网络
+#### 配置网络
 
 - 请求
 
 ```json
 {
+    "object":"device",
+    "reqid":1839292,
     "action":"netconfig",
-    "type":"wlan0",
+
+    "type":"eth0",
     "mode":"static",
     "ipv4-address":"192.168.20.10",
     "ipv4-mask":"255.255.255.0",
     "ipv4-gw":"192.168.20.1",
     "ipv4-dns":"114.114.114.114",
-    "wifi-ssid":"chinanet-18sasd29",
-    "wifi-passwd": "1234567890",
-    "wifi-ap-ssid":"bwa-9slsdk",
-    "wifi-ap-passwd":"1234567890",
 }
 ```
 
@@ -143,16 +154,19 @@
 
 ```json
 {
+    "reqid":1839292,
     "retcode":0
 }
 ```
 
-5. 远程开门
+#### 远程开门
 
 - 请求
 
 ```json
 {
+    "object":"device",
+    "reqid":1839292,
     "action":"opendoor",
     "userid":"1avsoHu2EeqZmH943F8eUg=="
 }
@@ -162,11 +176,12 @@
 
 ```json
 {
+    "reqid":1839292,
     "retcode":0
 }
 ```
 
-6. 上传升级文件
+#### 上传升级文件
 
 **上传文件，单次数据长度必须在256kB以内，其data数据在转base64前应以256kB长度切片**
 
@@ -174,6 +189,8 @@
 
 ```json
 {
+    "object":"device",
+    "reqid":1839292,
     "action":"upload",
     "type":"upgrade",
     "filesize":32678,
@@ -195,16 +212,19 @@
 
 ```json
 {
+    "reqid":1839292,
     "retcode":0
 }
 ```
 
-7. 升级设备
+#### 升级设备
 
 - 请求
 
 ```json
 {
+    "object":"device",
+    "reqid":1839292,
     "action":"upgrade",
     "filename":"walos-v2.3.4.bin"
 }
@@ -214,16 +234,19 @@
 
 ```json
 {
+    "reqid":1839292,
     "retcode":0
 }
 ```
 
-8. 传感器快照
+#### 传感器快照
 
 - 请求
 
 ```json
 {
+    "object":"device",
+    "reqid":1839292,
     "action":"snapshot"
 }
 ```
@@ -234,6 +257,7 @@
 
 ```json
 {
+    "reqid":1839292,
     "retcode": 0,
     "timestamp": "1587985190"
 }
@@ -241,12 +265,14 @@
 
 >timestamp 为获取快照的时间戳，下载快照时需要此数据
 
-9. 下载快照文件
+#### 下载快照文件
 
 - 请求
 
 ```json
 {
+    "object":"device",
+    "reqid":1839292,
     "action":"download",
     "type":"snapshot",
     "chanel":0,
@@ -263,6 +289,7 @@
 
 ```json
 {
+    "reqid":1839292,
     "action":"download",
     "type":"snapshot",
     "filesize":32678,
@@ -274,19 +301,20 @@
 ```
 
 
-10. 设置模式
+#### 设置模式
 
 设备运行在不同模式时，表示不同的功能，主要有四种模式：
 
 1. 门锁模式：平时设备不点亮屏显与补光灯，当触摸按键时，点亮屏显+补光灯，识别人脸后开门或者读取开锁二维码后开门；
 2. 门禁模式：正常工作时进行人脸识别，识别后开门。识别期间可以通过按键进入访客二维码读码状态，读取访客码并开门。
-3. 测温模式：分为腕温测温与额温测温，两种测温模块可选，对于识别部分可以是人脸识别开门或口罩提醒开门，但不建议同时进行。
 4. 广告模式：支持广告播放方案，开启后主界面将播放广告，右下角显示人脸视频；
 
 - 请求
 
 ```json 
 {
+    "object":"device",
+    "reqid":1839292,
     "action":"mode",
     "type":"lock",
 }
@@ -298,6 +326,7 @@
 
 ```json
 {
+    "reqid":1839292,
     "retcode":0
 }
 ```

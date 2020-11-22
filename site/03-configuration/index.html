@@ -66,6 +66,18 @@
                 <ul class="current">
                     <li class="toctree-l1 current"><a class="reference internal current" href="./">配置管理</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_2">说明</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#_3">查询设备的配置项：</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_4">获取设备的配置：</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_5">配置设备</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_6">配置说明</a>
+    </li>
+        </ul>
+    </li>
     </ul>
                     </li>
                 </ul>
@@ -134,28 +146,33 @@
             <div class="section">
               
                 <h1 id="_1">配置管理</h1>
-<p>本地模式时：</p>
+<hr />
+<h2 id="_2">说明</h2>
+<blockquote>
+<p>请求消息体:JSON
+返回消息体:JSON, retcode = 0时正确， 非0时出错</p>
+</blockquote>
+<p>独立模式时：</p>
 <blockquote>
 <p>请求URL: http://dev-ip-addr:port:/api/config
 请求类型: POST
-HTTP头：token = , 使用登陆时返回的token
-请求消息体:JSON
-返回消息体:JSON, retcode = 0时正确， 非0时出错</p>
+HTTP头：token = , 使用登陆时返回的token</p>
 </blockquote>
-<p>智云模式时：</p>
+<p>其它模式时：</p>
 <blockquote>
-<p>消息体、返回体相关，无HTTP相关内容</p>
+<p>请求类型: POST
+object = "config"
+HTTP头：token = , 使用登陆时返回的token
+消息体、返回体相关，无HTTP相关内容</p>
 </blockquote>
-<ol>
-<li>
-<p>查询设备的配置项：</p>
-</li>
-<li>
-<p>请求</p>
-</li>
-</ol>
+<h4 id="_3">查询设备的配置项：</h4>
+<ul>
+<li>请求</li>
+</ul>
 <pre><code class="language-json">{
-    &quot;action&quot;: &quot;list&quot;
+    &quot;object&quot;:&quot;config&quot;,
+    &quot;action&quot;: &quot;list&quot;,
+    &quot;reqid&quot;:192839         // 透传值，设备内唯一
 }
 </code></pre>
 <ul>
@@ -163,44 +180,42 @@ HTTP头：token = , 使用登陆时返回的token
 </ul>
 <pre><code class="language-json">{
     &quot;params&quot;: [
-        {
-            &quot;key&quot;: &quot;manufacturer&quot;,
-            &quot;modified&quot;: &quot;2020-04-26 13:57:07&quot;,
-            &quot;options&quot;: &quot;ro&quot;,
-            &quot;value&quot;: &quot;BaShi Technology Ltd. co,&quot;
-        },
-
+    {
+        &quot;key&quot;:&quot;org-id&quot;,
+        &quot;value&quot;:&quot;Bashi Technology&quot;,
+        &quot;class&quot;:&quot;interactive&quot;,
+        &quot;desc&quot; : &quot;组织，与GMT 0 相差的分钟数&quot;,
+        &quot;options&quot; : &quot;cp&quot;
+    },
         ...
-
-        {
-            &quot;key&quot;: &quot;device-id&quot;,
-            &quot;modified&quot;: &quot;2020-04-26 13:57:07&quot;,
-            &quot;options&quot;: &quot;ro&quot;,
-            &quot;value&quot;: &quot;KssDeLd5m6wYRiNXKFCHqe&quot;
-        }
+    {
+        &quot;key&quot;:&quot;door-id&quot;,
+        &quot;value&quot;:&quot;Build1 Door2&quot;,
+        &quot;class&quot;:&quot;interactive&quot;,
+        &quot;desc&quot; : &quot;当前门禁机管理的门的名称&quot;,
+        &quot;options&quot; : &quot;cp&quot;
+    },
     ],
+    &quot;reqid&quot;:192839,         // 透传值，设备内唯一
     &quot;retcode&quot;: 0
 }
 </code></pre>
 <blockquote>
-<p>options: ro表示只读， wr表示可配置可写，cp表壳可配置可写并且控制平台要用</p>
+<p>options: wr表示可配置可写，cp表壳可配置可写并且控制平台要用
+ options: 使用时请与给的配置列表保持一致；</p>
 </blockquote>
-<ol>
-<li>
-<p>获取设备的配置：</p>
-</li>
-<li>
-<p>请求</p>
-</li>
-</ol>
+<h4 id="_4">获取设备的配置：</h4>
+<ul>
+<li>请求</li>
+</ul>
 <pre><code class="language-json">{
+    &quot;object&quot;:&quot;config&quot;,
     &quot;action&quot;: &quot;get&quot;,
+    &quot;reqid&quot;:192839,         // 透传值，设备内唯一
     &quot;params&quot;: [
         &quot;relay-mode&quot;,
         &quot;therm-mode&quot;,
-        &quot;algm-threshold&quot;,
-        &quot;rs485-start-data&quot;,
-        &quot;rs485-close-data&quot;
+        &quot;algm-threshold&quot;
     ]
 }
 </code></pre>
@@ -220,27 +235,20 @@ HTTP头：token = , 使用登陆时返回的token
         },
         {
             &quot;algm-threshold&quot;: &quot;0.8&quot;
-        },
-        {
-            &quot;rs485-start-data&quot;: &quot;open-door-rs485-data&quot;
-        },
-        {
-            &quot;rs485-close-data&quot;: &quot;close-door-rs485-data&quot;
         }
     ],
+    &quot;reqid&quot;:192839,         // 透传值，设备内唯一
     &quot;retcode&quot;: 0
 }
 </code></pre>
-<ol>
-<li>
-<p>配置设备</p>
-</li>
-<li>
-<p>请求</p>
-</li>
-</ol>
+<h4 id="_5">配置设备</h4>
+<ul>
+<li>请求</li>
+</ul>
 <pre><code class="language-json">{
+    &quot;object&quot;:&quot;config&quot;,
     &quot;action&quot;: &quot;set&quot;,
+    &quot;reqid&quot;:192839,         // 透传值，设备内唯一
     &quot;params&quot;: [
         {
             &quot;relay-mode&quot;: &quot;enable&quot;
@@ -269,329 +277,456 @@ HTTP头：token = , 使用登陆时返回的token
             &quot;algm-threshold&quot;: &quot;0.8&quot;
         }
     ],
+    &quot;reqid&quot;:192839,         // 透传值，设备内唯一
     &quot;retcode&quot;: 0
 }
 </code></pre>
-<ol>
-<li>配置说明</li>
-</ol>
+<h4 id="_6">配置说明</h4>
 <p>以下为可配置数据</p>
 <pre><code class="language-json">{
-    // 设备管理模式，目前支持: none, 仅提供本地http服务， cloud:接入八识智云，local：本地，TCP管理模式
-    {
-        &quot;key&quot;:&quot;manager-mode&quot;,
-        &quot;value&quot;:&quot;none&quot;,
-        &quot;options&quot; : &quot;ro&quot;,
-    },
+    &quot;items&quot;:[
 
-    // 设备运行模式：none 无模式， lock 门锁模式， acs 门禁模式， advt 广告模式
-    // 部分型号没有门锁模式、门禁模式
-    {
-        &quot;key&quot;:&quot;device-mode&quot;,
-        &quot;value&quot;:&quot;advt&quot;,
-        &quot;options&quot; : &quot;cp&quot;,
-    },
-
-    // 设备使用者组织名，可自定义, 32 bytes
     {
         &quot;key&quot;:&quot;org-id&quot;,
         &quot;value&quot;:&quot;Bashi Technology&quot;,
-        &quot;options&quot; : &quot;wr&quot;,
+        &quot;class&quot;:&quot;interactive&quot;,
+        &quot;desc&quot; : &quot;组织，与GMT 0 相差的分钟数&quot;,
+        &quot;options&quot; : &quot;cp&quot;
     },
 
-    // 设备门，可自定义, 32 bytes
     {
         &quot;key&quot;:&quot;door-id&quot;,
-        &quot;value&quot;:&quot;main door&quot;,
-        &quot;options&quot; : &quot;wr&quot;,
-    },
-
-
-    // 智云服务器地址与端口号
-    {
-        &quot;key&quot;:&quot;cloud-server-address&quot;,
-        &quot;value&quot;:&quot;127.0.0.1&quot;,
-        &quot;options&quot; : &quot;wr&quot;,
+        &quot;value&quot;:&quot;Build1 Door2&quot;,
+        &quot;class&quot;:&quot;interactive&quot;,
+        &quot;desc&quot; : &quot;当前门禁机管理的门的名称&quot;,
+        &quot;options&quot; : &quot;cp&quot;
     },
 
     {
-        &quot;key&quot;:&quot;cloud-server-port&quot;,
-        &quot;value&quot;:&quot;8000&quot;,
-        &quot;options&quot; : &quot;wr&quot;,
+        &quot;key&quot;:&quot;show-mode&quot;,
+        &quot;value&quot;:&quot;desc&quot;,
+        &quot;class&quot;:&quot;interactive&quot;,
+        &quot;desc&quot; : &quot;显示模式，name - 仅姓名, desc - 姓名+部门, none - 不显示文字&quot;,
+        &quot;options&quot; : &quot;cp&quot;
     },
 
-    // 智云平台断开后重连接时延，秒数
     {
-        &quot;key&quot;:&quot;cloud-reconnect-duration&quot; ,
-        &quot;value&quot;: &quot;16&quot;,
-        &quot;options&quot; : &quot;wr&quot;,
+        &quot;key&quot;:&quot;device-mode&quot;,
+        &quot;value&quot;:&quot;advt&quot;,
+        &quot;class&quot;:&quot;interactive&quot;,
+        &quot;desc&quot; : &quot;设备模式，acs - 门禁模式，lock - 门锁模式，advt - 广告模式，therm - 测温模式&quot;,
+        &quot;options&quot; : &quot;cp&quot;
     },
 
-    // 智云平台心跳时延，秒数
     {
-        &quot;key&quot;:&quot;hearbeat-duration&quot; ,
-        &quot;value&quot;: &quot;5&quot;,
-        &quot;options&quot; : &quot;wr&quot;,
+        &quot;key&quot;:&quot;voice-mode&quot;,
+        &quot;value&quot;:&quot;default&quot;,
+        &quot;class&quot;:&quot;interactive&quot;,
+        &quot;desc&quot; : &quot;声音模式， disable - 无语音提示，default - 默认语音提示，user - 用户自定义&quot;,
+        &quot;options&quot; : &quot;cp&quot;
     },
 
-    // 本地服务端口号
     {
-        &quot;key&quot;:&quot;local-server-port&quot;,
-        &quot;value&quot;:&quot;8000&quot;,
-        &quot;options&quot; : &quot;wr&quot;,
+        &quot;key&quot;:&quot;lang-mode&quot;,
+         &quot;value&quot;:&quot;cn&quot;,
+         &quot;class&quot;:&quot;interactive&quot;,
+         &quot;desc&quot; : &quot;语言配置，使用的文字、语音语言&quot;,
+         &quot;options&quot; : &quot;cp&quot;
     },
 
-    // 本地服务模式，管理服务器地址/端口/访问路径，用于事件通知
+    {
+        &quot;key&quot;:&quot;timezone&quot;,
+        &quot;value&quot;:&quot;-480&quot;,
+        &quot;class&quot;:&quot;interactive&quot;,
+        &quot;desc&quot; : &quot;时区，与GMT 0 相差的分钟数&quot;,
+        &quot;options&quot;:&quot;cp&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;ether-ipv4-address-mode&quot;,
+        &quot;value&quot;:&quot;dynamic&quot;,
+        &quot;class&quot;:&quot;network&quot;,
+        &quot;desc&quot; : &quot;以太网模式，dynamic - 动态获取IP，static - 静态IP地址模式&quot;,
+        &quot;options&quot; : &quot;wr&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;ether-ipv4-address&quot;,
+        &quot;value&quot;:&quot;192.168.20.10&quot;,
+        &quot;class&quot;:&quot;network&quot;,
+        &quot;desc&quot; : &quot;以太网地址，静态IP地址模式时配置的本机IP地址&quot;,
+        &quot;options&quot; : &quot;wr&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;ether-ipv4-mask&quot;,
+        &quot;value&quot;:&quot;255.255.255.0&quot;,
+        &quot;class&quot;:&quot;network&quot;,
+        &quot;desc&quot; : &quot;以太网掩码，静态IP地址模式时配置的本机IP地址掩码&quot;,
+        &quot;options&quot; : &quot;wr&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;ether-ipv4-gw&quot;,
+        &quot;value&quot;:&quot;192.168.20.1&quot;,
+        &quot;class&quot;:&quot;network&quot;,
+        &quot;desc&quot; : &quot;以太网网关，静态IP地址模式时配置的网关&quot;,
+        &quot;options&quot; : &quot;wr&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;ether-dns-server&quot;,
+        &quot;value&quot;:&quot;114.114.114.114&quot;,
+        &quot;class&quot;:&quot;network&quot;,
+        &quot;desc&quot; : &quot;以太网网关，静态IP地址模式时配置的DNS服务器&quot;,
+        &quot;options&quot; : &quot;wr&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;4g-mode&quot;,
+        &quot;value&quot;:&quot;disable&quot;,
+        &quot;class&quot;:&quot;network&quot;,
+        &quot;desc&quot; : &quot;4G模式，disable - 不支持，enable - 支持&quot;,
+        &quot;options&quot; : &quot;wr&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;ble-mode&quot;,
+        &quot;value&quot;:&quot;none&quot;,
+        &quot;class&quot;:&quot;network&quot;,
+        &quot;desc&quot; : &quot;蓝牙模式，none - 不支持，door - 远程开门， attendance - 考勤&quot;,
+        &quot;options&quot; : &quot;wr&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;wifi-mode&quot;,
+        &quot;value&quot;:&quot;ap&quot;,
+        &quot;class&quot;:&quot;network&quot;,
+        &quot;desc&quot; : &quot;WIFI模式，none 不使能wifi, ap - 热点模式，sta - 站点模式，mixed - 混合模式&quot;,
+        &quot;options&quot; : &quot;wr&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;wifiap-ssid&quot;,
+        &quot;value&quot;:&quot;walos-wifi-abc&quot;,
+        &quot;class&quot;:&quot;network&quot;,
+        &quot;desc&quot; : &quot;WIFI热点模式SSID，热点模式时配置&quot;,
+        &quot;options&quot; : &quot;wr&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;wifiap-passwd&quot;,
+        &quot;value&quot;:&quot;1234567890&quot;,
+        &quot;class&quot;:&quot;network&quot;,
+        &quot;desc&quot; : &quot;WIFI热点模式密码，热点模式时配置&quot;,
+        &quot;options&quot; : &quot;wr&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;wifista-ssid&quot;,
+        &quot;value&quot;:&quot;walos-wifi-abc&quot;,
+        &quot;class&quot;:&quot;network&quot;,
+        &quot;desc&quot; : &quot;WIFI站点模式时连接的热点SSID&quot;,
+        &quot;options&quot; : &quot;wr&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;wifista-passwd&quot;,
+        &quot;value&quot;:&quot;1234567890&quot;,
+        &quot;class&quot;:&quot;network&quot;,
+        &quot;desc&quot; : &quot;WIFI站点模式时连接的热点密码&quot;,
+        &quot;options&quot; : &quot;wr&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;manager-mode&quot;,
+        &quot;value&quot;:&quot;cloud&quot;,
+        &quot;class&quot;:&quot;manager&quot;,
+        &quot;desc&quot; : &quot;管理模式，cloud - 接入八识云，local - 接入门禁控制器， none - 仅提供web服务，wechat - 接入企业微信， client - HTTP客户端&quot;,
+        &quot;options&quot; : &quot;wr&quot;
+    },
+
     {
         &quot;key&quot;:&quot;manager-server-address&quot;,
         &quot;value&quot;:&quot;127.0.0.1&quot;,
-        &quot;options&quot; : &quot;wr&quot;,
+        &quot;class&quot;:&quot;manager&quot;,
+        &quot;desc&quot; : &quot;管理服务器地址&quot;,
+        &quot;options&quot; : &quot;wr&quot;
     },
 
     {
         &quot;key&quot;:&quot;manager-server-port&quot;,
         &quot;value&quot;:&quot;3000&quot;,
-        &quot;options&quot; : &quot;wr&quot;,
+        &quot;class&quot;:&quot;manager&quot;,
+        &quot;desc&quot; : &quot;管理服务器端口&quot;,
+        &quot;options&quot; : &quot;wr&quot;
     },
 
     {
         &quot;key&quot;:&quot;manager-server-path&quot;,
         &quot;value&quot;:&quot;report&quot;,
-        &quot;options&quot; : &quot;wr&quot;,
+        &quot;class&quot;:&quot;manager&quot;,
+        &quot;desc&quot; : &quot;管理服务器路径&quot;,
+        &quot;options&quot; : &quot;wr&quot;
     },
 
-    // 设备支持的最大纪录数
     {
-        &quot;key&quot;:&quot;user-logr-max&quot;,
-        &quot;value&quot;: &quot;40000&quot;,
-        &quot;options&quot; : &quot;wr&quot;,
+        &quot;key&quot;:&quot;hearbeat-duration&quot; ,
+        &quot;value&quot;: &quot;5&quot;,
+        &quot;class&quot;:&quot;manager&quot;,
+        &quot;desc&quot; : &quot;心跳间隔，三次心跳丢失会断开重连接&quot;,
+        &quot;options&quot; : &quot;wr&quot;
     },
 
-    // 提示信息显示时延
-    {
-        &quot;key&quot;:&quot;tips-duration&quot;,
-        &quot;value&quot;: &quot;2&quot;,
-        &quot;options&quot; : &quot;cp&quot;,
-    },
-
-    // 广告显示时延
-    {
-        &quot;key&quot;:&quot;advertising-duration&quot;,
-        &quot;value&quot;: &quot;10&quot;,
-        &quot;options&quot; : &quot;cp&quot;,
-    },
-
-    // 开门时延
-    {
-        &quot;key&quot;:&quot;door-duration&quot;,
-        &quot;value&quot;: &quot;3&quot;,
-        &quot;options&quot; : &quot;cp&quot;,
-    },
-
-    // 系统信息显示时延
-    {
-        &quot;key&quot;:&quot;info-duration&quot;,
-        &quot;value&quot;:&quot;10&quot;,
-        &quot;options&quot; : &quot;cp&quot;,
-    },
-
-    // 人脸识别模式：none：无算法， detect:人脸检测，reco：人脸识别，mask：口罩提醒，qrcode: 二维码
-    // 当前仅支持人脸识别、人脸检测
-    {
-        &quot;key&quot;:&quot;algm-mode&quot;,
-        &quot;value&quot;:&quot;reco&quot;,
-        &quot;options&quot; : &quot;ro&quot;
-    },
-
-    // 是否支持访客：none：不支持, qrcode： 访客二维码； code：键盘访客码， mixed： 两都同时支持
-    {
-        &quot;key&quot;:&quot;visitor-mode&quot;,
-        &quot;value&quot;:&quot;none&quot;,
-        &quot;options&quot; : &quot;cp&quot;,
-    },
-
-    // 是否使用RS485端口，none:不支持，door:支持开门，voice:支持语音播放，therm:支持测温输入, user: 用户透传指令
     {
         &quot;key&quot;:&quot;rs485-mode&quot;,
         &quot;value&quot;:&quot;none&quot;,
-        &quot;options&quot; : &quot;cp&quot;,
+        &quot;class&quot;:&quot;peripherals&quot;,
+        &quot;desc&quot; : &quot;继电器模式， none - 不工作，door - 开门，voice - 语音输出， therm - 测温， user - 用户定义&quot;,
+        &quot;options&quot; : &quot;cp&quot;
     },
 
-    // 是否支持语音播放：default: 支持，默认方式； disable：不支持；user: 定制用户定制方式（不使用）
-    {
-        &quot;key&quot;:&quot;voice-mode&quot;,
-        &quot;value&quot;:&quot;default&quot;,
-        &quot;options&quot; : &quot;cp&quot;,
-    },
-
-    // 无线模式： none - 不启用, 4g - 启用4G模块
-    {
-        &quot;key&quot;:&quot;cell-mode&quot;,
-        &quot;value&quot;:&quot;none&quot;,
-        &quot;options&quot; : &quot;cp&quot;,
-    },
-
-    // wifi模式： none - 不启用, sta - 客户端模式， ap - 热点模式， mixed - 双模式
-    {
-        &quot;key&quot;:&quot;wifi-mode&quot;,
-        &quot;value&quot;:&quot;mixed&quot;,
-        &quot;options&quot; : &quot;cp&quot;,
-    },
-
-    // 是否支持继电器开门：enable:支持, disable：不支持
     {
         &quot;key&quot;:&quot;relay-mode&quot;,
         &quot;value&quot;:&quot;enable&quot;,
-        &quot;options&quot; : &quot;cp&quot;,
+        &quot;class&quot;:&quot;peripherals&quot;,
+        &quot;desc&quot; : &quot;继电器模式， disable - 继电器不工作，enable - 继电器工作&quot;,
+        &quot;options&quot; : &quot;cp&quot;
     },
 
-    // 是否支持测温模块: none 不支持， wrist:腕温， forehead：额温
     {
         &quot;key&quot;:&quot;therm-mode&quot;,
         &quot;value&quot;:&quot;none&quot;,
-        &quot;options&quot; : &quot;cp&quot;,
+        &quot;class&quot;:&quot;peripherals&quot;,
+        &quot;desc&quot; : &quot;测温模式， none - 不工作，wrist - 腕温，forehead - 额温&quot;,
+        &quot;options&quot; : &quot;cp&quot;
     },
 
-    // 测温模块修正值
     {
         &quot;key&quot;:&quot;therm-fix&quot;,
         &quot;value&quot;:&quot;0&quot;,
-        &quot;options&quot;:&quot;cp&quot;,
+        &quot;class&quot;:&quot;peripherals&quot;,
+        &quot;desc&quot; : &quot;测温修正值&quot;,
+        &quot;options&quot;:&quot;cp&quot;
     },
 
-    // 测温模块阈值，合格最低值
     {
         &quot;key&quot;:&quot;therm-normal&quot;,
-        &quot;value&quot;:&quot;34.5&quot;,
-        &quot;options&quot;:&quot;cp&quot;,
+        &quot;value&quot;:&quot;32.0&quot;,
+        &quot;class&quot;:&quot;peripherals&quot;,
+        &quot;desc&quot; : &quot;测温最低有效值&quot;,
+        &quot;options&quot;:&quot;cp&quot;
     },
-    // 测温模块阈值，告警最低值
+
     {
         &quot;key&quot;:&quot;therm-alarm&quot;,
         &quot;value&quot;:&quot;37.5&quot;,
-        &quot;options&quot;:&quot;cp&quot;,
+        &quot;class&quot;:&quot;peripherals&quot;,
+        &quot;desc&quot; : &quot;测温报警值&quot;,
+        &quot;options&quot;:&quot;cp&quot;
     },
 
-    // 是否支持事件通知：enable：支持， disable：不支持
     {
-        &quot;key&quot;:&quot;event-mode&quot;,
-        &quot;value&quot;:&quot;enable&quot;,
-        &quot;options&quot; : &quot;wr&quot;,
-    },
-
-    // 识别算法比对阈值
-    {
-        &quot;key&quot;:&quot;algm-threshold&quot;,
-        &quot;value&quot;:&quot;0.5&quot;,
-        &quot;options&quot; : &quot;cp&quot;,
-    },
-
-    // 识别距离,默认1米左右，部分产品配置不支持可配置
-    {
-        &quot;key&quot;:&quot;algm-distance&quot;,
-        &quot;value&quot;:&quot;1&quot;,
-        &quot;options&quot; : &quot;cp&quot;,
-    },
-
-    // 产品语言： cn - 中文， en - 英文， 支持的语言种类视硬件版本情况
-    {
-        &quot;key&quot;:&quot;lang-mode&quot;,
-         &quot;value&quot;:&quot;cn&quot;,
-         &quot;options&quot; : &quot;wr&quot;
-    },
-
-   // none - 不显示姓名， name - 仅显示姓名， desc - 显示姓名、部门。 默认desc
-    {
-        &quot;key&quot;:&quot;show-mode&quot;,
-         &quot;value&quot;:&quot;desc&quot;,
+        &quot;key&quot;:&quot;alarm-door&quot;,
+         &quot;value&quot;:&quot;disable&quot;,
+         &quot;class&quot;:&quot;peripherals&quot;,
+         &quot;desc&quot; : &quot;报警输入-开门状态，disable - 不使能，enable - 使能&quot;,
          &quot;options&quot; : &quot;cp&quot;
     },
 
-    // single - 任何一种认证可开门， card - 先刷卡后识别人脸再开门， face - 先识别人脸再刷卡开门， therm - 先识别人脸再测温开门
     {
-        &quot;key&quot;:&quot;auth-mode&quot;,
-         &quot;value&quot;:&quot;single&quot;,
+        &quot;key&quot;:&quot;alarm-fire&quot;,
+         &quot;value&quot;:&quot;disable&quot;,
+         &quot;class&quot;:&quot;peripherals&quot;,
+         &quot;desc&quot; : &quot;报警输入-火警状态，disable - 不使能，enable - 使能&quot;,
          &quot;options&quot; : &quot;cp&quot;
     },
 
-    // 仅定制版本支持
-    // 门禁常开常闭策略，比如指定时段门一直打开不关闭
     {
-        &quot;key&quot;:&quot;open-mode&quot;,
-        &quot;value&quot;:&quot;siw879273ks&quot;,
-        &quot;options&quot; : &quot;wr&quot;
+        &quot;key&quot;:&quot;alarm-disassemble&quot;,
+         &quot;value&quot;:&quot;disable&quot;,
+         &quot;class&quot;:&quot;peripherals&quot;,
+         &quot;desc&quot; : &quot;报警输入-防拆状态，disable - 不使能，enable - 使能&quot;,
+         &quot;options&quot; : &quot;cp&quot;
     },
 
-    // 仅定制版本支持
-    // 门禁常闭策略，比如指定时段门一直关闭不打开
     {
-        &quot;key&quot;:&quot;close-mode&quot;,
-        &quot;value&quot;:&quot;879273ksss&quot;,
-        &quot;options&quot; : &quot;wr&quot;
+        &quot;key&quot;:&quot;alarm-push&quot;,
+         &quot;value&quot;:&quot;disable&quot;,
+         &quot;class&quot;:&quot;peripherals&quot;,
+         &quot;desc&quot; : &quot;报警输入-开门开关，disable - 不使能，enable - 使能&quot;,
+         &quot;options&quot; : &quot;cp&quot;
     },
 
-    // 门卡类型, none - 无门禁卡支持， id - 仅读取卡原生ID匹配； en, - 加密卡（encryption）；as - 非对称加密卡（async，仅定制型号支持）
+    {
+        &quot;key&quot;:&quot;wigan&quot;,
+         &quot;value&quot;:&quot;disable&quot;,
+         &quot;class&quot;:&quot;peripherals&quot;,
+         &quot;desc&quot; : &quot;韦根口，disable - 不使能，enable - 使能&quot;,
+         &quot;options&quot; : &quot;cp&quot;
+    },
+
     {
         &quot;key&quot;:&quot;card-mode&quot;,
-        &quot;value&quot;:&quot;id&quot;,
-        &quot;options&quot;:&quot;cp&quot;
+        &quot;value&quot;:&quot;none&quot;,
+        &quot;class&quot;:&quot;peripherals&quot;,
+        &quot;desc&quot; : &quot;刷卡模式， none - 无刷卡，id - id卡， en - 加密卡， as - 非对称加密卡&quot;,
+        &quot;options&quot;: &quot;cp&quot;
     },
 
-    // 门卡读取密钥, 6 bytes值， base64编码
     {
-        &quot;key&quot;:&quot;card-keya&quot;,
-        &quot;value&quot;:&quot;8279sj9&quot;,
-        &quot;options&quot;:&quot;cp&quot;
+        &quot;key&quot;:&quot;visitor-mode&quot;,
+        &quot;value&quot;:&quot;none&quot;,
+        &quot;class&quot;:&quot;peripherals&quot;,
+        &quot;desc&quot; : &quot;访客模式，none - 不支持，qrcode - 二维码读头， code - 密码输入， all - 都支持&quot;,
+        &quot;options&quot; : &quot;cp&quot;
     },
 
-    // 门卡写入密钥, 6 bytes值， base64编码
     {
-        &quot;key&quot;:&quot;card-keyb&quot;,
-        &quot;value&quot;:&quot;8skskjj==&quot;,
-        &quot;options&quot;:&quot;cp&quot;
-    },
-
-   // 音量配置
-    {
-        &quot;key&quot;:&quot;volume&quot;,
+        &quot;key&quot;:&quot;volume-in&quot;,
         &quot;value&quot;:&quot;100&quot;,
-        &quot;options&quot;:&quot;cp&quot;
+        &quot;class&quot;:&quot;peripherals&quot;,
+        &quot;desc&quot; : &quot;声音输入，输入音频大小，1～100&quot;,
+        &quot;options&quot; : &quot;cp&quot;
     },
 
-    // LCD屏亮度
+    {
+        &quot;key&quot;:&quot;volume-out&quot;,
+        &quot;value&quot;:&quot;100&quot;,
+        &quot;class&quot;:&quot;peripherals&quot;,
+        &quot;desc&quot; : &quot;声音输出，输出音频大小，1～100&quot;,
+        &quot;options&quot; : &quot;cp&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;light-rgb&quot;,
+        &quot;value&quot;:&quot;100&quot;,
+        &quot;class&quot;:&quot;peripherals&quot;,
+        &quot;desc&quot; : &quot;补光灯强弱，白光补光大小，1～100&quot;,
+        &quot;options&quot; : &quot;cp&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;light-ir&quot;,
+        &quot;value&quot;:&quot;100&quot;,
+        &quot;class&quot;:&quot;peripherals&quot;,
+        &quot;desc&quot; : &quot;补光灯强弱，红外补光大小，1～100&quot;,
+        &quot;options&quot; : &quot;cp&quot;
+    },
+
     {
         &quot;key&quot;:&quot;lcd-light&quot;,
         &quot;value&quot;:&quot;100&quot;,
-        &quot;options&quot;:&quot;cp&quot;
-    },
-
-    // 红外补光灯亮度
-    {
-        &quot;key&quot;:&quot;ir-light&quot;,
-        &quot;value&quot;:&quot;100&quot;,
-        &quot;options&quot;:&quot;cp&quot;
-    },
-
-    // 白光补光灯亮度
-    {
-        &quot;key&quot;:&quot;rgb-light&quot;,
-        &quot;value&quot;:&quot;100&quot;,
-        &quot;options&quot;:&quot;cp&quot;
-    },
-
-
-    // RS485动作发送数据，分为开、关两部分
-    {
-        &quot;key&quot;:&quot;rs485-start-data&quot;,
-        &quot;value&quot;:&quot;open-door-rs485-data&quot;,
-        &quot;options&quot; : &quot;cp&quot;,
+        &quot;class&quot;:&quot;peripherals&quot;,
+        &quot;desc&quot; : &quot;屏幕背光亮度，1～100&quot;,
+        &quot;options&quot; : &quot;cp&quot;
     },
 
     {
-        &quot;key&quot;:&quot;rs485-close-data&quot;,
-        &quot;value&quot;:&quot;close-door-rs485-data&quot;,
-        &quot;options&quot; : &quot;cp&quot;,
+        &quot;key&quot;:&quot;auth-mode&quot;,
+        &quot;value&quot;:&quot;single&quot;,
+        &quot;class&quot;:&quot;algorithm&quot;,
+        &quot;desc&quot; : &quot;核验模式，single - 刷卡或人脸，card - 刷卡+人脸， therm - 人脸+测温&quot;,
+        &quot;options&quot; : &quot;cp&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;algm-threshold&quot;,
+        &quot;value&quot;:&quot;0.5&quot;,
+        &quot;class&quot;:&quot;algorithm&quot;,
+        &quot;desc&quot; : &quot;识别阈值，根据算法不同，此值不同&quot;,
+        &quot;options&quot; : &quot;cp&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;algm-alive&quot;,
+        &quot;value&quot;:&quot;enable&quot;,
+        &quot;class&quot;:&quot;algorithm&quot;,
+        &quot;desc&quot; : &quot;是否带活体检测，disable - 无活体检测， enable - 带活体检测&quot;,
+        &quot;options&quot; : &quot;cp&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;algm-face-size-min&quot;,
+        &quot;value&quot;:&quot;120&quot;,
+        &quot;class&quot;:&quot;algorithm&quot;,
+        &quot;desc&quot; : &quot;人脸像素数，最小值&quot;,
+        &quot;options&quot; : &quot;cp&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;algm-face-size-max&quot;,
+        &quot;value&quot;:&quot;1080&quot;,
+        &quot;class&quot;:&quot;algorithm&quot;,
+        &quot;desc&quot; : &quot;人脸像素数，最大值&quot;,
+        &quot;options&quot; : &quot;cp&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;algm-face-clear&quot;,
+        &quot;value&quot;:&quot;92&quot;,
+        &quot;class&quot;:&quot;algorithm&quot;,
+        &quot;desc&quot; : &quot;人脸清晰度阈值，用于人脸特征提取&quot;,
+        &quot;options&quot; : &quot;cp&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;algm-face-zone-x&quot;,
+        &quot;value&quot;:&quot;0&quot;,
+        &quot;class&quot;:&quot;algorithm&quot;,
+        &quot;desc&quot; : &quot;人脸识别与人脸检测区域范围，像素数。x,y,w,h&quot;,
+        &quot;options&quot; : &quot;cp&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;algm-face-zone-y&quot;,
+        &quot;value&quot;:&quot;0&quot;,
+        &quot;class&quot;:&quot;algorithm&quot;,
+        &quot;desc&quot; : &quot;人脸识别与人脸检测区域范围，像素数。x,y,w,h&quot;,
+        &quot;options&quot; : &quot;cp&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;algm-face-zone-w&quot;,
+        &quot;value&quot;:&quot;1080&quot;,
+        &quot;class&quot;:&quot;algorithm&quot;,
+        &quot;desc&quot; : &quot;人脸识别与人脸检测区域范围，像素数。x,y,w,h&quot;,
+        &quot;options&quot; : &quot;cp&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;algm-face-zone-h&quot;,
+        &quot;value&quot;:&quot;1920&quot;,
+        &quot;class&quot;:&quot;algorithm&quot;,
+        &quot;desc&quot; : &quot;人脸识别与人脸检测区域范围，像素数。x,y,w,h&quot;,
+        &quot;options&quot; : &quot;cp&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;algm-face-angle-yaw&quot;,
+        &quot;value&quot;:&quot;45&quot;,
+        &quot;class&quot;:&quot;algorithm&quot;,
+        &quot;desc&quot; : &quot;人脸角度， yaw - 偏航角(-90, 90)正左转；负右转&quot;,
+        &quot;options&quot; : &quot;cp&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;algm-face-angle-roll&quot;,
+        &quot;value&quot;:&quot;45&quot;,
+        &quot;class&quot;:&quot;algorithm&quot;,
+        &quot;desc&quot; : &quot;人脸角度， roll - 横滚角(-90, 90)正：左低右高；负：左高右低&quot;,
+        &quot;options&quot; : &quot;cp&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;algm-face-angle-pitch&quot;,
+        &quot;value&quot;:&quot;30&quot;,
+        &quot;class&quot;:&quot;algorithm&quot;,
+        &quot;desc&quot; : &quot;人脸角度， pitch - 仰角(-90, 90)正：仰视；负：俯视&quot;,
+        &quot;options&quot; : &quot;cp&quot;
     }
+
+    ]
 }
 
 </code></pre>

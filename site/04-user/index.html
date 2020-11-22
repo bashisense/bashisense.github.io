@@ -70,6 +70,26 @@
                 <ul class="current">
                     <li class="toctree-l1 current"><a class="reference internal current" href="./">用户管理</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_2">说明</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">用户对象</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_4">列举用户</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_5">添加用户</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_6">删除用户</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_7">修改用户</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_8">查询用户</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_9">上传用户文件</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_10">生成用户文件</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_11">下载帐户文件</a>
+    </li>
     </ul>
                     </li>
                 </ul>
@@ -134,30 +154,49 @@
             <div class="section">
               
                 <h1 id="_1">帐户管理</h1>
-<p>本地模式时：</p>
+<hr />
+<h4 id="_2">说明</h4>
 <blockquote>
-<p>请求URL: http://dev-ip-addr:port:/api/user
-请求类型: POST
+<p>请求类型: POST
 HTTP头：token = , 使用登陆时返回的token
 请求消息体:JSON
-返回消息体:JSON, retcode = 0时正确， 非0时出错
-<strong>上传用户数据时，请求URL为http://dev-ip-addr:port:/api/upload</strong></p>
+返回消息体:JSON, retcode = 0时正确， 非0时出错</p>
 </blockquote>
-<p>智云模式时：</p>
+<p>独立模式时：</p>
 <blockquote>
-<p>消息体、返回体相关，无HTTP相关内容</p>
+<p>请求URL: http://dev-ip-addr:port:/api/user
+HTTP头：token = , 使用登陆时返回的token</p>
+</blockquote>
+<p>其它模式时：</p>
+<blockquote>
+<p>请求类型: POST
+object = "user"
+HTTP头：token = , 使用登陆时返回的token
+消息体、返回体相关，无HTTP相关内容</p>
 </blockquote>
 <p><strong>限制条件： userid 不超过32字节， name不超过32字节， desc不超过32字节， others不超过32字节， rule不超过32字节</strong></p>
-<ol>
-<li>
-<p>列举用户：</p>
-</li>
-<li>
-<p>请求</p>
-</li>
-</ol>
+<h4 id="_3">用户对象</h4>
 <pre><code class="language-json">{
+    &quot;userid&quot;: &quot;1avsoHu2EeqZmH943F8eUg&quot;,     // 用户ID，全局唯一
+    &quot;name&quot;: &quot;李四&quot;,     // 用户姓名，必填
+    &quot;desc&quot;: &quot;研发部&quot;,   // 用户部门/住宅门牌号等，可不填写
+    &quot;others&quot;: &quot;17763548853&quot;,    // 附加信息，可用于梯控等场景，可不填写
+    &quot;effect&quot;: 1619019996,       // 用户生效时间，不填则当前时刻，EPOCH值
+    &quot;expire&quot;: 1619519996,       // 用户过期时间，不填则当前时刻+1年
+    &quot;rule&quot;: &quot;Iksiwim&quot;,          // 用户开门规则，默认识别即通过，可不填写
+    &quot;state&quot;: 0,                 // 用户状态，暂内部使用，可不填写
+    &quot;feature&quot;: &quot;data....&quot;       // base64编码的用户特征值，由设备计算，平台不填写
+}
+</code></pre>
+<p>对用户的操作与数据库的CRUD类似，增加了枚举设备中的所有用户，所有的信息以此为准</p>
+<h4 id="_4">列举用户</h4>
+<ul>
+<li>请求</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;object&quot;:&quot;user&quot;,
     &quot;action&quot;: &quot;list&quot;,
+    &quot;reqid&quot;:129393,
     &quot;offset&quot;: 1,
     &quot;limit&quot;: 2
 }
@@ -170,11 +209,14 @@ limit : 本次列表的数量;</p>
 <li>响应</li>
 </ul>
 <pre><code class="language-json">{
+    &quot;reqid&quot;:129393,
+    &quot;retcode&quot;: 0,
     &quot;params&quot;: [
         {
             &quot;create_datetime&quot;: &quot;2020-04-27 18:39:56&quot;,
             &quot;desc&quot;: &quot;研发部&quot;,
-            &quot;expired&quot;: 1619519996,
+            &quot;effect&quot;: 1609519996,
+            &quot;expire&quot;: 1619519996,
             &quot;modify_datetime&quot;: &quot;2020-04-27 18:39:56&quot;,
             &quot;name&quot;: &quot;李四.张三&quot;,
             &quot;others&quot;: &quot;17763548853&quot;,
@@ -185,7 +227,8 @@ limit : 本次列表的数量;</p>
         {
             &quot;create_datetime&quot;: &quot;2020-04-27 18:39:56&quot;,
             &quot;desc&quot;: &quot;国际贸易部&quot;,
-            &quot;expired&quot;: 1619519996,
+            &quot;effect&quot;: 1609519996,
+            &quot;expire&quot;: 1619519996,
             &quot;modify_datetime&quot;: &quot;2020-04-27 18:39:56&quot;,
             &quot;name&quot;: &quot;张三.李四&quot;,
             &quot;others&quot;: &quot;18563548853&quot;,
@@ -194,18 +237,15 @@ limit : 本次列表的数量;</p>
             &quot;userid&quot;: &quot;1aw6wHu2EeqZmH943F8eUg==&quot;
         }
     ],
-    &quot;retcode&quot;: 0
 </code></pre>
-<ol>
-<li>
-<p>添加用户：</p>
-</li>
-<li>
-<p>请求</p>
-</li>
-</ol>
+<h4 id="_5">添加用户</h4>
+<ul>
+<li>请求</li>
+</ul>
 <pre><code class="language-json">{
+    &quot;object&quot;:&quot;user&quot;,
     &quot;action&quot;: &quot;add&quot;,
+    &quot;reqid&quot;:129393,
     &quot;params&quot;: [
         {
             &quot;userid&quot;: &quot;1avsoHu2EeqZmH943F8eUg==&quot;,
@@ -228,15 +268,6 @@ limit : 本次列表的数量;</p>
     ]
 }
 </code></pre>
-<blockquote>
-<p>userid : 唯一标志用户的ID，不超过32字节的文本字符串；必填
-name : 用户名；必填
-desc : 用户部门或楼宇单元或其它说明信息； 选填
-others ： 用户手机号；选填
-rule : 开门策略，配置的开发策略； 选填，如不填侧使用默认配置，全时段可刷脸开门
-expire : 用户过期时间，格式需要保持一致；必填
-feature ： 由算法生成的特征值，选填</p>
-</blockquote>
 <ul>
 <li>响应</li>
 </ul>
@@ -251,19 +282,18 @@ feature ： 由算法生成的特征值，选填</p>
             &quot;ops&quot;:0
         }
     ],
+    &quot;reqid&quot;:129393,
     &quot;retcode&quot;: 0
 }
 </code></pre>
-<ol>
-<li>
-<p>删除用户</p>
-</li>
-<li>
-<p>请求</p>
-</li>
-</ol>
+<h4 id="_6">删除用户</h4>
+<ul>
+<li>请求</li>
+</ul>
 <pre><code class="language-json">{
+    &quot;object&quot;:&quot;user&quot;,
     &quot;action&quot;: &quot;del&quot;,
+    &quot;reqid&quot;:129393,
     &quot;params&quot;: [
         {
             &quot;userid&quot;: &quot;1avsoHu2EeqZmH943F8eUg==&quot;
@@ -291,19 +321,18 @@ feature ： 由算法生成的特征值，选填</p>
             &quot;ops&quot;:0
         }
     ],
+    &quot;reqid&quot;:129393,
     &quot;retcode&quot;: 0
 }
 </code></pre>
-<ol>
-<li>
-<p>修改用户</p>
-</li>
-<li>
-<p>请求</p>
-</li>
-</ol>
+<h4 id="_7">修改用户</h4>
+<ul>
+<li>请求</li>
+</ul>
 <pre><code class="language-json">{
+    &quot;object&quot;:&quot;user&quot;,
     &quot;action&quot;: &quot;update&quot;,
+    &quot;reqid&quot;:129393,
     &quot;params&quot;: [
         {
             &quot;userid&quot;: &quot;1avsoHu2EeqZmH943F8eUg==&quot;,
@@ -326,15 +355,6 @@ feature ： 由算法生成的特征值，选填</p>
     ]
 }
 </code></pre>
-<blockquote>
-<p>userid : 唯一标志用户的ID，不超过32字节的文本字符串；必填
-name : 用户名；选填
-desc : 用户部门或其它说明信息； 选填
-others ： 用户手机号；选填
-rule : 开门策略，配置的开发策略； 选填，如不填侧使用默认配置，全时段可刷脸开门
-expire : 用户过期时间，格式需要保持一致；选填
-feature ： 由算法生成的特征值，选填</p>
-</blockquote>
 <ul>
 <li>响应</li>
 </ul>
@@ -365,19 +385,18 @@ feature ： 由算法生成的特征值，选填</p>
             &quot;ops&quot;:0
         }
     ],
+    &quot;reqid&quot;:129393,
     &quot;retcode&quot;: 0
 }
 </code></pre>
-<ol>
-<li>
-<p>查询用户</p>
-</li>
-<li>
-<p>请求</p>
-</li>
-</ol>
+<h4 id="_8">查询用户</h4>
+<ul>
+<li>请求</li>
+</ul>
 <pre><code class="language-json">{
+    &quot;object&quot;:&quot;user&quot;,
     &quot;action&quot;: &quot;info&quot;,
+    &quot;reqid&quot;:129393,
     &quot;params&quot;: [
         {
             &quot;userid&quot;: &quot;1avsoHu2EeqZmH943F8eUg==&quot;
@@ -388,9 +407,6 @@ feature ： 由算法生成的特征值，选填</p>
     ]
 }
 </code></pre>
-<blockquote>
-<p>userid : 唯一标志用户的ID，不超过32字节的文本字符串；必填</p>
-</blockquote>
 <ul>
 <li>响应</li>
 </ul>
@@ -422,18 +438,20 @@ feature ： 由算法生成的特征值，选填</p>
             &quot;ops&quot;:0
         }
     ],
+    &quot;reqid&quot;:129393,
     &quot;retcode&quot;: 0
 }
 </code></pre>
-<ol>
-<li>上传用户文件</li>
-</ol>
+<h4 id="_9">上传用户文件</h4>
 <p><strong>上传用户文件，单次数据长度必须在256kB以内，其data数据在转base64前应以256kB长度切片</strong></p>
 <ul>
 <li>请求</li>
 </ul>
 <pre><code class="language-json">{
+    &quot;object&quot;:&quot;user&quot;,
     &quot;action&quot;:&quot;upload&quot;,
+    &quot;reqid&quot;:129393,
+
     &quot;filesize&quot;:32678,
     &quot;filename&quot;:&quot;1aw6wHu2EeqZmH943F8eUg==.nv12&quot;,
     &quot;offset&quot;:4096,
@@ -442,8 +460,7 @@ feature ： 由算法生成的特征值，选填</p>
 }
 </code></pre>
 <blockquote>
-<p>type : 上传数据的类型，用户文件
-filename : 用户ID + 后缀
+<p>filename : 用户ID + 后缀, nv12时为nv12文件，png时为PNG文件，使用512x512的人脸图片，做底库使用
 filesize : 文件总的长度
 offset : 当前数据片段起始位置
 size : 当前数据片段长度
@@ -453,39 +470,35 @@ data : base64编码的数据</p>
 <li>响应</li>
 </ul>
 <pre><code class="language-json">{
+    &quot;reqid&quot;:129393,
     &quot;retcode&quot;:0
 }
 </code></pre>
-<ol>
-<li>生成用户文件</li>
-</ol>
-<p>根据上传的用户nv12/nv21数据，生成所需要的UI或识别特征码数据</p>
+<h4 id="_10">生成用户文件</h4>
+<p>根据上传的用户数据，生成所需要的UI与识别特征码数据</p>
 <ul>
 <li>请求</li>
 </ul>
 <pre><code class="language-json">{
+    &quot;object&quot;:&quot;user&quot;,
     &quot;action&quot;: &quot;gen&quot;,
+    &quot;reqid&quot;:129393,
     &quot;params&quot;: [
         {
             &quot;userid&quot;: &quot;1avsoHu2EeqZmH943F8eUg==&quot;,
-            &quot;type&quot;:&quot;feature&quot;
         },
         {
             &quot;userid&quot;: &quot;1aw6wHu2EeqZmH943F8eUg==&quot;,
-            &quot;type&quot;:&quot;all&quot;
         }
     ]
 }
 </code></pre>
-<blockquote>
-<p>type : feature 用当前的算法生成feature数据， ui 生成UI所需的图片， all 生成两者
-userid : 指定用户的ID号</p>
-</blockquote>
 <ul>
 <li>响应</li>
 </ul>
 <pre><code class="language-json">{
     &quot;retcode&quot;:0,
+    &quot;reqid&quot;:129393,
     &quot;params&quot;: [
         {
             &quot;userid&quot;: &quot;1avsoHu2EeqZmH943F8eUg==&quot;,
@@ -498,29 +511,28 @@ userid : 指定用户的ID号</p>
     ]
 }
 </code></pre>
-<ol>
-<li>
-<p>下载帐户文件</p>
-</li>
-<li>
-<p>请求</p>
-</li>
-</ol>
+<h4 id="_11">下载帐户文件</h4>
+<ul>
+<li>请求</li>
+</ul>
 <pre><code class="language-json">{
+    &quot;object&quot;:&quot;user&quot;,
     &quot;action&quot;:&quot;download&quot;,
+    &quot;reqid&quot;:129393,
     &quot;filename&quot;:&quot;1aw6wHu2EeqZmH943F8eUg==.nv12&quot;,
     &quot;offset&quot;:0,
     &quot;size&quot;: 4096,
 }
 </code></pre>
 <blockquote>
-<p>filename : 用户ID+文件后缀名，.nv12 上传的用户文件, .bmp 生成的UI文件</p>
+<p>filename : 用户ID+文件后缀名，.nv12/.png 上传的用户文件, .bmp 生成的UI文件</p>
 </blockquote>
 <ul>
 <li>响应</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;action&quot;:&quot;pushdata&quot;,
+    &quot;reqid&quot;:129393,
+
     &quot;filename&quot;:&quot;1aw6wHu2EeqZmH943F8eUg==.nv12&quot;,
     &quot;filesize&quot;:32678,
     &quot;offset&quot;:0,

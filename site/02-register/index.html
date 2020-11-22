@@ -62,9 +62,11 @@
                 <ul class="current">
                     <li class="toctree-l1 current"><a class="reference internal current" href="./">注册登陆</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#1">1. 私有模式</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">获取设备地址</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#2">2. 本地模式</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">独立模式登陆</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_4">其它模式登陆</a>
     </li>
     </ul>
                     </li>
@@ -139,86 +141,8 @@
               
                 <h1 id="_1">注册登陆</h1>
 <hr />
-<h2 id="1">1. 私有模式</h2>
-<p>设备配置成本地模式后，会启动TCP连接到私有云平台，然后进行相关交互，主要过程如下：</p>
-<ol>
-<li>
-<p>设备启动TCP连接到智云平台，发送认证请求：</p>
-</li>
-<li>
-<p>响应：</p>
-</li>
-</ol>
-<pre><code class="language-json">{
-    &quot;walos-version&quot; : &quot;v2.1.0&quot;,             // WalOS 操作系统版本号
-    &quot;algm-version&quot;  : &quot;v1.1.0&quot;,             // 算法版本号
-    &quot;hardware-version&quot; : &quot;v1.2.0&quot;,          // 硬件载体版本号
-    &quot;device-id&quot; : &quot;device-id&quot;,
-}
-</code></pre>
-<ol>
-<li>平台端向设备发送请求，设备向云端发送响应。</li>
-</ol>
-<p>见03/04/05/06/07/08/09章节；</p>
-<ol>
-<li>
-<p>设备向平台端主动发送心跳包：</p>
-</li>
-<li>
-<p>请求：</p>
-</li>
-</ol>
-<pre><code class="language-json">{
-    &quot;action&quot;:&quot;heartbeat&quot;
-}
-</code></pre>
-<ul>
-<li>响应：</li>
-</ul>
-<pre><code class="language-json">{
-    &quot;action&quot;:&quot;heartbeat&quot;
-}
-</code></pre>
-<ol>
-<li>
-<p>设备向平台端发送事件消息</p>
-</li>
-<li>
-<p>请求: 识别事件</p>
-</li>
-</ol>
-<pre><code class="language-json">{
-    &quot;type&quot;:&quot;logr&quot;,
-    &quot;mode&quot;: &quot;fdr&quot;,  // fdr 人脸识别， ic 刷卡，fdric 人脸识别+刷卡
-    &quot;timestamp&quot;:1618222014,
-    &quot;device-id&quot;:&quot;device-id&quot;,
-    &quot;userid&quot;: &quot;1a2aUHu2EeqZmH943F8eUg==&quot;,
-    // 如果有的话
-    &quot;face_x&quot;:10,
-    &quot;face_y&quot;:20,
-    &quot;face_w&quot;:200,
-    &quot;face_h&quot;:200,
-    &quot;sharp&quot;:0.95,
-    &quot;score&quot;:0.68,
-    &quot;therm&quot;:36.5
-}
-</code></pre>
-<blockquote>
-<p>type : 事件类似，logr识别成功；visitor访客成功； opendoor远程开门成功
-其中除logr外，都没有拍照信息</p>
-</blockquote>
-<h2 id="2">2. 本地模式</h2>
-<p>设备配置成本地模式或混合模式时，会启动Web Server，提供基于Http的API接口，此时对于接放的访问需要进行认证。本地模式时的激活、登陆：</p>
-<blockquote>
-<p>请求URL: http://dev-ip-addr:port:/api/auth
-请求类型: POST
-请求消息体:JSON
-返回消息体:JSON, retcode = 0时正确， 非0时出错</p>
-</blockquote>
-<ol>
-<li>扫描设备</li>
-</ol>
-<p>向同网段的IP地址的6543端口发送UDP报文：</p>
+<h2 id="_2">获取设备地址</h2>
+<p>向同网段的6543端口发送广播报文：</p>
 <pre><code class="language-json">{
     &quot;action&quot;:&quot;scan&quot;
 }
@@ -232,8 +156,15 @@
 }
 </code></pre>
 <blockquote>
-<p>此时便可以获取到目标设备的ID与协议版本信息；
-也可以通过扫描设备显示的二维码获取设备的ID信息；</p>
+<p>此时便可以获取到目标设备的ID与协议版本信息；</p>
+</blockquote>
+<h2 id="_3">独立模式登陆</h2>
+<p>设备配置成独立模式或另外几种模式时，设备均会启动WebAPI server，提供基于Http的API接口，此时对于接放的访问需要进行认证。</p>
+<blockquote>
+<p>请求URL: http://dev-ip-addr:port/api/auth
+请求类型: POST
+请求消息体:JSON
+返回消息体:JSON, retcode = 0时正确， 非0时出错</p>
 </blockquote>
 <ol>
 <li>
@@ -244,9 +175,11 @@
 </li>
 </ol>
 <pre><code class="language-json">{
+    &quot;object&quot;:&quot;auth&quot;,
     &quot;action&quot;:&quot;auth&quot;,
-    &quot;user&quot;:&quot;user-name&quot;,
-    &quot;passwd&quot;:&quot;user-passwd&quot;
+    &quot;reqid&quot;:192839,         // 透传值，设备内唯一
+    &quot;user&quot;:&quot;admin&quot;,
+    &quot;passwd&quot;:&quot;admin-passwd&quot;
 }
 </code></pre>
 <ul>
@@ -255,11 +188,12 @@
 <pre><code class="language-json">{
     &quot;token&quot;:&quot;823lsefhw03slej&quot;,
     &quot;timestamp&quot;:1560392020,
+    &quot;reqid&quot;:192839,         // 透传值，设备内唯一
     &quot;retcode&quot;:0
 }
 </code></pre>
 <blockquote>
-<p>token用于后续api请求时的http header</p>
+<p>token用于后续api请求时的http header的token字段，后续的访问必须设置 Token 字段</p>
 </blockquote>
 <ol>
 <li>
@@ -270,56 +204,71 @@
 </li>
 </ol>
 <pre><code class="language-json">{
+    &quot;object&quot;:&quot;auth&quot;,
     &quot;action&quot;:&quot;passwd&quot;,
-    &quot;user&quot;:&quot;user-name&quot;,
-    &quot;passwd&quot;:&quot;user-passwd&quot;
+    &quot;reqid&quot;:192839,         // 透传值，设备内唯一
+    &quot;user&quot;:&quot;admin&quot;,
+    &quot;passwd&quot;:&quot;admin-passwd&quot;
 }
 </code></pre>
 <ul>
 <li>响应：</li>
 </ul>
 <pre><code class="language-json">{
+    &quot;reqid&quot;:192839,         // 透传值，设备内唯一
     &quot;retcode&quot;:0
 }
 </code></pre>
 <ol>
-<li>
-<p>添加管理员帐户</p>
-</li>
-<li>
-<p>请求：</p>
-</li>
+<li>修改其它模式的登入帐户密码</li>
 </ol>
+<p>其它模式时，设备需要登陆第三方平台，帐号可以通过配置软件配置，也可以通过API软件添加</p>
+<ul>
+<li>请求：</li>
+</ul>
 <pre><code class="language-json">{
-    &quot;action&quot;:&quot;add&quot;,
-    &quot;user&quot;:&quot;user-name&quot;,
-    &quot;passwd&quot;:&quot;user-passwd&quot;
+    &quot;object&quot;:&quot;auth&quot;,
+    &quot;action&quot;:&quot;passwd&quot;,
+    &quot;reqid&quot;:192839,         // 透传值，设备内唯一
+    &quot;user&quot;:&quot;walos&quot;,
+    &quot;passwd&quot;:&quot;passwd&quot;
 }
 </code></pre>
 <ul>
 <li>响应：</li>
 </ul>
 <pre><code class="language-json">{
+    &quot;reqid&quot;:192839,         // 透传值，设备内唯一
     &quot;retcode&quot;:0
 }
 </code></pre>
-<ol>
-<li>
-<p>删除管理员帐户</p>
-</li>
-<li>
-<p>请求：</p>
-</li>
-</ol>
+<h2 id="_4">其它模式登陆</h2>
+<ul>
+<li>请求：</li>
+</ul>
 <pre><code class="language-json">{
-    &quot;action&quot;:&quot;delete&quot;,
-    &quot;user&quot;:&quot;user-name&quot;,
+    &quot;object&quot;:&quot;auth&quot;,
+    &quot;action&quot;:&quot;auth&quot;,
+    &quot;reqid&quot;:192839,         // 透传值，设备内唯一
+    &quot;user&quot;:&quot;walos&quot;,
+    &quot;passwd&quot;:&quot;walos-passwd&quot;,
+    &quot;device-id&quot;:&quot;device-id&quot;,
+    &quot;walos-version&quot; : &quot;v2.1.0&quot;,             // WalOS 操作系统版本号
+    &quot;algm-version&quot;  : &quot;v1.1.0&quot;,             // 算法版本号
+    &quot;hardware-version&quot; : &quot;v1.2.0&quot;,          // 硬件载体版本号
 }
 </code></pre>
+<blockquote>
+<p>第三方平台，可以通过用户/密码/设备id三元组唯一标识一台设备
+登陆请求含用版本信息，用于平台确认设备是否是允许接入的版本</p>
+</blockquote>
 <ul>
 <li>响应：</li>
 </ul>
 <pre><code class="language-json">{
+    &quot;token&quot;:&quot;823lsefhw03slej&quot;,              // 其它模式的http请求时，会在header中添加  Token字段，携带此值
+    &quot;timestamp&quot;:1560392020,
+    &quot;reqid&quot;:192839,         // 透传值，设备内唯一
     &quot;retcode&quot;:0
 }
 </code></pre>

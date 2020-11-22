@@ -1,22 +1,49 @@
-# 日志管理
+# 事件管理
+---------
 
-本地模式时：
->请求URL: http://dev-ip-addr:port:/api/logr
+#### 说明
+
 >请求类型: POST
 >HTTP头：token = , 使用登陆时返回的token
 >请求消息体:JSON
 >返回消息体:JSON, retcode = 0时正确， 非0时出错
 
-智云模式时：
+独立模式时：
+>请求URL: http://dev-ip-addr:port:/api/logr
+>HTTP头：token = , 使用登陆时返回的token
+
+其它模式时：
+>请求类型: POST
+>object = "user"
+>HTTP头：token = , 使用登陆时返回的token
 >消息体、返回体相关，无HTTP相关内容
 
-1. 获取日志信息：
+#### 事件对象
+
+```json
+{
+    "seqnum": 6,                // 事件编号，设备唯一
+    "timestamp": 1587985190,    // 事件发生时的时间戳
+    "type":"logr",          // 事件类型，logr-识别，open - 开门状态， remote - 远程开门
+                            // fire -火警告警， disa - 防拆告警， card - 刷卡， visitor 访客，
+
+    "score": 1,         //  识别相似度
+    "sharp": 0,         //  照片清晰度
+    "therm": 0,         //  测温值
+    "userid": "TUID-876991", // 识别出的用户ID，或陌生人 0000开头的ID
+    "data":"...",       // base64编码的其它值（此值暂不填写）
+}
+````
+
+#### 获取日志信息
 
 - 请求
 
 ```json
 {
-    "action":"info"
+    "object":"event",
+    "action":"info",
+    "reqid":82929,
 }
 ```
 
@@ -26,17 +53,20 @@
 {
     "max": 9,
     "min": 1,
+    "reqid":82929,
     "retcode": 0
 }
 ```
 
-2. 获取日志数据：
+#### 获取日志数据
 
 - 请求
 
 ```json
 {
+    "object":"event",
     "action":"fetch",
+    "reqid":82929,
     "seqnum":6,
     "count":2
 }
@@ -51,10 +81,6 @@
 {
     "logger": [
         {
-            "face_h": 0,
-            "face_w": 0,
-            "face_x": 0,
-            "face_y": 0,
             "score": 1,
             "seqnum": 6,
             "sharp": 0,
@@ -63,10 +89,6 @@
             "userid": "TUID-876991"
         },
         {
-            "face_h": 0,
-            "face_w": 0,
-            "face_x": 0,
-            "face_y": 0,
             "score": 1,
             "seqnum": 7,
             "sharp": 0,
@@ -75,17 +97,20 @@
             "userid": "TUID-1039100"
         }
     ],
+    "reqid":82929,
     "retcode": 0
 }
 ```
 
-3. 下载日志图片
+#### 下载日志图片
 
 - 请求
 
 ```json
 {
+    "object":"event",
     "action":"download",
+    "reqid":82929,
     "type":"logr",
     "timestamp": 1587983490,
     "offset":0,
@@ -99,7 +124,7 @@
 
 ```json
 {
-    "action":"download",
+    "reqid":82929,
     "type":"logr",
     "filesize":32678,
     "filename":"1587983490.jpg",
@@ -109,18 +134,18 @@
 }
 ```
 
-4. 日志通知
-
-- 云端模式时，在连接并认证后，发生事件，WalOS是直接通知云端，云端无需返回事件通知响应
-- 本地模式时，当配置了"manager-server-address","manager-server-port","manager-server-path",后，事件会通过HTTP请求POST方式请求URL：http://manager-server-address:manager-server-port/manager-server-path，消息体为JSON格式
+#### 日志通知
 
 - 请求
 
 ```json
 {
+    "object":"event",
+    "action":"event",
+
     "device-id":"device-id",    // 发出事件的设备ID
     "seqnum": 6,                // 当前事件的序号
-    "type":"logr",              // 事件的类型： logr - 人脸识别， card 刷卡， opendoor远程开门成功， door-open开门状态， door-close关门状态，visitor访客进入
+    "type":"logr",              // 事件的类型
     "timestamp":1587983490,     // 事件发生的时间戳，EPOCH时间*1000 + 毫秒数
     "sharp":0.983,  // 人脸清晰度，如果有，仅logr情况下有意义
     "score":0.834,  // 人脸识别的相似度，如果有，仅logr情况下有意义

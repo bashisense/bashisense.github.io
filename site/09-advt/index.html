@@ -90,6 +90,14 @@
                 <ul class="current">
                     <li class="toctree-l1 current"><a class="reference internal current" href="./">广告管理</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_2">说明</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">添加广告图片</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_4">删除广告图片</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_5">列举广告图片</a>
+    </li>
     </ul>
                     </li>
                 </ul>
@@ -134,30 +142,39 @@
             <div class="section">
               
                 <h1 id="_1">广告推送</h1>
-<p>本地模式时：</p>
+<hr />
+<h4 id="_2">说明</h4>
 <blockquote>
-<p>请求URL: http://dev-ip-addr:port:/api/advt
-请求类型: POST
+<p>请求类型: POST
 HTTP头：token = , 使用登陆时返回的token
 请求消息体:JSON
 返回消息体:JSON, retcode = 0时正确， 非0时出错</p>
 </blockquote>
-<p>智云模式时：</p>
+<p>独立模式时：</p>
 <blockquote>
-<p>消息体、返回体相关，无http相关内容</p>
+<p>请求URL: http://dev-ip-addr:port:/api/advt
+HTTP头：token = , 使用登陆时返回的token</p>
 </blockquote>
-<p><strong>广告图片最多不超过128个</strong>
-<strong>id 大小不超过32Bytes</strong></p>
-<ol>
-<li>添加广告图片</li>
-</ol>
+<p>其它模式时：</p>
+<blockquote>
+<p>请求类型: POST
+object = "user"
+HTTP头：token = , 使用登陆时返回的token
+消息体、返回体相关，无HTTP相关内容</p>
+</blockquote>
+<p><strong>id 大小不超过32Bytes</strong></p>
+<h4 id="_3">添加广告图片</h4>
 <p><strong>上传广告文件，单次数据长度必须在256kB以内，其data数据在转base64前应以256kB长度切片</strong>、</p>
 <ul>
 <li>请求</li>
 </ul>
 <pre><code class="language-json">{
+    &quot;object&quot;:&quot;advt&quot;,
+    &quot;reqid&quot;:19292,
     &quot;action&quot;:&quot;add&quot;,
+
     &quot;id&quot;:&quot;9ssosxlsiw&quot;,
+    &quot;effect&quot;:1929292,
     &quot;expire&quot;:1593282304,
     &quot;duration&quot;:30,
     &quot;filesize&quot;:329382,
@@ -174,18 +191,17 @@ duration : 此广告播放时间时延，默认设备配置页中的广告时延
 <li>响应</li>
 </ul>
 <pre><code class="language-json">{
+    &quot;reqid&quot;:19292,
     &quot;retcode&quot;:0
 }
 </code></pre>
-<ol>
-<li>
-<p>删除广告图片</p>
-</li>
-<li>
-<p>请求</p>
-</li>
-</ol>
+<h4 id="_4">删除广告图片</h4>
+<ul>
+<li>请求</li>
+</ul>
 <pre><code class="language-json">{
+    &quot;object&quot;:&quot;advt&quot;,
+    &quot;reqid&quot;:19292,
     &quot;action&quot;:&quot;del&quot;,
     &quot;id&quot;:&quot;9ssosxlsiw&quot;
 }
@@ -194,18 +210,17 @@ duration : 此广告播放时间时延，默认设备配置页中的广告时延
 <li>响应</li>
 </ul>
 <pre><code class="language-json">{
+    &quot;reqid&quot;:19292,
     &quot;retcode&quot;:0
 }
 </code></pre>
-<ol>
-<li>
-<p>列举广告图片</p>
-</li>
-<li>
-<p>请求</p>
-</li>
-</ol>
+<h4 id="_5">列举广告图片</h4>
+<ul>
+<li>请求</li>
+</ul>
 <pre><code class="language-json">{
+    &quot;object&quot;:&quot;advt&quot;,
+    &quot;reqid&quot;:19292,
     &quot;action&quot;:&quot;list&quot;,
 }
 </code></pre>
@@ -213,6 +228,7 @@ duration : 此广告播放时间时延，默认设备配置页中的广告时延
 <li>响应</li>
 </ul>
 <pre><code class="language-json">{
+    &quot;reqid&quot;:19292,
     &quot;params&quot;:[
         &quot;9ssosxlsiw&quot;,
         &quot;isjdwew938&quot;

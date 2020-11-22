@@ -46,7 +46,9 @@ WalOS可以配置为多种管理模式，用于对接不同的平台，主要模
 
 ```json
 {
+    "object":"heartbeat",
     "action": "pong",   // 设备发向服务器的心跳为 ping
+    "reqid":192839,         // 透传值，设备内唯一
     "task":{
         "object":"user",            // user, rule, visitor, card, advt ...
         "action":"insert"           // insert, remove, update, lookup, list
@@ -59,7 +61,8 @@ WalOS可以配置为多种管理模式，用于对接不同的平台，主要模
 ```json
 {
     "object":"user",
-    "action": "insert"
+    "action": "insert",
+    "reqid":192839         // 透传值，设备内唯一
 }
 ```
 
@@ -69,6 +72,7 @@ WalOS可以配置为多种管理模式，用于对接不同的平台，主要模
 {
     "object":"user",
     "action": "insert",
+    "reqid":192839,         // 透传值，设备内唯一
     "params": [
         {
             "userid": "1avsoHu2EeqZmH943F8eUg",
@@ -97,6 +101,7 @@ WalOS可以配置为多种管理模式，用于对接不同的平台，主要模
 ```json
 {
     "retcode": 0,
+    "reqid":192839,         // 透传值，设备内唯一
     "params": [
         { 
             "userid":"1avsoHu2EeqZmH943F8eUg",
@@ -122,7 +127,8 @@ WalOS可以配置为多种管理模式，用于对接不同的平台，主要模
 ```json
 {
     "object":"info",
-    "action": "info"
+    "action": "info",
+    "reqid":192839         // 透传值，设备内唯一
 }
 ```
 
@@ -134,6 +140,7 @@ WalOS可以配置为多种管理模式，用于对接不同的平台，主要模
     "algm-version"  : "v1.1.0",             // 算法版本号
     "hardware-version" : "v1.2.0",          // 硬件载体版本号
     "device-id" : "device-id",
+    "reqid":192839,        // 透传值，设备内唯一
     "retcode":0
 }
 ```
@@ -162,7 +169,9 @@ WalOS可以配置为多种管理模式，用于对接不同的平台，主要模
 
 ```json
 {
-    "action": "info"
+    "object":"info",
+    "action": "info",
+    "reqid":192839         // 透传值，设备内唯一
 }
 ```
 

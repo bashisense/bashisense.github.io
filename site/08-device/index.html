@@ -86,6 +86,30 @@
                 <ul class="current">
                     <li class="toctree-l1 current"><a class="reference internal current" href="./">设备管理</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_2">说明</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">查询设备配置</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_4">设置时间</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_5">设备重启</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_6">设备重置</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_7">配置网络</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_8">远程开门</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_9">上传升级文件</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_10">升级设备</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_11">传感器快照</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_12">下载快照文件</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_13">设置模式</a>
+    </li>
     </ul>
                     </li>
                 </ul>
@@ -134,53 +158,53 @@
             <div class="section">
               
                 <h1 id="_1">设备管理</h1>
-<p>本地模式时：</p>
+<hr />
+<h4 id="_2">说明</h4>
 <blockquote>
-<p>请求URL: http://dev-ip-addr:port:/api/device
-请求类型: POST
+<p>请求类型: POST
 HTTP头：token = , 使用登陆时返回的token
 请求消息体:JSON
 返回消息体:JSON, retcode = 0时正确， 非0时出错</p>
 </blockquote>
-<p>智云模式时：</p>
+<p>独立模式时：</p>
 <blockquote>
-<p>消息体、返回体相关，无http相关内容</p>
+<p>请求URL: http://dev-ip-addr:port:/api/device
+HTTP头：token = , 使用登陆时返回的token</p>
 </blockquote>
-<p>设备管理接口：
-0. 查询设备信息：</p>
+<p>其它模式时：</p>
+<blockquote>
+<p>请求类型: POST
+object = "user"
+HTTP头：token = , 使用登陆时返回的token
+消息体、返回体相关，无HTTP相关内容</p>
+</blockquote>
+<h4 id="_3">查询设备配置</h4>
 <ul>
 <li>请求</li>
 </ul>
 <pre><code class="language-json">{
+    &quot;object&quot;:&quot;device&quot;,
     &quot;action&quot;:&quot;info&quot;,
+    &quot;reqid&quot;:1839292
 }
 </code></pre>
 <p>-响应</p>
 <pre><code class="language-json">{
     &quot;retcode&quot;:0,
-    // 硬件信息
+    &quot;reqid&quot;:1839292,
 
-    // 存储信息
-
-    // 网络信息
-    &quot;type&quot;:&quot;eth&quot;,
-    &quot;mode&quot;:&quot;static&quot;,
-    &quot;ipv4-address&quot;:&quot;192.168.20.10&quot;,
-    &quot;ipv4-mask&quot;:&quot;255.255.255.0&quot;,
-    &quot;ipv4-gateway&quot;:&quot;192.168.20.1&quot;,
-    &quot;ipv4-dns&quot;:&quot;114.114.114.114&quot;
+    // 返回设备的配置列表
+    // ....
 }
 </code></pre>
-<ol>
-<li>
-<p>设置时间：</p>
-</li>
-<li>
-<p>请求</p>
-</li>
-</ol>
+<h4 id="_4">设置时间</h4>
+<ul>
+<li>请求</li>
+</ul>
 <pre><code class="language-json">{
+    &quot;object&quot;:&quot;device&quot;,
     &quot;action&quot;:&quot;time&quot;,
+    &quot;reqid&quot;:1839292,
     &quot;timezone&quot;:-480,
     &quot;timestamp&quot;:161589233
 }
@@ -193,37 +217,35 @@ timestamp ： 1970.1.1 开始的毫秒数；</p>
 <li>响应</li>
 </ul>
 <pre><code class="language-json">{
+    &quot;reqid&quot;:1839292,
     &quot;retcode&quot;:0
 }
 </code></pre>
-<ol>
-<li>
-<p>设备重启</p>
-</li>
-<li>
-<p>请求</p>
-</li>
-</ol>
+<h4 id="_5">设备重启</h4>
+<ul>
+<li>请求</li>
+</ul>
 <pre><code class="language-json">{
-    &quot;action&quot;:&quot;reboot&quot;
+    &quot;object&quot;:&quot;device&quot;,
+    &quot;action&quot;:&quot;reboot&quot;,
+    &quot;reqid&quot;:1839292,
 }
 </code></pre>
 <ul>
 <li>响应</li>
 </ul>
 <pre><code class="language-json">{
+    &quot;reqid&quot;:1839292,
     &quot;retcode&quot;:0
 }
 </code></pre>
-<ol>
-<li>
-<p>设备重置</p>
-</li>
-<li>
-<p>请求</p>
-</li>
-</ol>
+<h4 id="_6">设备重置</h4>
+<ul>
+<li>请求</li>
+</ul>
 <pre><code class="language-json">{
+    &quot;object&quot;:&quot;device&quot;,
+    &quot;reqid&quot;:1839292,
     &quot;action&quot;:&quot;reset&quot;
 }
 </code></pre>
@@ -234,29 +256,25 @@ timestamp ： 1970.1.1 开始的毫秒数；</p>
 <li>响应</li>
 </ul>
 <pre><code class="language-json">{
+    &quot;reqid&quot;:1839292,
     &quot;retcode&quot;:0
 }
 </code></pre>
-<ol>
-<li>
-<p>配置网络</p>
-</li>
-<li>
-<p>请求</p>
-</li>
-</ol>
+<h4 id="_7">配置网络</h4>
+<ul>
+<li>请求</li>
+</ul>
 <pre><code class="language-json">{
+    &quot;object&quot;:&quot;device&quot;,
+    &quot;reqid&quot;:1839292,
     &quot;action&quot;:&quot;netconfig&quot;,
-    &quot;type&quot;:&quot;wlan0&quot;,
+
+    &quot;type&quot;:&quot;eth0&quot;,
     &quot;mode&quot;:&quot;static&quot;,
     &quot;ipv4-address&quot;:&quot;192.168.20.10&quot;,
     &quot;ipv4-mask&quot;:&quot;255.255.255.0&quot;,
     &quot;ipv4-gw&quot;:&quot;192.168.20.1&quot;,
     &quot;ipv4-dns&quot;:&quot;114.114.114.114&quot;,
-    &quot;wifi-ssid&quot;:&quot;chinanet-18sasd29&quot;,
-    &quot;wifi-passwd&quot;: &quot;1234567890&quot;,
-    &quot;wifi-ap-ssid&quot;:&quot;bwa-9slsdk&quot;,
-    &quot;wifi-ap-passwd&quot;:&quot;1234567890&quot;,
 }
 </code></pre>
 <blockquote>
@@ -281,18 +299,17 @@ eth0, wlan0参数为：</p>
 <li>响应</li>
 </ul>
 <pre><code class="language-json">{
+    &quot;reqid&quot;:1839292,
     &quot;retcode&quot;:0
 }
 </code></pre>
-<ol>
-<li>
-<p>远程开门</p>
-</li>
-<li>
-<p>请求</p>
-</li>
-</ol>
+<h4 id="_8">远程开门</h4>
+<ul>
+<li>请求</li>
+</ul>
 <pre><code class="language-json">{
+    &quot;object&quot;:&quot;device&quot;,
+    &quot;reqid&quot;:1839292,
     &quot;action&quot;:&quot;opendoor&quot;,
     &quot;userid&quot;:&quot;1avsoHu2EeqZmH943F8eUg==&quot;
 }
@@ -301,17 +318,18 @@ eth0, wlan0参数为：</p>
 <li>响应</li>
 </ul>
 <pre><code class="language-json">{
+    &quot;reqid&quot;:1839292,
     &quot;retcode&quot;:0
 }
 </code></pre>
-<ol>
-<li>上传升级文件</li>
-</ol>
+<h4 id="_9">上传升级文件</h4>
 <p><strong>上传文件，单次数据长度必须在256kB以内，其data数据在转base64前应以256kB长度切片</strong></p>
 <ul>
 <li>请求</li>
 </ul>
 <pre><code class="language-json">{
+    &quot;object&quot;:&quot;device&quot;,
+    &quot;reqid&quot;:1839292,
     &quot;action&quot;:&quot;upload&quot;,
     &quot;type&quot;:&quot;upgrade&quot;,
     &quot;filesize&quot;:32678,
@@ -333,18 +351,17 @@ data : base64编码的数据</p>
 <li>响应</li>
 </ul>
 <pre><code class="language-json">{
+    &quot;reqid&quot;:1839292,
     &quot;retcode&quot;:0
 }
 </code></pre>
-<ol>
-<li>
-<p>升级设备</p>
-</li>
-<li>
-<p>请求</p>
-</li>
-</ol>
+<h4 id="_10">升级设备</h4>
+<ul>
+<li>请求</li>
+</ul>
 <pre><code class="language-json">{
+    &quot;object&quot;:&quot;device&quot;,
+    &quot;reqid&quot;:1839292,
     &quot;action&quot;:&quot;upgrade&quot;,
     &quot;filename&quot;:&quot;walos-v2.3.4.bin&quot;
 }
@@ -353,18 +370,17 @@ data : base64编码的数据</p>
 <li>响应</li>
 </ul>
 <pre><code class="language-json">{
+    &quot;reqid&quot;:1839292,
     &quot;retcode&quot;:0
 }
 </code></pre>
-<ol>
-<li>
-<p>传感器快照</p>
-</li>
-<li>
-<p>请求</p>
-</li>
-</ol>
+<h4 id="_11">传感器快照</h4>
+<ul>
+<li>请求</li>
+</ul>
 <pre><code class="language-json">{
+    &quot;object&quot;:&quot;device&quot;,
+    &quot;reqid&quot;:1839292,
     &quot;action&quot;:&quot;snapshot&quot;
 }
 </code></pre>
@@ -375,6 +391,7 @@ data : base64编码的数据</p>
 <li>响应</li>
 </ul>
 <pre><code class="language-json">{
+    &quot;reqid&quot;:1839292,
     &quot;retcode&quot;: 0,
     &quot;timestamp&quot;: &quot;1587985190&quot;
 }
@@ -382,15 +399,13 @@ data : base64编码的数据</p>
 <blockquote>
 <p>timestamp 为获取快照的时间戳，下载快照时需要此数据</p>
 </blockquote>
-<ol>
-<li>
-<p>下载快照文件</p>
-</li>
-<li>
-<p>请求</p>
-</li>
-</ol>
+<h4 id="_12">下载快照文件</h4>
+<ul>
+<li>请求</li>
+</ul>
 <pre><code class="language-json">{
+    &quot;object&quot;:&quot;device&quot;,
+    &quot;reqid&quot;:1839292,
     &quot;action&quot;:&quot;download&quot;,
     &quot;type&quot;:&quot;snapshot&quot;,
     &quot;chanel&quot;:0,
@@ -407,6 +422,7 @@ chanel : 准备获取的摄像头通道</p>
 <li>响应</li>
 </ul>
 <pre><code class="language-json">{
+    &quot;reqid&quot;:1839292,
     &quot;action&quot;:&quot;download&quot;,
     &quot;type&quot;:&quot;snapshot&quot;,
     &quot;filesize&quot;:32678,
@@ -416,14 +432,11 @@ chanel : 准备获取的摄像头通道</p>
     &quot;data&quot;:&quot;base64-encoded file data&quot;
 }
 </code></pre>
-<ol>
-<li>设置模式</li>
-</ol>
+<h4 id="_13">设置模式</h4>
 <p>设备运行在不同模式时，表示不同的功能，主要有四种模式：</p>
 <ol>
 <li>门锁模式：平时设备不点亮屏显与补光灯，当触摸按键时，点亮屏显+补光灯，识别人脸后开门或者读取开锁二维码后开门；</li>
 <li>门禁模式：正常工作时进行人脸识别，识别后开门。识别期间可以通过按键进入访客二维码读码状态，读取访客码并开门。</li>
-<li>测温模式：分为腕温测温与额温测温，两种测温模块可选，对于识别部分可以是人脸识别开门或口罩提醒开门，但不建议同时进行。</li>
 <li>
 <p>广告模式：支持广告播放方案，开启后主界面将播放广告，右下角显示人脸视频；</p>
 </li>
@@ -432,6 +445,8 @@ chanel : 准备获取的摄像头通道</p>
 </li>
 </ol>
 <pre><code class="language-json">{
+    &quot;object&quot;:&quot;device&quot;,
+    &quot;reqid&quot;:1839292,
     &quot;action&quot;:&quot;mode&quot;,
     &quot;type&quot;:&quot;lock&quot;,
 }
@@ -443,6 +458,7 @@ chanel : 准备获取的摄像头通道</p>
 <li>响应</li>
 </ul>
 <pre><code class="language-json">{
+    &quot;reqid&quot;:1839292,
     &quot;retcode&quot;:0
 }
 </code></pre>

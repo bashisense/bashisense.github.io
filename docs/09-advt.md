@@ -1,19 +1,26 @@
 # 广告推送
+----------
 
-本地模式时：
->请求URL: http://dev-ip-addr:port:/api/advt
+#### 说明
+
 >请求类型: POST
 >HTTP头：token = , 使用登陆时返回的token
 >请求消息体:JSON
 >返回消息体:JSON, retcode = 0时正确， 非0时出错
 
-智云模式时：
->消息体、返回体相关，无http相关内容
+独立模式时：
+>请求URL: http://dev-ip-addr:port:/api/advt
+>HTTP头：token = , 使用登陆时返回的token
 
-**广告图片最多不超过128个**
+其它模式时：
+>请求类型: POST
+>object = "user"
+>HTTP头：token = , 使用登陆时返回的token
+>消息体、返回体相关，无HTTP相关内容
+
 **id 大小不超过32Bytes**
 
-1. 添加广告图片
+#### 添加广告图片
 
 **上传广告文件，单次数据长度必须在256kB以内，其data数据在转base64前应以256kB长度切片**、
 
@@ -21,8 +28,12 @@
 
 ```json
 {
+    "object":"advt",
+    "reqid":19292,
     "action":"add",
+
     "id":"9ssosxlsiw",
+    "effect":1929292,
     "expire":1593282304,
     "duration":30,
     "filesize":329382,
@@ -39,16 +50,19 @@
 
 ```json
 {
+    "reqid":19292,
     "retcode":0
 }
 ```
 
-2. 删除广告图片
+#### 删除广告图片
 
 - 请求
 
 ```json
 {
+    "object":"advt",
+    "reqid":19292,
     "action":"del",
     "id":"9ssosxlsiw"
 }
@@ -58,16 +72,19 @@
 
 ```json
 {
+    "reqid":19292,
     "retcode":0
 }
 ```
 
-3. 列举广告图片
+#### 列举广告图片
 
 - 请求
 
 ```json
 {
+    "object":"advt",
+    "reqid":19292,
     "action":"list",
 }
 ```
@@ -76,6 +93,7 @@
 
 ```json
 {
+    "reqid":19292,
     "params":[
         "9ssosxlsiw",
         "isjdwew938"

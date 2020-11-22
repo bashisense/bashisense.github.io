@@ -94,6 +94,14 @@
                 <ul class="current">
                     <li class="toctree-l1 current"><a class="reference internal current" href="./">门卡管理</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_2">说明</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">添加门禁卡</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_4">删除门禁卡</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_5">列举门禁卡</a>
+    </li>
     </ul>
                     </li>
                 </ul>
@@ -134,32 +142,39 @@
             <div class="section">
               
                 <h1 id="_1">门卡管理</h1>
-<p>本地模式时：</p>
+<hr />
+<h4 id="_2">说明</h4>
 <blockquote>
-<p>请求URL: http://dev-ip-addr:port:/api/card
-请求类型: POST
+<p>请求类型: POST
 HTTP头：token = , 使用登陆时返回的token
 请求消息体:JSON
 返回消息体:JSON, retcode = 0时正确， 非0时出错</p>
 </blockquote>
-<p>智云模式时：</p>
+<p>独立模式时：</p>
 <blockquote>
-<p>消息体、返回体相关，无http相关内容</p>
+<p>请求URL: http://dev-ip-addr:port:/api/card
+HTTP头：token = , 使用登陆时返回的token</p>
+</blockquote>
+<p>其它模式时：</p>
+<blockquote>
+<p>请求类型: POST
+object = "user"
+HTTP头：token = , 使用登陆时返回的token
+消息体、返回体相关，无HTTP相关内容</p>
 </blockquote>
 <p><strong>id 大小不超过32Bytes, userid不超过32字节， rule不超过32字节</strong></p>
-<ol>
-<li>
-<p>添加门禁卡</p>
-</li>
-<li>
-<p>请求</p>
-</li>
-</ol>
+<h4 id="_3">添加门禁卡</h4>
+<ul>
+<li>请求</li>
+</ul>
 <pre><code class="language-json">{
+    &quot;object&quot;:&quot;card&quot;,
+    &quot;reqid&quot;:92929,
     &quot;action&quot;:&quot;add&quot;,
     &quot;id&quot;:&quot;EeqZmH943F8&quot;,
     &quot;userid&quot;: &quot;1avsoHu2EeqZmH943F8eUg==&quot;,
     &quot;rule&quot;: &quot;Iksiwim&quot;,
+    &quot;effect&quot;:192923,
     &quot;expire&quot;:150938992,
     &quot;data&quot;: &quot;...&quot;
 }
@@ -168,6 +183,7 @@ HTTP头：token = , 使用登陆时返回的token
 <p>id : 唯一标志卡的ID，仅内部使用，必填
 userid : 唯一标志用户的ID，不超过32字节的文本字符串；选填，离线使用时人脸+卡匹配
 rule : 开门策略，配置的开发策略； 选填，如不填侧使用默认配置，全时段可刷卡开门
+effect: 使能时间
 expire : 用户过期时间，格式需要保持一致；必填
 data : IC卡匹配数据，必填</p>
 </blockquote>
@@ -175,18 +191,17 @@ data : IC卡匹配数据，必填</p>
 <li>响应</li>
 </ul>
 <pre><code class="language-json">{
+    &quot;reqid&quot;:92929,
     &quot;retcode&quot;:0
 }
 </code></pre>
-<ol>
-<li>
-<p>删除门禁卡</p>
-</li>
-<li>
-<p>请求</p>
-</li>
-</ol>
+<h4 id="_4">删除门禁卡</h4>
+<ul>
+<li>请求</li>
+</ul>
 <pre><code class="language-json">{
+    &quot;object&quot;:&quot;card&quot;,
+    &quot;reqid&quot;:92929,
     &quot;action&quot;:&quot;del&quot;,
     &quot;id&quot;:&quot;EeqZmH943F8&quot;
 }
@@ -195,18 +210,17 @@ data : IC卡匹配数据，必填</p>
 <li>响应</li>
 </ul>
 <pre><code class="language-json">{
+    &quot;reqid&quot;:92929,
     &quot;retcode&quot;:0
 }
 </code></pre>
-<ol>
-<li>
-<p>列举门禁卡</p>
-</li>
-<li>
-<p>请求</p>
-</li>
-</ol>
+<h4 id="_5">列举门禁卡</h4>
+<ul>
+<li>请求</li>
+</ul>
 <pre><code class="language-json">{
+    &quot;object&quot;:&quot;card&quot;,
+    &quot;reqid&quot;:92929,
     &quot;action&quot;:&quot;list&quot;,
     &quot;offset&quot;: 18,
     &quot;limit&quot;:2
@@ -226,6 +240,7 @@ limit : 本次列举卡数量，默认10，不超过10
             &quot;id&quot;:&quot;EeqZmH943F8&quot;,
             &quot;userid&quot;: &quot;1avsoHu2EeqZmH943F8&quot;,
             &quot;rule&quot;: &quot;Iksiwim&quot;,
+            &quot;effect&quot;:192923,
             &quot;expire&quot;:150938992,
             &quot;data&quot;: &quot;...&quot;
         },
@@ -233,11 +248,13 @@ limit : 本次列举卡数量，默认10，不超过10
             &quot;id&quot;:&quot;aeqZmH943e4&quot;,
             &quot;userid&quot;: &quot;soHu2EeqZmH943F8eUg==&quot;,
             &quot;rule&quot;: &quot;Iksiwim&quot;,
+            &quot;effect&quot;:192923,
             &quot;expire&quot;:150938992,
             &quot;data&quot;: &quot;...&quot;
         }
     ],
 
+    &quot;reqid&quot;:92929,
     &quot;retcode&quot;:0
 }
 </code></pre>

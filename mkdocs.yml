@@ -1,8 +1,8 @@
 site_name: BaShi Develop Docs
 nav:
 - 首页: index.md
-- 系统简介: 01-introduction.md
 - 版本信息: 00-version.md
+- 系统简介: 01-introduction.md
 - 注册登陆: 02-register.md
 - 配置管理: 03-configuration.md
 - 用户管理: 04-user.md

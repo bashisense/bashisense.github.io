@@ -10,7 +10,7 @@ Welcome to WalOS SDK's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-    pages/01
+    01
 
 Indices and tables
 ==================

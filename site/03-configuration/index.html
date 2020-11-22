@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>配置管理 - BaShi Develop Docs</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "\u914d\u7f6e\u7ba1\u7406";
+    var mkdocs_page_input_path = "03-configuration.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> BaShi Develop Docs</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">首页</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../01-introduction/">系统简介</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../00-version/">版本信息</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../02-register/">注册登陆</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">配置管理</a>
+    <ul class="current">
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../04-user/">用户管理</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../05-visitor/">访客管理</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../06-event/">事件管理</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../07-rule/">规则管理</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../08-device/">设备管理</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../09-advt/">广告管理</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../10-card/">门卡管理</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../appendix/">附则</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">BaShi Develop Docs</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>配置管理</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="_1">配置管理</h1>
+<p>本地模式时：</p>
+<blockquote>
+<p>请求URL: http://dev-ip-addr:port:/api/config
+请求类型: POST
+HTTP头：token = , 使用登陆时返回的token
+请求消息体:JSON
+返回消息体:JSON, retcode = 0时正确， 非0时出错</p>
+</blockquote>
+<p>智云模式时：</p>
+<blockquote>
+<p>消息体、返回体相关，无HTTP相关内容</p>
+</blockquote>
+<ol>
+<li>
+<p>查询设备的配置项：</p>
+</li>
+<li>
+<p>请求</p>
+</li>
+</ol>
+<pre><code class="language-json">{
+    &quot;action&quot;: &quot;list&quot;
+}
+</code></pre>
+<ul>
+<li>响应</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;params&quot;: [
+        {
+            &quot;key&quot;: &quot;manufacturer&quot;,
+            &quot;modified&quot;: &quot;2020-04-26 13:57:07&quot;,
+            &quot;options&quot;: &quot;ro&quot;,
+            &quot;value&quot;: &quot;BaShi Technology Ltd. co,&quot;
+        },
+
+        ...
+
+        {
+            &quot;key&quot;: &quot;device-id&quot;,
+            &quot;modified&quot;: &quot;2020-04-26 13:57:07&quot;,
+            &quot;options&quot;: &quot;ro&quot;,
+            &quot;value&quot;: &quot;KssDeLd5m6wYRiNXKFCHqe&quot;
+        }
+    ],
+    &quot;retcode&quot;: 0
+}
+</code></pre>
+<blockquote>
+<p>options: ro表示只读， wr表示可配置可写，cp表壳可配置可写并且控制平台要用</p>
+</blockquote>
+<ol>
+<li>
+<p>获取设备的配置：</p>
+</li>
+<li>
+<p>请求</p>
+</li>
+</ol>
+<pre><code class="language-json">{
+    &quot;action&quot;: &quot;get&quot;,
+    &quot;params&quot;: [
+        &quot;relay-mode&quot;,
+        &quot;therm-mode&quot;,
+        &quot;algm-threshold&quot;,
+        &quot;rs485-start-data&quot;,
+        &quot;rs485-close-data&quot;
+    ]
+}
+</code></pre>
+<blockquote>
+<p>params 数组内的数据项为请求的配置项，支持同时获取多个配置项</p>
+</blockquote>
+<ul>
+<li>响应</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;params&quot;: [
+        {
+            &quot;relay-mode&quot;: &quot;enable&quot;
+        },
+        {
+            &quot;therm-mode&quot;: &quot;forehead&quot;
+        },
+        {
+            &quot;algm-threshold&quot;: &quot;0.8&quot;
+        },
+        {
+            &quot;rs485-start-data&quot;: &quot;open-door-rs485-data&quot;
+        },
+        {
+            &quot;rs485-close-data&quot;: &quot;close-door-rs485-data&quot;
+        }
+    ],
+    &quot;retcode&quot;: 0
+}
+</code></pre>
+<ol>
+<li>
+<p>配置设备</p>
+</li>
+<li>
+<p>请求</p>
+</li>
+</ol>
+<pre><code class="language-json">{
+    &quot;action&quot;: &quot;set&quot;,
+    &quot;params&quot;: [
+        {
+            &quot;relay-mode&quot;: &quot;enable&quot;
+        },
+        {
+            &quot;therm-mode&quot;: &quot;wrist&quot;
+        },
+        {
+            &quot;algm-threshold&quot;: &quot;0.8&quot;
+        }
+    ]
+}
+</code></pre>
+<ul>
+<li>响应</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;params&quot;: [
+        {
+            &quot;relay-mode&quot;: &quot;enable&quot;
+        },
+        {
+            &quot;therm-mode&quot;: &quot;wrist&quot;
+        },
+        {
+            &quot;algm-threshold&quot;: &quot;0.8&quot;
+        }
+    ],
+    &quot;retcode&quot;: 0
+}
+</code></pre>
+<ol>
+<li>配置说明</li>
+</ol>
+<p>以下为可配置数据</p>
+<pre><code class="language-json">{
+    // 设备管理模式，目前支持: none, 仅提供本地http服务， cloud:接入八识智云，local：本地，TCP管理模式
+    {
+        &quot;key&quot;:&quot;manager-mode&quot;,
+        &quot;value&quot;:&quot;none&quot;,
+        &quot;options&quot; : &quot;ro&quot;,
+    },
+
+    // 设备运行模式：none 无模式， lock 门锁模式， acs 门禁模式， advt 广告模式
+    // 部分型号没有门锁模式、门禁模式
+    {
+        &quot;key&quot;:&quot;device-mode&quot;,
+        &quot;value&quot;:&quot;advt&quot;,
+        &quot;options&quot; : &quot;cp&quot;,
+    },
+
+    // 设备使用者组织名，可自定义, 32 bytes
+    {
+        &quot;key&quot;:&quot;org-id&quot;,
+        &quot;value&quot;:&quot;Bashi Technology&quot;,
+        &quot;options&quot; : &quot;wr&quot;,
+    },
+
+    // 设备门，可自定义, 32 bytes
+    {
+        &quot;key&quot;:&quot;door-id&quot;,
+        &quot;value&quot;:&quot;main door&quot;,
+        &quot;options&quot; : &quot;wr&quot;,
+    },
+
+
+    // 智云服务器地址与端口号
+    {
+        &quot;key&quot;:&quot;cloud-server-address&quot;,
+        &quot;value&quot;:&quot;127.0.0.1&quot;,
+        &quot;options&quot; : &quot;wr&quot;,
+    },
+
+    {
+        &quot;key&quot;:&quot;cloud-server-port&quot;,
+        &quot;value&quot;:&quot;8000&quot;,
+        &quot;options&quot; : &quot;wr&quot;,
+    },
+
+    // 智云平台断开后重连接时延，秒数
+    {
+        &quot;key&quot;:&quot;cloud-reconnect-duration&quot; ,
+        &quot;value&quot;: &quot;16&quot;,
+        &quot;options&quot; : &quot;wr&quot;,
+    },
+
+    // 智云平台心跳时延，秒数
+    {
+        &quot;key&quot;:&quot;hearbeat-duration&quot; ,
+        &quot;value&quot;: &quot;5&quot;,
+        &quot;options&quot; : &quot;wr&quot;,
+    },
+
+    // 本地服务端口号
+    {
+        &quot;key&quot;:&quot;local-server-port&quot;,
+        &quot;value&quot;:&quot;8000&quot;,
+        &quot;options&quot; : &quot;wr&quot;,
+    },
+
+    // 本地服务模式，管理服务器地址/端口/访问路径，用于事件通知
+    {
+        &quot;key&quot;:&quot;manager-server-address&quot;,
+        &quot;value&quot;:&quot;127.0.0.1&quot;,
+        &quot;options&quot; : &quot;wr&quot;,
+    },
+
+    {
+        &quot;key&quot;:&quot;manager-server-port&quot;,
+        &quot;value&quot;:&quot;3000&quot;,
+        &quot;options&quot; : &quot;wr&quot;,
+    },
+
+    {
+        &quot;key&quot;:&quot;manager-server-path&quot;,
+        &quot;value&quot;:&quot;report&quot;,
+        &quot;options&quot; : &quot;wr&quot;,
+    },
+
+    // 设备支持的最大纪录数
+    {
+        &quot;key&quot;:&quot;user-logr-max&quot;,
+        &quot;value&quot;: &quot;40000&quot;,
+        &quot;options&quot; : &quot;wr&quot;,
+    },
+
+    // 提示信息显示时延
+    {
+        &quot;key&quot;:&quot;tips-duration&quot;,
+        &quot;value&quot;: &quot;2&quot;,
+        &quot;options&quot; : &quot;cp&quot;,
+    },
+
+    // 广告显示时延
+    {
+        &quot;key&quot;:&quot;advertising-duration&quot;,
+        &quot;value&quot;: &quot;10&quot;,
+        &quot;options&quot; : &quot;cp&quot;,
+    },
+
+    // 开门时延
+    {
+        &quot;key&quot;:&quot;door-duration&quot;,
+        &quot;value&quot;: &quot;3&quot;,
+        &quot;options&quot; : &quot;cp&quot;,
+    },
+
+    // 系统信息显示时延
+    {
+        &quot;key&quot;:&quot;info-duration&quot;,
+        &quot;value&quot;:&quot;10&quot;,
+        &quot;options&quot; : &quot;cp&quot;,
+    },
+
+    // 人脸识别模式：none：无算法， detect:人脸检测，reco：人脸识别，mask：口罩提醒，qrcode: 二维码
+    // 当前仅支持人脸识别、人脸检测
+    {
+        &quot;key&quot;:&quot;algm-mode&quot;,
+        &quot;value&quot;:&quot;reco&quot;,
+        &quot;options&quot; : &quot;ro&quot;
+    },
+
+    // 是否支持访客：none：不支持, qrcode： 访客二维码； code：键盘访客码， mixed： 两都同时支持
+    {
+        &quot;key&quot;:&quot;visitor-mode&quot;,
+        &quot;value&quot;:&quot;none&quot;,
+        &quot;options&quot; : &quot;cp&quot;,
+    },
+
+    // 是否使用RS485端口，none:不支持，door:支持开门，voice:支持语音播放，therm:支持测温输入, user: 用户透传指令
+    {
+        &quot;key&quot;:&quot;rs485-mode&quot;,
+        &quot;value&quot;:&quot;none&quot;,
+        &quot;options&quot; : &quot;cp&quot;,
+    },
+
+    // 是否支持语音播放：default: 支持，默认方式； disable：不支持；user: 定制用户定制方式（不使用）
+    {
+        &quot;key&quot;:&quot;voice-mode&quot;,
+        &quot;value&quot;:&quot;default&quot;,
+        &quot;options&quot; : &quot;cp&quot;,
+    },
+
+    // 无线模式： none - 不启用, 4g - 启用4G模块
+    {
+        &quot;key&quot;:&quot;cell-mode&quot;,
+        &quot;value&quot;:&quot;none&quot;,
+        &quot;options&quot; : &quot;cp&quot;,
+    },
+
+    // wifi模式： none - 不启用, sta - 客户端模式， ap - 热点模式， mixed - 双模式
+    {
+        &quot;key&quot;:&quot;wifi-mode&quot;,
+        &quot;value&quot;:&quot;mixed&quot;,
+        &quot;options&quot; : &quot;cp&quot;,
+    },
+
+    // 是否支持继电器开门：enable:支持, disable：不支持
+    {
+        &quot;key&quot;:&quot;relay-mode&quot;,
+        &quot;value&quot;:&quot;enable&quot;,
+        &quot;options&quot; : &quot;cp&quot;,
+    },
+
+    // 是否支持测温模块: none 不支持， wrist:腕温， forehead：额温
+    {
+        &quot;key&quot;:&quot;therm-mode&quot;,
+        &quot;value&quot;:&quot;none&quot;,
+        &quot;options&quot; : &quot;cp&quot;,
+    },
+
+    // 测温模块修正值
+    {
+        &quot;key&quot;:&quot;therm-fix&quot;,
+        &quot;value&quot;:&quot;0&quot;,
+        &quot;options&quot;:&quot;cp&quot;,
+    },
+
+    // 测温模块阈值，合格最低值
+    {
+        &quot;key&quot;:&quot;therm-normal&quot;,
+        &quot;value&quot;:&quot;34.5&quot;,
+        &quot;options&quot;:&quot;cp&quot;,
+    },
+    // 测温模块阈值，告警最低值
+    {
+        &quot;key&quot;:&quot;therm-alarm&quot;,
+        &quot;value&quot;:&quot;37.5&quot;,
+        &quot;options&quot;:&quot;cp&quot;,
+    },
+
+    // 是否支持事件通知：enable：支持， disable：不支持
+    {
+        &quot;key&quot;:&quot;event-mode&quot;,
+        &quot;value&quot;:&quot;enable&quot;,
+        &quot;options&quot; : &quot;wr&quot;,
+    },
+
+    // 识别算法比对阈值
+    {
+        &quot;key&quot;:&quot;algm-threshold&quot;,
+        &quot;value&quot;:&quot;0.5&quot;,
+        &quot;options&quot; : &quot;cp&quot;,
+    },
+
+    // 识别距离,默认1米左右，部分产品配置不支持可配置
+    {
+        &quot;key&quot;:&quot;algm-distance&quot;,
+        &quot;value&quot;:&quot;1&quot;,
+        &quot;options&quot; : &quot;cp&quot;,
+    },
+
+    // 产品语言： cn - 中文， en - 英文， 支持的语言种类视硬件版本情况
+    {
+        &quot;key&quot;:&quot;lang-mode&quot;,
+         &quot;value&quot;:&quot;cn&quot;,
+         &quot;options&quot; : &quot;wr&quot;
+    },
+
+   // none - 不显示姓名， name - 仅显示姓名， desc - 显示姓名、部门。 默认desc
+    {
+        &quot;key&quot;:&quot;show-mode&quot;,
+         &quot;value&quot;:&quot;desc&quot;,
+         &quot;options&quot; : &quot;cp&quot;
+    },
+
+    // single - 任何一种认证可开门， card - 先刷卡后识别人脸再开门， face - 先识别人脸再刷卡开门， therm - 先识别人脸再测温开门
+    {
+        &quot;key&quot;:&quot;auth-mode&quot;,
+         &quot;value&quot;:&quot;single&quot;,
+         &quot;options&quot; : &quot;cp&quot;
+    },
+
+    // 仅定制版本支持
+    // 门禁常开常闭策略，比如指定时段门一直打开不关闭
+    {
+        &quot;key&quot;:&quot;open-mode&quot;,
+        &quot;value&quot;:&quot;siw879273ks&quot;,
+        &quot;options&quot; : &quot;wr&quot;
+    },
+
+    // 仅定制版本支持
+    // 门禁常闭策略，比如指定时段门一直关闭不打开
+    {
+        &quot;key&quot;:&quot;close-mode&quot;,
+        &quot;value&quot;:&quot;879273ksss&quot;,
+        &quot;options&quot; : &quot;wr&quot;
+    },
+
+    // 门卡类型, none - 无门禁卡支持， id - 仅读取卡原生ID匹配； en, - 加密卡（encryption）；as - 非对称加密卡（async，仅定制型号支持）
+    {
+        &quot;key&quot;:&quot;card-mode&quot;,
+        &quot;value&quot;:&quot;id&quot;,
+        &quot;options&quot;:&quot;cp&quot;
+    },
+
+    // 门卡读取密钥, 6 bytes值， base64编码
+    {
+        &quot;key&quot;:&quot;card-keya&quot;,
+        &quot;value&quot;:&quot;8279sj9&quot;,
+        &quot;options&quot;:&quot;cp&quot;
+    },
+
+    // 门卡写入密钥, 6 bytes值， base64编码
+    {
+        &quot;key&quot;:&quot;card-keyb&quot;,
+        &quot;value&quot;:&quot;8skskjj==&quot;,
+        &quot;options&quot;:&quot;cp&quot;
+    },
+
+   // 音量配置
+    {
+        &quot;key&quot;:&quot;volume&quot;,
+        &quot;value&quot;:&quot;100&quot;,
+        &quot;options&quot;:&quot;cp&quot;
+    },
+
+    // LCD屏亮度
+    {
+        &quot;key&quot;:&quot;lcd-light&quot;,
+        &quot;value&quot;:&quot;100&quot;,
+        &quot;options&quot;:&quot;cp&quot;
+    },
+
+    // 红外补光灯亮度
+    {
+        &quot;key&quot;:&quot;ir-light&quot;,
+        &quot;value&quot;:&quot;100&quot;,
+        &quot;options&quot;:&quot;cp&quot;
+    },
+
+    // 白光补光灯亮度
+    {
+        &quot;key&quot;:&quot;rgb-light&quot;,
+        &quot;value&quot;:&quot;100&quot;,
+        &quot;options&quot;:&quot;cp&quot;
+    },
+
+
+    // RS485动作发送数据，分为开、关两部分
+    {
+        &quot;key&quot;:&quot;rs485-start-data&quot;,
+        &quot;value&quot;:&quot;open-door-rs485-data&quot;,
+        &quot;options&quot; : &quot;cp&quot;,
+    },
+
+    {
+        &quot;key&quot;:&quot;rs485-close-data&quot;,
+        &quot;value&quot;:&quot;close-door-rs485-data&quot;,
+        &quot;options&quot; : &quot;cp&quot;,
+    }
+}
+
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../04-user/" class="btn btn-neutral float-right" title="用户管理">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../02-register/" class="btn btn-neutral" title="注册登陆"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../02-register/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../04-user/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

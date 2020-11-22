@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>设备管理 - BaShi Develop Docs</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "\u8bbe\u5907\u7ba1\u7406";
+    var mkdocs_page_input_path = "08-device.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> BaShi Develop Docs</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">首页</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../01-introduction/">系统简介</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../00-version/">版本信息</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../02-register/">注册登陆</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../03-configuration/">配置管理</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../04-user/">用户管理</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../05-visitor/">访客管理</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../06-event/">事件管理</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../07-rule/">规则管理</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">设备管理</a>
+    <ul class="current">
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../09-advt/">广告管理</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../10-card/">门卡管理</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../appendix/">附则</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">BaShi Develop Docs</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>设备管理</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="_1">设备管理</h1>
+<p>本地模式时：</p>
+<blockquote>
+<p>请求URL: http://dev-ip-addr:port:/api/device
+请求类型: POST
+HTTP头：token = , 使用登陆时返回的token
+请求消息体:JSON
+返回消息体:JSON, retcode = 0时正确， 非0时出错</p>
+</blockquote>
+<p>智云模式时：</p>
+<blockquote>
+<p>消息体、返回体相关，无http相关内容</p>
+</blockquote>
+<p>设备管理接口：
+0. 查询设备信息：</p>
+<ul>
+<li>请求</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;action&quot;:&quot;info&quot;,
+}
+</code></pre>
+<p>-响应</p>
+<pre><code class="language-json">{
+    &quot;retcode&quot;:0,
+    // 硬件信息
+
+    // 存储信息
+
+    // 网络信息
+    &quot;type&quot;:&quot;eth&quot;,
+    &quot;mode&quot;:&quot;static&quot;,
+    &quot;ipv4-address&quot;:&quot;192.168.20.10&quot;,
+    &quot;ipv4-mask&quot;:&quot;255.255.255.0&quot;,
+    &quot;ipv4-gateway&quot;:&quot;192.168.20.1&quot;,
+    &quot;ipv4-dns&quot;:&quot;114.114.114.114&quot;
+}
+</code></pre>
+<ol>
+<li>
+<p>设置时间：</p>
+</li>
+<li>
+<p>请求</p>
+</li>
+</ol>
+<pre><code class="language-json">{
+    &quot;action&quot;:&quot;time&quot;,
+    &quot;timezone&quot;:-480,
+    &quot;timestamp&quot;:161589233
+}
+</code></pre>
+<blockquote>
+<p>timezone : 时区；与格林尼治时间差的分钟数，负数为东区，正数为西区，如不填写，则使用出厂默认设备东8区
+timestamp ： 1970.1.1 开始的毫秒数；</p>
+</blockquote>
+<ul>
+<li>响应</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;retcode&quot;:0
+}
+</code></pre>
+<ol>
+<li>
+<p>设备重启</p>
+</li>
+<li>
+<p>请求</p>
+</li>
+</ol>
+<pre><code class="language-json">{
+    &quot;action&quot;:&quot;reboot&quot;
+}
+</code></pre>
+<ul>
+<li>响应</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;retcode&quot;:0
+}
+</code></pre>
+<ol>
+<li>
+<p>设备重置</p>
+</li>
+<li>
+<p>请求</p>
+</li>
+</ol>
+<pre><code class="language-json">{
+    &quot;action&quot;:&quot;reset&quot;
+}
+</code></pre>
+<blockquote>
+<p><strong>设备内的所有数据被清空，恢复到出厂状态，危险操作</strong></p>
+</blockquote>
+<ul>
+<li>响应</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;retcode&quot;:0
+}
+</code></pre>
+<ol>
+<li>
+<p>配置网络</p>
+</li>
+<li>
+<p>请求</p>
+</li>
+</ol>
+<pre><code class="language-json">{
+    &quot;action&quot;:&quot;netconfig&quot;,
+    &quot;type&quot;:&quot;wlan0&quot;,
+    &quot;mode&quot;:&quot;static&quot;,
+    &quot;ipv4-address&quot;:&quot;192.168.20.10&quot;,
+    &quot;ipv4-mask&quot;:&quot;255.255.255.0&quot;,
+    &quot;ipv4-gw&quot;:&quot;192.168.20.1&quot;,
+    &quot;ipv4-dns&quot;:&quot;114.114.114.114&quot;,
+    &quot;wifi-ssid&quot;:&quot;chinanet-18sasd29&quot;,
+    &quot;wifi-passwd&quot;: &quot;1234567890&quot;,
+    &quot;wifi-ap-ssid&quot;:&quot;bwa-9slsdk&quot;,
+    &quot;wifi-ap-passwd&quot;:&quot;1234567890&quot;,
+}
+</code></pre>
+<blockquote>
+<p>type: 应用的配置类似：eth0 - 以太网口， wlan0 - wifi配置IP配置，wifi 热点配置
+eth0, wlan0参数为：</p>
+<ol>
+<li>mode: staticip 静态网址；dynamic 动态网址; none 禁用网络；</li>
+<li>ipv4-address: 静态配置时， IPv4地址</li>
+<li>ipv4-mask: 静态配置时，网址掩码</li>
+<li>ipv4-gateway: 静态配置时，网关地址</li>
+<li>ipv4-dns: 静态配置时，dns服务器地址</li>
+</ol>
+<p>wifi 参数为：</p>
+<ol>
+<li>wifi-ssid : 待连接的WIFI 热点名</li>
+<li>wifi-passwd : 待连接的WIFI热点密码</li>
+<li>wifi-ap-ssid : 本机做为热点时WIFI名称</li>
+<li>wifi-ap-passwd : 本机做为热点时，WIFI密码</li>
+</ol>
+</blockquote>
+<ul>
+<li>响应</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;retcode&quot;:0
+}
+</code></pre>
+<ol>
+<li>
+<p>远程开门</p>
+</li>
+<li>
+<p>请求</p>
+</li>
+</ol>
+<pre><code class="language-json">{
+    &quot;action&quot;:&quot;opendoor&quot;,
+    &quot;userid&quot;:&quot;1avsoHu2EeqZmH943F8eUg==&quot;
+}
+</code></pre>
+<ul>
+<li>响应</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;retcode&quot;:0
+}
+</code></pre>
+<ol>
+<li>上传升级文件</li>
+</ol>
+<p><strong>上传文件，单次数据长度必须在256kB以内，其data数据在转base64前应以256kB长度切片</strong></p>
+<ul>
+<li>请求</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;action&quot;:&quot;upload&quot;,
+    &quot;type&quot;:&quot;upgrade&quot;,
+    &quot;filesize&quot;:32678,
+    &quot;filename&quot;:&quot;walos-v2.3.4.bin&quot;,
+    &quot;offset&quot;:4096,
+    &quot;size&quot;: 4096,
+    &quot;data&quot;:&quot;base64-encoded file data&quot;
+}
+</code></pre>
+<blockquote>
+<p>type : 上传数据的类型，升级文件
+filename : 升级文件名
+filesize : 文件总的长度
+offset : 当前数据片段起始位置
+size : 当前数据片段长度
+data : base64编码的数据</p>
+</blockquote>
+<ul>
+<li>响应</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;retcode&quot;:0
+}
+</code></pre>
+<ol>
+<li>
+<p>升级设备</p>
+</li>
+<li>
+<p>请求</p>
+</li>
+</ol>
+<pre><code class="language-json">{
+    &quot;action&quot;:&quot;upgrade&quot;,
+    &quot;filename&quot;:&quot;walos-v2.3.4.bin&quot;
+}
+</code></pre>
+<ul>
+<li>响应</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;retcode&quot;:0
+}
+</code></pre>
+<ol>
+<li>
+<p>传感器快照</p>
+</li>
+<li>
+<p>请求</p>
+</li>
+</ol>
+<pre><code class="language-json">{
+    &quot;action&quot;:&quot;snapshot&quot;
+}
+</code></pre>
+<blockquote>
+<p>获取设备摄像头的快照图片</p>
+</blockquote>
+<ul>
+<li>响应</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;retcode&quot;: 0,
+    &quot;timestamp&quot;: &quot;1587985190&quot;
+}
+</code></pre>
+<blockquote>
+<p>timestamp 为获取快照的时间戳，下载快照时需要此数据</p>
+</blockquote>
+<ol>
+<li>
+<p>下载快照文件</p>
+</li>
+<li>
+<p>请求</p>
+</li>
+</ol>
+<pre><code class="language-json">{
+    &quot;action&quot;:&quot;download&quot;,
+    &quot;type&quot;:&quot;snapshot&quot;,
+    &quot;chanel&quot;:0,
+    &quot;offset&quot;:0,
+    &quot;size&quot;: 32000,
+    &quot;timestamp&quot;:1584518255389
+}
+</code></pre>
+<blockquote>
+<p>timestamp : 生成快照时返回的时间戳
+chanel : 准备获取的摄像头通道</p>
+</blockquote>
+<ul>
+<li>响应</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;action&quot;:&quot;download&quot;,
+    &quot;type&quot;:&quot;snapshot&quot;,
+    &quot;filesize&quot;:32678,
+    &quot;filename&quot;:&quot;SNAP0-1584518255389.nv12&quot;,
+    &quot;offset&quot;:0,
+    &quot;size&quot;: 32000,
+    &quot;data&quot;:&quot;base64-encoded file data&quot;
+}
+</code></pre>
+<ol>
+<li>设置模式</li>
+</ol>
+<p>设备运行在不同模式时，表示不同的功能，主要有四种模式：</p>
+<ol>
+<li>门锁模式：平时设备不点亮屏显与补光灯，当触摸按键时，点亮屏显+补光灯，识别人脸后开门或者读取开锁二维码后开门；</li>
+<li>门禁模式：正常工作时进行人脸识别，识别后开门。识别期间可以通过按键进入访客二维码读码状态，读取访客码并开门。</li>
+<li>测温模式：分为腕温测温与额温测温，两种测温模块可选，对于识别部分可以是人脸识别开门或口罩提醒开门，但不建议同时进行。</li>
+<li>
+<p>广告模式：支持广告播放方案，开启后主界面将播放广告，右下角显示人脸视频；</p>
+</li>
+<li>
+<p>请求</p>
+</li>
+</ol>
+<pre><code class="language-json">{
+    &quot;action&quot;:&quot;mode&quot;,
+    &quot;type&quot;:&quot;lock&quot;,
+}
+</code></pre>
+<blockquote>
+<p>type : lock 门锁模式， acs 门禁模式， advt 广告模式，therm 测温模式,；</p>
+</blockquote>
+<ul>
+<li>响应</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;retcode&quot;:0
+}
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../09-advt/" class="btn btn-neutral float-right" title="广告管理">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../07-rule/" class="btn btn-neutral" title="规则管理"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../07-rule/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../09-advt/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

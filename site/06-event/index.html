@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>事件管理 - BaShi Develop Docs</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "\u4e8b\u4ef6\u7ba1\u7406";
+    var mkdocs_page_input_path = "06-event.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> BaShi Develop Docs</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">首页</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../01-introduction/">系统简介</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../00-version/">版本信息</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../02-register/">注册登陆</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../03-configuration/">配置管理</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../04-user/">用户管理</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../05-visitor/">访客管理</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">事件管理</a>
+    <ul class="current">
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../07-rule/">规则管理</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../08-device/">设备管理</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../09-advt/">广告管理</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../10-card/">门卡管理</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../appendix/">附则</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">BaShi Develop Docs</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>事件管理</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="_1">日志管理</h1>
+<p>本地模式时：</p>
+<blockquote>
+<p>请求URL: http://dev-ip-addr:port:/api/logr
+请求类型: POST
+HTTP头：token = , 使用登陆时返回的token
+请求消息体:JSON
+返回消息体:JSON, retcode = 0时正确， 非0时出错</p>
+</blockquote>
+<p>智云模式时：</p>
+<blockquote>
+<p>消息体、返回体相关，无HTTP相关内容</p>
+</blockquote>
+<ol>
+<li>
+<p>获取日志信息：</p>
+</li>
+<li>
+<p>请求</p>
+</li>
+</ol>
+<pre><code class="language-json">{
+    &quot;action&quot;:&quot;info&quot;
+}
+</code></pre>
+<ul>
+<li>响应</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;max&quot;: 9,
+    &quot;min&quot;: 1,
+    &quot;retcode&quot;: 0
+}
+</code></pre>
+<ol>
+<li>
+<p>获取日志数据：</p>
+</li>
+<li>
+<p>请求</p>
+</li>
+</ol>
+<pre><code class="language-json">{
+    &quot;action&quot;:&quot;fetch&quot;,
+    &quot;seqnum&quot;:6,
+    &quot;count&quot;:2
+}
+</code></pre>
+<blockquote>
+<p>seqnum : 起始日志序号；选填，默认最小日志序号
+count ： 获取条数；选填，默认10条</p>
+</blockquote>
+<ul>
+<li>响应</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;logger&quot;: [
+        {
+            &quot;face_h&quot;: 0,
+            &quot;face_w&quot;: 0,
+            &quot;face_x&quot;: 0,
+            &quot;face_y&quot;: 0,
+            &quot;score&quot;: 1,
+            &quot;seqnum&quot;: 6,
+            &quot;sharp&quot;: 0,
+            &quot;therm&quot;: 0,    
+            &quot;timestamp&quot;: 1587985190,
+            &quot;userid&quot;: &quot;TUID-876991&quot;
+        },
+        {
+            &quot;face_h&quot;: 0,
+            &quot;face_w&quot;: 0,
+            &quot;face_x&quot;: 0,
+            &quot;face_y&quot;: 0,
+            &quot;score&quot;: 1,
+            &quot;seqnum&quot;: 7,
+            &quot;sharp&quot;: 0,
+            &quot;therm&quot;: 0, 
+            &quot;timestamp&quot;: 1587983490,
+            &quot;userid&quot;: &quot;TUID-1039100&quot;
+        }
+    ],
+    &quot;retcode&quot;: 0
+}
+</code></pre>
+<ol>
+<li>
+<p>下载日志图片</p>
+</li>
+<li>
+<p>请求</p>
+</li>
+</ol>
+<pre><code class="language-json">{
+    &quot;action&quot;:&quot;download&quot;,
+    &quot;type&quot;:&quot;logr&quot;,
+    &quot;timestamp&quot;: 1587983490,
+    &quot;offset&quot;:0,
+    &quot;size&quot;: 32000
+}
+</code></pre>
+<blockquote>
+<p>timestamp : 日志生成的时间戳</p>
+</blockquote>
+<ul>
+<li>响应</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;action&quot;:&quot;download&quot;,
+    &quot;type&quot;:&quot;logr&quot;,
+    &quot;filesize&quot;:32678,
+    &quot;filename&quot;:&quot;1587983490.jpg&quot;,
+    &quot;offset&quot;:0,
+    &quot;size&quot;: 32000,
+    &quot;data&quot;:&quot;base64-encoded file data&quot;
+}
+</code></pre>
+<ol>
+<li>
+<p>日志通知</p>
+</li>
+<li>
+<p>云端模式时，在连接并认证后，发生事件，WalOS是直接通知云端，云端无需返回事件通知响应</p>
+</li>
+<li>
+<p>本地模式时，当配置了"manager-server-address","manager-server-port","manager-server-path",后，事件会通过HTTP请求POST方式请求URL：http://manager-server-address:manager-server-port/manager-server-path，消息体为JSON格式</p>
+</li>
+<li>
+<p>请求</p>
+</li>
+</ol>
+<pre><code class="language-json">{
+    &quot;device-id&quot;:&quot;device-id&quot;,    // 发出事件的设备ID
+    &quot;seqnum&quot;: 6,                // 当前事件的序号
+    &quot;type&quot;:&quot;logr&quot;,              // 事件的类型： logr - 人脸识别， card 刷卡， opendoor远程开门成功， door-open开门状态， door-close关门状态，visitor访客进入
+    &quot;timestamp&quot;:1587983490,     // 事件发生的时间戳，EPOCH时间*1000 + 毫秒数
+    &quot;sharp&quot;:0.983,  // 人脸清晰度，如果有，仅logr情况下有意义
+    &quot;score&quot;:0.834,  // 人脸识别的相似度，如果有，仅logr情况下有意义
+    &quot;therm&quot;:36.5,   // 体温值，如果有，仅logr情况下有意义
+    &quot;userid&quot;:&quot;USERID028SL0LSLS&quot;,    // 识别出的人脸ID，0000开头的为陌生人，仅logr情况下有意义
+    &quot;username&quot;:&quot;张三&quot;,  // 识别出的人名，部分版本/设备没有此项
+    &quot;data&quot;:base64(data) // 事件附件消息，如果有的话
+}
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../07-rule/" class="btn btn-neutral float-right" title="规则管理">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../05-visitor/" class="btn btn-neutral" title="访客管理"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../05-visitor/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../07-rule/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

@@ -1,17 +1,12 @@
-# Welcome to MkDocs
+# 首页
+欢迎访问杭州八识科技开发文档网站
+-------
+杭州八识科技开发文档主要为三类：
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+1. WalOS SDK开发文档，包括使用WalOS操作操作系统的全系列门禁机、访客机、考勤机等产品，使用者采用http协议访问设备，或配置设备采用http协议、websocket协议访问第三方平台；
 
-## Commands
+2. WalOS local SDK开发文档，该接口将允许用户的程序运行在全系列门禁机产品中，通过工具打包到产品的firmware包中，并推送升级或刷机到硬件设备中，此部分文档仅对部分合作伙伴开放；
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+3. 八识智云平台开发文档，第三方平台直接访问八识云平台，并通过云平台方向八识硬件设备或业务系统。
 
-## Project layout
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.

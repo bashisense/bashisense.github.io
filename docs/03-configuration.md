@@ -11,7 +11,7 @@
 >请求类型: POST
 >HTTP头：token = , 使用登陆时返回的token
 
-其它模式时：
+终端模式时：
 >请求类型: POST
 >object = "config"
 >HTTP头：token = , 使用登陆时返回的token

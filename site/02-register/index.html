@@ -66,7 +66,7 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#_3">独立模式登陆</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_4">其它模式登陆</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_4">终端模式登陆</a>
     </li>
     </ul>
                     </li>
@@ -141,7 +141,7 @@
               
                 <h1 id="_1">注册登陆</h1>
 <hr />
-<h2 id="_2">获取设备地址</h2>
+<h4 id="_2">获取设备地址</h4>
 <p>向同网段的6543端口发送广播报文：</p>
 <pre><code class="language-json">{
     &quot;action&quot;:&quot;scan&quot;
@@ -158,7 +158,7 @@
 <blockquote>
 <p>此时便可以获取到目标设备的ID与协议版本信息；</p>
 </blockquote>
-<h2 id="_3">独立模式登陆</h2>
+<h4 id="_3">独立模式登陆</h4>
 <p>设备配置成独立模式或另外几种模式时，设备均会启动WebAPI server，提供基于Http的API接口，此时对于接放的访问需要进行认证。</p>
 <blockquote>
 <p>请求URL: http://dev-ip-addr:port/api/auth
@@ -220,9 +220,9 @@
 }
 </code></pre>
 <ol>
-<li>修改其它模式的登入帐户密码</li>
+<li>修改终端模式的登入帐户密码</li>
 </ol>
-<p>其它模式时，设备需要登陆第三方平台，帐号可以通过配置软件配置，也可以通过API软件添加</p>
+<p>终端模式时，设备需要登陆第三方平台，帐号可以通过配置软件配置，也可以通过API软件添加</p>
 <ul>
 <li>请求：</li>
 </ul>
@@ -242,7 +242,7 @@
     &quot;retcode&quot;:0
 }
 </code></pre>
-<h2 id="_4">其它模式登陆</h2>
+<h2 id="_4">终端模式登陆</h2>
 <ul>
 <li>请求：</li>
 </ul>
@@ -266,7 +266,7 @@
 <li>响应：</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;token&quot;:&quot;823lsefhw03slej&quot;,              // 其它模式的http请求时，会在header中添加  Token字段，携带此值
+    &quot;token&quot;:&quot;823lsefhw03slej&quot;,              // 终端模式的http请求时，会在header中添加  Token字段，携带此值
     &quot;timestamp&quot;:1560392020,
     &quot;reqid&quot;:192839,         // 透传值，设备内唯一
     &quot;retcode&quot;:0

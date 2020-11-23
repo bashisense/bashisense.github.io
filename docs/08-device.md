@@ -12,7 +12,7 @@
 >请求URL: http://dev-ip-addr:port:/api/device
 >HTTP头：token = , 使用登陆时返回的token
 
-其它模式时：
+终端模式时：
 >请求类型: POST
 >object = "user"
 >HTTP头：token = , 使用登陆时返回的token

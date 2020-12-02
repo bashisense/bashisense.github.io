@@ -23,8 +23,7 @@
 
 ```json
 {
-    "object":"config",
-    "action": "list",
+    "action": "config-list",
     "reqid":192839         // 透传值，设备内唯一
 }
 ```
@@ -64,8 +63,7 @@
 
 ```json
 {
-    "object":"config",
-    "action": "get",
+    "action": "config-get",
     "reqid":192839,         // 透传值，设备内唯一
     "params": [
         "relay-mode",
@@ -103,8 +101,7 @@
 
 ```json
 {
-    "object":"config",
-    "action": "set",
+    "action": "config-set",
     "reqid":192839,         // 透传值，设备内唯一
     "params": [
         {
@@ -142,7 +139,7 @@
 
 ####  配置说明
 
-以下为可配置数据
+以下为可配置数据与说明，实际使用时，同一类型的配置项最好一次下发，部分配置重启才能生效。对于多数场景，使用系统默认配置即可。
 
 ```json
 {
@@ -190,10 +187,10 @@
 
     {
         "key":"lang-mode",
-         "value":"cn",
-         "class":"interactive",
-         "desc" : "语言配置，使用的文字、语音语言",
-         "options" : "cp"
+        "value":"cn",
+        "class":"interactive",
+        "desc" : "语言配置，使用的文字、语音语言",
+        "options" : "cp"
     },
 
     {

@@ -25,8 +25,7 @@
 
 ```json
 {
-    "object":"device",
-    "action":"info",
+    "action":"device-info",
     "reqid":1839292
 }
 ```
@@ -49,8 +48,7 @@
 
 ```json
 {
-    "object":"device",
-    "action":"time",
+    "action":"device-time",
     "reqid":1839292,
     "timezone":-480,
     "timestamp":161589233
@@ -75,8 +73,7 @@
 
 ```json
 {
-    "object":"device",
-    "action":"reboot",
+    "action":"device-reboot",
     "reqid":1839292,
 }
 ```
@@ -97,9 +94,8 @@
 
 ```json
 {
-    "object":"device",
     "reqid":1839292,
-    "action":"reset"
+    "action":"device-reset"
 }
 ```
 
@@ -120,9 +116,8 @@
 
 ```json
 {
-    "object":"device",
     "reqid":1839292,
-    "action":"netconfig",
+    "action":"device-netconfig",
 
     "type":"eth0",
     "mode":"static",
@@ -165,9 +160,8 @@
 
 ```json
 {
-    "object":"device",
     "reqid":1839292,
-    "action":"opendoor",
+    "action":"device-opendoor",
     "userid":"1avsoHu2EeqZmH943F8eUg=="
 }
 ```
@@ -189,9 +183,8 @@
 
 ```json
 {
-    "object":"device",
     "reqid":1839292,
-    "action":"upload",
+    "action":"device-upload",
     "type":"upgrade",
     "filesize":32678,
     "filename":"walos-v2.3.4.bin",
@@ -223,9 +216,8 @@
 
 ```json
 {
-    "object":"device",
     "reqid":1839292,
-    "action":"upgrade",
+    "action":"device-upgrade",
     "filename":"walos-v2.3.4.bin"
 }
 ```
@@ -245,9 +237,8 @@
 
 ```json
 {
-    "object":"device",
     "reqid":1839292,
-    "action":"snapshot"
+    "action":"device-snapshot"
 }
 ```
 
@@ -271,9 +262,8 @@
 
 ```json
 {
-    "object":"device",
     "reqid":1839292,
-    "action":"download",
+    "action":"device-download",
     "type":"snapshot",
     "chanel":0,
     "offset":0,
@@ -290,7 +280,7 @@
 ```json
 {
     "reqid":1839292,
-    "action":"download",
+    "action":"device-download",
     "type":"snapshot",
     "filesize":32678,
     "filename":"SNAP0-1584518255389.nv12",
@@ -313,9 +303,8 @@
 
 ```json 
 {
-    "object":"device",
     "reqid":1839292,
-    "action":"mode",
+    "action":"device-mode",
     "type":"lock",
 }
 ```

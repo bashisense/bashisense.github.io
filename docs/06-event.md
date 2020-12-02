@@ -41,8 +41,7 @@
 
 ```json
 {
-    "object":"event",
-    "action":"info",
+    "action":"event-info",
     "reqid":82929,
 }
 ```
@@ -64,8 +63,7 @@
 
 ```json
 {
-    "object":"event",
-    "action":"fetch",
+    "action":"event-fetch",
     "reqid":82929,
     "seqnum":6,
     "count":2
@@ -108,8 +106,7 @@
 
 ```json
 {
-    "object":"event",
-    "action":"download",
+    "action":"event-download",
     "reqid":82929,
     "type":"logr",
     "timestamp": 1587983490,
@@ -140,7 +137,6 @@
 
 ```json
 {
-    "object":"event",
     "action":"event",
 
     "device-id":"device-id",    // 发出事件的设备ID

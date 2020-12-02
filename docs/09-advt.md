@@ -28,9 +28,8 @@
 
 ```json
 {
-    "object":"advt",
     "reqid":19292,
-    "action":"add",
+    "action":"advt-add",
 
     "id":"9ssosxlsiw",
     "effect":1929292,
@@ -61,9 +60,8 @@
 
 ```json
 {
-    "object":"advt",
     "reqid":19292,
-    "action":"del",
+    "action":"advt-del",
     "id":"9ssosxlsiw"
 }
 ```
@@ -83,9 +81,8 @@
 
 ```json
 {
-    "object":"advt",
     "reqid":19292,
-    "action":"list",
+    "action":"advt-list",
 }
 ```
 

@@ -39,7 +39,6 @@
 
 ```json
 {
-    "object":"auth",
     "action":"auth",
     "reqid":192839,         // 透传值，设备内唯一
     "user":"admin",
@@ -66,7 +65,6 @@
 
 ```json
 {
-    "object":"auth",
     "action":"passwd",
     "reqid":192839,         // 透传值，设备内唯一
     "user":"admin",
@@ -91,7 +89,6 @@
 
 ```json
 {
-    "object":"auth",
     "action":"passwd",
     "reqid":192839,         // 透传值，设备内唯一
     "user":"walos",
@@ -115,15 +112,10 @@
 
 ```json
 {
-    "object":"auth",
     "action":"auth",
     "reqid":192839,         // 透传值，设备内唯一
     "user":"walos",
     "passwd":"walos-passwd",
-    "device-id":"device-id",
-    "walos-version" : "v2.1.0",             // WalOS 操作系统版本号
-    "algm-version"  : "v1.1.0",             // 算法版本号
-    "hardware-version" : "v1.2.0",          // 硬件载体版本号
 }
 ```
 
@@ -134,8 +126,6 @@
 
 ```json
 {
-    "token":"823lsefhw03slej",              // 终端模式的http请求时，会在header中添加  Token字段，携带此值
-    "timestamp":1560392020,
     "reqid":192839,         // 透传值，设备内唯一
     "retcode":0
 }

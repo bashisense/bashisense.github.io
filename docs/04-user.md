@@ -44,8 +44,7 @@
 
 ```json
 {
-    "object":"user",
-    "action": "list",
+    "action": "user-list",
     "reqid":129393,
     "offset": 1,
     "limit": 2
@@ -96,8 +95,7 @@
 
 ```json
 {
-    "object":"user",
-    "action": "add",
+    "action": "user-add",
     "reqid":129393,
     "params": [
         {
@@ -106,7 +104,8 @@
             "desc": "研发部",
             "others": "17763548853",
             "rule": "Iksiwim",
-            "expire": "2019-12-09 14:52:04",
+            "effect": 1609519996,
+            "expire":1619519996,
             "feature": "..."
         },
         {
@@ -115,7 +114,8 @@
             "desc": "国际贸易部",
             "others": "18563548853",
             "rule": "Iksiwim",
-            "expire": "2019-12-09 14:52:04",
+            "effect": 1609519996,
+            "expire": 1619519996,
             "feature": "..."
         }
     ]
@@ -147,8 +147,7 @@
 
 ```json
 {
-    "object":"user",
-    "action": "del",
+    "action": "user-del",
     "reqid":129393,
     "params": [
         {
@@ -188,8 +187,7 @@
 
 ```json
 {
-    "object":"user",
-    "action": "update",
+    "action": "user-update",
     "reqid":129393,
     "params": [
         {
@@ -198,7 +196,8 @@
             "desc": "销售部",
             "others": "13663548853",
             "rule": "Iksiwim",
-            "expire": "2019-12-09 14:52:04",
+            "effect": 1609519996,
+            "expire":1619519996,
             "feature": "..."
         },
         {
@@ -207,7 +206,8 @@
             "desc": "国际贸易部",
             "others": "13663548853",
             "rule": "Iksiwim",
-            "expire": "2019-12-09 14:52:04",
+            "effect": 1609519996,
+            "expire":1619519996,
             "feature": "..."
         }
     ]
@@ -222,7 +222,8 @@
         {
             "create_datetime": "2020-04-27 18:39:56",
             "desc": "销售部",
-            "expired": 1619519996,
+            "effect": 1609519996,
+            "expire":1619519996,
             "modify_datetime": "2020-04-27 18:39:56",
             "name": "李四.张三",
             "others": "13663548853",
@@ -234,7 +235,8 @@
         {
             "create_datetime": "2020-04-27 18:39:56",
             "desc": "国际贸易部",
-            "expired": 1619519996,
+            "effect": 1609519996,
+            "expire":1619519996,
             "modify_datetime": "2020-04-27 18:39:56",
             "name": "张三.李四",
             "others": "13663548853",
@@ -255,8 +257,7 @@
 
 ```json
 {
-    "object":"user",
-    "action": "info",
+    "action": "user-info",
     "reqid":129393,
     "params": [
         {
@@ -278,7 +279,8 @@
         {
             "create_datetime": "2020-04-27 18:39:56",
             "desc": "销售部",
-            "expired": 1619519996,
+            "expire": 1619519996,
+            "effect": 1609519996,
             "modify_datetime": "2020-04-27 18:39:56",
             "name": "李四.张三",
             "others": "13663548853",
@@ -290,7 +292,8 @@
         {
             "create_datetime": "2020-04-27 18:39:56",
             "desc": "国际贸易部",
-            "expired": 1619519996,
+            "effect": 1609519996,
+            "expire":1619519996,
             "modify_datetime": "2020-04-27 18:39:56",
             "name": "张三.李四",
             "others": "13663548853",
@@ -313,8 +316,7 @@
 
 ```json
 {
-    "object":"user",
-    "action":"upload",
+    "action":"user-upload",
     "reqid":129393,
 
     "filesize":32678,
@@ -348,8 +350,7 @@
 
 ```json
 {
-    "object":"user",
-    "action": "gen",
+    "action": "user-gen",
     "reqid":129393,
     "params": [
         {
@@ -387,8 +388,7 @@
 
 ```json
 {
-    "object":"user",
-    "action":"download",
+    "action":"user-download",
     "reqid":129393,
     "filename":"1aw6wHu2EeqZmH943F8eUg==.nv12",
     "offset":0,

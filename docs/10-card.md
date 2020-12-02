@@ -26,9 +26,8 @@
 
 ```json
 {
-    "object":"card",
     "reqid":92929,
-    "action":"add",
+    "action":"card-add",
     "id":"EeqZmH943F8",
     "userid": "1avsoHu2EeqZmH943F8eUg==",
     "rule": "Iksiwim",
@@ -60,9 +59,8 @@
 
 ```json
 {
-    "object":"card",
     "reqid":92929,
-    "action":"del",
+    "action":"card-del",
     "id":"EeqZmH943F8"
 }
 ```
@@ -82,9 +80,8 @@
 
 ```json
 {
-    "object":"card",
     "reqid":92929,
-    "action":"list",
+    "action":"card-list",
     "offset": 18,
     "limit":2
 }

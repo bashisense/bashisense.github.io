@@ -37,8 +37,7 @@
 
 ```json
 {
-    "object":"visitor",
-    "action": "add",
+    "action": "visitor-add",
     "reqid":129393,
     "params": [
         {
@@ -76,8 +75,7 @@
 
 ```json
 {
-    "object":"visitor",
-    "action": "del",
+    "action": "visitor-del",
     "reqid":129393,
     "params": [
         {

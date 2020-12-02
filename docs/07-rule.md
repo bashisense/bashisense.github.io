@@ -47,8 +47,7 @@
 
 ```json
 {
-    "object":"rule",
-    "action":"add",
+    "action":"rule-add",
     "reqid":298299,
     "id":"EeqZmH943F8",
     "rules" : [
@@ -82,8 +81,7 @@
 
 ```json
 {
-    "object":"rule",
-    "action":"del",
+    "action":"rule-del",
     "reqid":298299,
     "id":"EeqZmH943F8",
 }
@@ -104,8 +102,7 @@
 
 ```json
 {
-    "object":"rule",
-    "action":"update",
+    "action":"rule-update",
     "reqid":298299,
 
     "id":"EeqZmH943F8",
@@ -141,8 +138,7 @@
 
 ```json
 {
-    "object":"rule",
-    "action":"list",
+    "action":"rule-list",
     "reqid":298299,
     "offset": 0,
     "limit":10

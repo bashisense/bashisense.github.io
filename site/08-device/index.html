@@ -183,8 +183,7 @@ HTTP头：token = , 使用登陆时返回的token
 <li>请求</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;object&quot;:&quot;device&quot;,
-    &quot;action&quot;:&quot;info&quot;,
+    &quot;action&quot;:&quot;device-info&quot;,
     &quot;reqid&quot;:1839292
 }
 </code></pre>
@@ -202,8 +201,7 @@ HTTP头：token = , 使用登陆时返回的token
 <li>请求</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;object&quot;:&quot;device&quot;,
-    &quot;action&quot;:&quot;time&quot;,
+    &quot;action&quot;:&quot;device-time&quot;,
     &quot;reqid&quot;:1839292,
     &quot;timezone&quot;:-480,
     &quot;timestamp&quot;:161589233
@@ -226,8 +224,7 @@ timestamp ： 1970.1.1 开始的毫秒数；</p>
 <li>请求</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;object&quot;:&quot;device&quot;,
-    &quot;action&quot;:&quot;reboot&quot;,
+    &quot;action&quot;:&quot;device-reboot&quot;,
     &quot;reqid&quot;:1839292,
 }
 </code></pre>
@@ -244,9 +241,8 @@ timestamp ： 1970.1.1 开始的毫秒数；</p>
 <li>请求</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;object&quot;:&quot;device&quot;,
     &quot;reqid&quot;:1839292,
-    &quot;action&quot;:&quot;reset&quot;
+    &quot;action&quot;:&quot;device-reset&quot;
 }
 </code></pre>
 <blockquote>
@@ -265,9 +261,8 @@ timestamp ： 1970.1.1 开始的毫秒数；</p>
 <li>请求</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;object&quot;:&quot;device&quot;,
     &quot;reqid&quot;:1839292,
-    &quot;action&quot;:&quot;netconfig&quot;,
+    &quot;action&quot;:&quot;device-netconfig&quot;,
 
     &quot;type&quot;:&quot;eth0&quot;,
     &quot;mode&quot;:&quot;static&quot;,
@@ -308,9 +303,8 @@ eth0, wlan0参数为：</p>
 <li>请求</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;object&quot;:&quot;device&quot;,
     &quot;reqid&quot;:1839292,
-    &quot;action&quot;:&quot;opendoor&quot;,
+    &quot;action&quot;:&quot;device-opendoor&quot;,
     &quot;userid&quot;:&quot;1avsoHu2EeqZmH943F8eUg==&quot;
 }
 </code></pre>
@@ -328,9 +322,8 @@ eth0, wlan0参数为：</p>
 <li>请求</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;object&quot;:&quot;device&quot;,
     &quot;reqid&quot;:1839292,
-    &quot;action&quot;:&quot;upload&quot;,
+    &quot;action&quot;:&quot;device-upload&quot;,
     &quot;type&quot;:&quot;upgrade&quot;,
     &quot;filesize&quot;:32678,
     &quot;filename&quot;:&quot;walos-v2.3.4.bin&quot;,
@@ -360,9 +353,8 @@ data : base64编码的数据</p>
 <li>请求</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;object&quot;:&quot;device&quot;,
     &quot;reqid&quot;:1839292,
-    &quot;action&quot;:&quot;upgrade&quot;,
+    &quot;action&quot;:&quot;device-upgrade&quot;,
     &quot;filename&quot;:&quot;walos-v2.3.4.bin&quot;
 }
 </code></pre>
@@ -379,9 +371,8 @@ data : base64编码的数据</p>
 <li>请求</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;object&quot;:&quot;device&quot;,
     &quot;reqid&quot;:1839292,
-    &quot;action&quot;:&quot;snapshot&quot;
+    &quot;action&quot;:&quot;device-snapshot&quot;
 }
 </code></pre>
 <blockquote>
@@ -404,9 +395,8 @@ data : base64编码的数据</p>
 <li>请求</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;object&quot;:&quot;device&quot;,
     &quot;reqid&quot;:1839292,
-    &quot;action&quot;:&quot;download&quot;,
+    &quot;action&quot;:&quot;device-download&quot;,
     &quot;type&quot;:&quot;snapshot&quot;,
     &quot;chanel&quot;:0,
     &quot;offset&quot;:0,
@@ -423,7 +413,7 @@ chanel : 准备获取的摄像头通道</p>
 </ul>
 <pre><code class="language-json">{
     &quot;reqid&quot;:1839292,
-    &quot;action&quot;:&quot;download&quot;,
+    &quot;action&quot;:&quot;device-download&quot;,
     &quot;type&quot;:&quot;snapshot&quot;,
     &quot;filesize&quot;:32678,
     &quot;filename&quot;:&quot;SNAP0-1584518255389.nv12&quot;,
@@ -445,9 +435,8 @@ chanel : 准备获取的摄像头通道</p>
 </li>
 </ol>
 <pre><code class="language-json">{
-    &quot;object&quot;:&quot;device&quot;,
     &quot;reqid&quot;:1839292,
-    &quot;action&quot;:&quot;mode&quot;,
+    &quot;action&quot;:&quot;device-mode&quot;,
     &quot;type&quot;:&quot;lock&quot;,
 }
 </code></pre>

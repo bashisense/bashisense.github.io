@@ -194,8 +194,7 @@ HTTP头：token = , 使用登陆时返回的token
 <li>请求</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;object&quot;:&quot;user&quot;,
-    &quot;action&quot;: &quot;list&quot;,
+    &quot;action&quot;: &quot;user-list&quot;,
     &quot;reqid&quot;:129393,
     &quot;offset&quot;: 1,
     &quot;limit&quot;: 2
@@ -243,8 +242,7 @@ limit : 本次列表的数量;</p>
 <li>请求</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;object&quot;:&quot;user&quot;,
-    &quot;action&quot;: &quot;add&quot;,
+    &quot;action&quot;: &quot;user-add&quot;,
     &quot;reqid&quot;:129393,
     &quot;params&quot;: [
         {
@@ -253,7 +251,8 @@ limit : 本次列表的数量;</p>
             &quot;desc&quot;: &quot;研发部&quot;,
             &quot;others&quot;: &quot;17763548853&quot;,
             &quot;rule&quot;: &quot;Iksiwim&quot;,
-            &quot;expire&quot;: &quot;2019-12-09 14:52:04&quot;,
+            &quot;effect&quot;: 1609519996,
+            &quot;expire&quot;:1619519996,
             &quot;feature&quot;: &quot;...&quot;
         },
         {
@@ -262,7 +261,8 @@ limit : 本次列表的数量;</p>
             &quot;desc&quot;: &quot;国际贸易部&quot;,
             &quot;others&quot;: &quot;18563548853&quot;,
             &quot;rule&quot;: &quot;Iksiwim&quot;,
-            &quot;expire&quot;: &quot;2019-12-09 14:52:04&quot;,
+            &quot;effect&quot;: 1609519996,
+            &quot;expire&quot;: 1619519996,
             &quot;feature&quot;: &quot;...&quot;
         }
     ]
@@ -291,8 +291,7 @@ limit : 本次列表的数量;</p>
 <li>请求</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;object&quot;:&quot;user&quot;,
-    &quot;action&quot;: &quot;del&quot;,
+    &quot;action&quot;: &quot;user-del&quot;,
     &quot;reqid&quot;:129393,
     &quot;params&quot;: [
         {
@@ -330,8 +329,7 @@ limit : 本次列表的数量;</p>
 <li>请求</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;object&quot;:&quot;user&quot;,
-    &quot;action&quot;: &quot;update&quot;,
+    &quot;action&quot;: &quot;user-update&quot;,
     &quot;reqid&quot;:129393,
     &quot;params&quot;: [
         {
@@ -340,7 +338,8 @@ limit : 本次列表的数量;</p>
             &quot;desc&quot;: &quot;销售部&quot;,
             &quot;others&quot;: &quot;13663548853&quot;,
             &quot;rule&quot;: &quot;Iksiwim&quot;,
-            &quot;expire&quot;: &quot;2019-12-09 14:52:04&quot;,
+            &quot;effect&quot;: 1609519996,
+            &quot;expire&quot;:1619519996,
             &quot;feature&quot;: &quot;...&quot;
         },
         {
@@ -349,7 +348,8 @@ limit : 本次列表的数量;</p>
             &quot;desc&quot;: &quot;国际贸易部&quot;,
             &quot;others&quot;: &quot;13663548853&quot;,
             &quot;rule&quot;: &quot;Iksiwim&quot;,
-            &quot;expire&quot;: &quot;2019-12-09 14:52:04&quot;,
+            &quot;effect&quot;: 1609519996,
+            &quot;expire&quot;:1619519996,
             &quot;feature&quot;: &quot;...&quot;
         }
     ]
@@ -363,7 +363,8 @@ limit : 本次列表的数量;</p>
         {
             &quot;create_datetime&quot;: &quot;2020-04-27 18:39:56&quot;,
             &quot;desc&quot;: &quot;销售部&quot;,
-            &quot;expired&quot;: 1619519996,
+            &quot;effect&quot;: 1609519996,
+            &quot;expire&quot;:1619519996,
             &quot;modify_datetime&quot;: &quot;2020-04-27 18:39:56&quot;,
             &quot;name&quot;: &quot;李四.张三&quot;,
             &quot;others&quot;: &quot;13663548853&quot;,
@@ -375,7 +376,8 @@ limit : 本次列表的数量;</p>
         {
             &quot;create_datetime&quot;: &quot;2020-04-27 18:39:56&quot;,
             &quot;desc&quot;: &quot;国际贸易部&quot;,
-            &quot;expired&quot;: 1619519996,
+            &quot;effect&quot;: 1609519996,
+            &quot;expire&quot;:1619519996,
             &quot;modify_datetime&quot;: &quot;2020-04-27 18:39:56&quot;,
             &quot;name&quot;: &quot;张三.李四&quot;,
             &quot;others&quot;: &quot;13663548853&quot;,
@@ -394,8 +396,7 @@ limit : 本次列表的数量;</p>
 <li>请求</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;object&quot;:&quot;user&quot;,
-    &quot;action&quot;: &quot;info&quot;,
+    &quot;action&quot;: &quot;user-info&quot;,
     &quot;reqid&quot;:129393,
     &quot;params&quot;: [
         {
@@ -416,7 +417,8 @@ limit : 本次列表的数量;</p>
         {
             &quot;create_datetime&quot;: &quot;2020-04-27 18:39:56&quot;,
             &quot;desc&quot;: &quot;销售部&quot;,
-            &quot;expired&quot;: 1619519996,
+            &quot;expire&quot;: 1619519996,
+            &quot;effect&quot;: 1609519996,
             &quot;modify_datetime&quot;: &quot;2020-04-27 18:39:56&quot;,
             &quot;name&quot;: &quot;李四.张三&quot;,
             &quot;others&quot;: &quot;13663548853&quot;,
@@ -428,7 +430,8 @@ limit : 本次列表的数量;</p>
         {
             &quot;create_datetime&quot;: &quot;2020-04-27 18:39:56&quot;,
             &quot;desc&quot;: &quot;国际贸易部&quot;,
-            &quot;expired&quot;: 1619519996,
+            &quot;effect&quot;: 1609519996,
+            &quot;expire&quot;:1619519996,
             &quot;modify_datetime&quot;: &quot;2020-04-27 18:39:56&quot;,
             &quot;name&quot;: &quot;张三.李四&quot;,
             &quot;others&quot;: &quot;13663548853&quot;,
@@ -448,8 +451,7 @@ limit : 本次列表的数量;</p>
 <li>请求</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;object&quot;:&quot;user&quot;,
-    &quot;action&quot;:&quot;upload&quot;,
+    &quot;action&quot;:&quot;user-upload&quot;,
     &quot;reqid&quot;:129393,
 
     &quot;filesize&quot;:32678,
@@ -480,8 +482,7 @@ data : base64编码的数据</p>
 <li>请求</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;object&quot;:&quot;user&quot;,
-    &quot;action&quot;: &quot;gen&quot;,
+    &quot;action&quot;: &quot;user-gen&quot;,
     &quot;reqid&quot;:129393,
     &quot;params&quot;: [
         {
@@ -516,8 +517,7 @@ data : base64编码的数据</p>
 <li>请求</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;object&quot;:&quot;user&quot;,
-    &quot;action&quot;:&quot;download&quot;,
+    &quot;action&quot;:&quot;user-download&quot;,
     &quot;reqid&quot;:129393,
     &quot;filename&quot;:&quot;1aw6wHu2EeqZmH943F8eUg==.nv12&quot;,
     &quot;offset&quot;:0,

@@ -185,8 +185,7 @@ HTTP头：token = , 使用登陆时返回的token
 
 ```json
 {
-    &quot;object&quot;:&quot;event&quot;,
-    &quot;action&quot;:&quot;info&quot;,
+    &quot;action&quot;:&quot;event-info&quot;,
     &quot;reqid&quot;:82929,
 }
 </code></pre>
@@ -205,8 +204,7 @@ HTTP头：token = , 使用登陆时返回的token
 <li>请求</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;object&quot;:&quot;event&quot;,
-    &quot;action&quot;:&quot;fetch&quot;,
+    &quot;action&quot;:&quot;event-fetch&quot;,
     &quot;reqid&quot;:82929,
     &quot;seqnum&quot;:6,
     &quot;count&quot;:2
@@ -247,8 +245,7 @@ count ： 获取条数；选填，默认10条</p>
 <li>请求</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;object&quot;:&quot;event&quot;,
-    &quot;action&quot;:&quot;download&quot;,
+    &quot;action&quot;:&quot;event-download&quot;,
     &quot;reqid&quot;:82929,
     &quot;type&quot;:&quot;logr&quot;,
     &quot;timestamp&quot;: 1587983490,
@@ -277,7 +274,6 @@ count ： 获取条数；选填，默认10条</p>
 <li>请求</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;object&quot;:&quot;event&quot;,
     &quot;action&quot;:&quot;event&quot;,
 
     &quot;device-id&quot;:&quot;device-id&quot;,    // 发出事件的设备ID

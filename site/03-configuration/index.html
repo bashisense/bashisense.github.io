@@ -170,8 +170,7 @@ HTTP头：token = , 使用登陆时返回的token
 <li>请求</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;object&quot;:&quot;config&quot;,
-    &quot;action&quot;: &quot;list&quot;,
+    &quot;action&quot;: &quot;config-list&quot;,
     &quot;reqid&quot;:192839         // 透传值，设备内唯一
 }
 </code></pre>
@@ -209,8 +208,7 @@ HTTP头：token = , 使用登陆时返回的token
 <li>请求</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;object&quot;:&quot;config&quot;,
-    &quot;action&quot;: &quot;get&quot;,
+    &quot;action&quot;: &quot;config-get&quot;,
     &quot;reqid&quot;:192839,         // 透传值，设备内唯一
     &quot;params&quot;: [
         &quot;relay-mode&quot;,
@@ -246,8 +244,7 @@ HTTP头：token = , 使用登陆时返回的token
 <li>请求</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;object&quot;:&quot;config&quot;,
-    &quot;action&quot;: &quot;set&quot;,
+    &quot;action&quot;: &quot;config-set&quot;,
     &quot;reqid&quot;:192839,         // 透传值，设备内唯一
     &quot;params&quot;: [
         {
@@ -282,7 +279,7 @@ HTTP头：token = , 使用登陆时返回的token
 }
 </code></pre>
 <h4 id="_6">配置说明</h4>
-<p>以下为可配置数据</p>
+<p>以下为可配置数据与说明，实际使用时，同一类型的配置项最好一次下发，部分配置重启才能生效。对于多数场景，使用系统默认配置即可。</p>
 <pre><code class="language-json">{
     &quot;items&quot;:[
 
@@ -328,10 +325,10 @@ HTTP头：token = , 使用登陆时返回的token
 
     {
         &quot;key&quot;:&quot;lang-mode&quot;,
-         &quot;value&quot;:&quot;cn&quot;,
-         &quot;class&quot;:&quot;interactive&quot;,
-         &quot;desc&quot; : &quot;语言配置，使用的文字、语音语言&quot;,
-         &quot;options&quot; : &quot;cp&quot;
+        &quot;value&quot;:&quot;cn&quot;,
+        &quot;class&quot;:&quot;interactive&quot;,
+        &quot;desc&quot; : &quot;语言配置，使用的文字、语音语言&quot;,
+        &quot;options&quot; : &quot;cp&quot;
     },
 
     {

@@ -175,7 +175,6 @@
 </li>
 </ol>
 <pre><code class="language-json">{
-    &quot;object&quot;:&quot;auth&quot;,
     &quot;action&quot;:&quot;auth&quot;,
     &quot;reqid&quot;:192839,         // 透传值，设备内唯一
     &quot;user&quot;:&quot;admin&quot;,
@@ -204,7 +203,6 @@
 </li>
 </ol>
 <pre><code class="language-json">{
-    &quot;object&quot;:&quot;auth&quot;,
     &quot;action&quot;:&quot;passwd&quot;,
     &quot;reqid&quot;:192839,         // 透传值，设备内唯一
     &quot;user&quot;:&quot;admin&quot;,
@@ -227,7 +225,6 @@
 <li>请求：</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;object&quot;:&quot;auth&quot;,
     &quot;action&quot;:&quot;passwd&quot;,
     &quot;reqid&quot;:192839,         // 透传值，设备内唯一
     &quot;user&quot;:&quot;walos&quot;,
@@ -247,15 +244,10 @@
 <li>请求：</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;object&quot;:&quot;auth&quot;,
     &quot;action&quot;:&quot;auth&quot;,
     &quot;reqid&quot;:192839,         // 透传值，设备内唯一
     &quot;user&quot;:&quot;walos&quot;,
     &quot;passwd&quot;:&quot;walos-passwd&quot;,
-    &quot;device-id&quot;:&quot;device-id&quot;,
-    &quot;walos-version&quot; : &quot;v2.1.0&quot;,             // WalOS 操作系统版本号
-    &quot;algm-version&quot;  : &quot;v1.1.0&quot;,             // 算法版本号
-    &quot;hardware-version&quot; : &quot;v1.2.0&quot;,          // 硬件载体版本号
 }
 </code></pre>
 <blockquote>
@@ -266,8 +258,6 @@
 <li>响应：</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;token&quot;:&quot;823lsefhw03slej&quot;,              // 终端模式的http请求时，会在header中添加  Token字段，携带此值
-    &quot;timestamp&quot;:1560392020,
     &quot;reqid&quot;:192839,         // 透传值，设备内唯一
     &quot;retcode&quot;:0
 }

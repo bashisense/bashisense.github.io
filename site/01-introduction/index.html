@@ -62,8 +62,6 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#_3">终端模式</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#httphttps">HTTP/HTTPS协议:</a>
-    </li>
     <li class="toctree-l3"><a class="reference internal" href="#websocket">websocket协议:</a>
     </li>
         </ul>
@@ -163,110 +161,13 @@
 <li><strong>智云模式</strong>：设备接入八识智云平台，用户通过小程序、安卓app、PC客户端访问八识智云平台，间接访问设备；</li>
 <li><strong>本地模式</strong>：设备接入八识门禁控制器或PC客户端，通过安卓app、PC客户端访问设备；</li>
 <li><strong>微信模式</strong>：设备接入企业微信平台，通过企业微信的考勤、门禁功能使用设备；</li>
-<li><strong>终端模式</strong>：设备可提供websocket或http client端，接入第三方云平台，用户通过第三方云平台管理设备；</li>
+<li><strong>终端模式</strong>：设备可提供websocket client，接入第三方云平台，用户通过第三方云平台管理设备；</li>
 <li><strong>独立模式</strong>：设备不接入任何平台，仅提供HTTP API接口，第三方应用通过API接口管理使用设备（此模式一直要用）；</li>
 </ol>
 <p><strong> 其中独立模式一直存在，可与 1/2/3/4四种方式并存，但1/2/3/4模式同一个时刻仅一种模式有效，不可并存 </strong></p>
 <p>本文档主要说明终端模式与独立模式的协议内容，两者的协议内容基本一致，仅底层传输协议不同。</p>
 <h2 id="_3">终端模式</h2>
-<p>设备运行于终端模式时，设备本身做为客户端(client),根据配置的manager-server系统，主动连接第三方服务端平台，包括有两协议:</p>
-<ol>
-<li>HTTP/HTTPS协议：设备通过http/https协议请求服务端，上报心跳、事件（识别事件或运行告警事件）等，并根据心跳返回的任务列表请求任务，这些任务包括用户管理、配置管理、访客管理、规则管理、广告管理、门卡管理等。</li>
-<li>websocket协议：设备通过websocket协议请求服务端，并建立长连接，上报心跳、事件（识别事件或运行告警事件）等，并根据服务端下发的请求，响应处理任务，这些任务包括用户管理、配置管理、访客管理、规则管理、广告管理、门卡管理等。</li>
-</ol>
-<p>两者任务的内容一致，仅传输的协议不同。</p>
-<p>典型的过程：</p>
-<h4 id="httphttps">HTTP/HTTPS协议:</h4>
-<ul>
-<li>
-<ol>
-<li>设备通过向服务端发起连接，并注册设备到服务端；</li>
-</ol>
-</li>
-<li>
-<ol>
-<li>设备定时向服务端发送心跳数据，服务端响应心跳数据，如果有待推送任务，则在心跳响应包中设置任务类型；</li>
-</ol>
-</li>
-<li>
-<ol>
-<li>设备根据心跳响应中的任务，向服务端请求任务，处理任务，提交任务结果；</li>
-</ol>
-</li>
-<li>
-<ol>
-<li>设备向服务端提交运行告警事件、识别事件等；</li>
-</ol>
-</li>
-</ul>
-<p>典型的HTTP协议任务：
-- 任务：服务器向设备响应心跳时带有的任务</p>
-<pre><code class="language-json">{
-    &quot;object&quot;:&quot;heartbeat&quot;,
-    &quot;action&quot;: &quot;pong&quot;,   // 设备发向服务器的心跳为 ping
-    &quot;reqid&quot;:192839,         // 透传值，设备内唯一
-    &quot;task&quot;:{
-        &quot;object&quot;:&quot;user&quot;,            // user, rule, visitor, card, advt ...
-        &quot;action&quot;:&quot;insert&quot;           // insert, remove, update, lookup, list
-    }
-}
-</code></pre>
-<ul>
-<li>请求， 设备向服务器发送请求</li>
-</ul>
-<pre><code class="language-json">{
-    &quot;object&quot;:&quot;user&quot;,
-    &quot;action&quot;: &quot;insert&quot;,
-    &quot;reqid&quot;:192839         // 透传值，设备内唯一
-}
-</code></pre>
-<ul>
-<li>响应，服务器向设备发送响应</li>
-</ul>
-<pre><code class="language-json">{
-    &quot;object&quot;:&quot;user&quot;,
-    &quot;action&quot;: &quot;insert&quot;,
-    &quot;reqid&quot;:192839,         // 透传值，设备内唯一
-    &quot;params&quot;: [
-        {
-            &quot;userid&quot;: &quot;1avsoHu2EeqZmH943F8eUg&quot;,
-            &quot;name&quot;: &quot;李四&quot;,
-            &quot;desc&quot;: &quot;研发部&quot;,
-            &quot;others&quot;: &quot;17763548853&quot;,
-            &quot;rule&quot;: &quot;Iksiwim&quot;,
-            &quot;effect&quot;: 159393303,
-            &quot;expire&quot;: 159703303,
-        },
-        {
-            &quot;userid&quot;: &quot;1aw6wHu2EeqZmH943F8eUg&quot;,
-            &quot;name&quot;: &quot;张三&quot;,
-            &quot;desc&quot;: &quot;国际贸易部&quot;,
-            &quot;others&quot;: &quot;18563548853&quot;,
-            &quot;rule&quot;: &quot;Iksiwim&quot;,
-            &quot;effect&quot;: 159393303,
-            &quot;expire&quot;: 159703303,
-        }
-    ]
-}
-</code></pre>
-<ul>
-<li>提交结果，设备向服务器提交结果</li>
-</ul>
-<pre><code class="language-json">{
-    &quot;retcode&quot;: 0,
-    &quot;reqid&quot;:192839,         // 透传值，设备内唯一
-    &quot;params&quot;: [
-        { 
-            &quot;userid&quot;:&quot;1avsoHu2EeqZmH943F8eUg&quot;,
-            &quot;ops&quot;: 0
-        },
-        {
-            &quot;userid&quot;:&quot;1aw6wHu2EeqZmH943F8eUg&quot;,
-            &quot;ops&quot;: 102
-        }
-    ]
-}
-</code></pre>
+<p>设备运行于终端模式时，设备本身做为客户端(client),根据配置的manager-server系统，主动连接第三方服务端平台，采用websocket协议：设备通过websocket协议请求服务端，并建立长连接，上报心跳、事件（识别事件或运行告警事件）等，并根据服务端下发的请求，响应处理任务，这些任务包括用户管理、配置管理、访客管理、规则管理、广告管理、门卡管理等。</p>
 <h4 id="websocket">websocket协议:</h4>
 <ul>
 <li>
@@ -276,7 +177,7 @@
 </li>
 <li>
 <ol>
-<li>设备定时赂服务端发送心跳数据，服务端响应心跳数据；</li>
+<li>设备定时向服务端发送心跳数据，服务端响应心跳数据；</li>
 </ol>
 </li>
 <li>
@@ -293,7 +194,6 @@
 <p>典型的websocket协议消息体：
 - 请求， 服务器向设备发送请求</p>
 <pre><code class="language-json">{
-    &quot;object&quot;:&quot;info&quot;,
     &quot;action&quot;: &quot;info&quot;,
     &quot;reqid&quot;:192839         // 透传值，设备内唯一
 }
@@ -331,7 +231,6 @@ HTTP头：token = 登陆前获取info信息可不填写，其它必须填写登�
 <li>请求</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;object&quot;:&quot;info&quot;,
     &quot;action&quot;: &quot;info&quot;,
     &quot;reqid&quot;:192839         // 透传值，设备内唯一
 }
@@ -348,7 +247,7 @@ HTTP头：token = 登陆前获取info信息可不填写，其它必须填写登�
 }
 </code></pre>
 <h2 id="_5">行文约定</h2>
-<p>本文后续部分，主要为请求-响应的数据包格式，直接对应到终端模式中的websocket的请求-响应，独立模式的请求-响应，以及终端模式的获取任务的响应信息-结果提交部分，这三个部分的内容基本上是一致的，仅仅是因为模式不同，与传输有关的地方有差异而已。 </p>
+<p>本文后续部分，主要为请求-响应的数据包格式，直接对应到终端模式中的websocket的请求-响应，独立模式的请求-响应，以及终端模式的获取任务的响应信息-结果提交部分，这两部分的内容基本上是一致的，仅仅是因为模式不同，与传输有关的地方有差异而已。 </p>
               
             </div>
           </div>

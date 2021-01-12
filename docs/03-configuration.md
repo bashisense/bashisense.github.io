@@ -589,3 +589,50 @@
 }
 
 ```
+```json
+{
+    "p":"@Admin2020",   // 默认帐号的密码
+
+    "ap":{              // 配置WIFI热点
+        "s":"walos-xxx",    // SSID号
+        "p":"passwd2020"    // 密码
+    },
+
+    "sta":{             // 配置WIFI客户端
+        "s":"chinaneet-xxx",    // SSID号
+        "p":"passwd2020"        // 密码
+    },
+
+    "eth":{             // 配置以太网
+        "m":"dynamic"   // 配置为动态IP模式
+    },
+
+    "eth":{             // 配置以太网
+        "m":"static",   // 配置静态模式
+        "ip":"192.168.20.10",   // 静态IP
+        "mk":"255.255.255.0",   // 掩码
+        "gw":"102.168.20.1"     // 网关
+    }
+}
+
+```
+
+
+### 二维码扫码配置项
+1. 配置WIFI网络
+
+WIFI:T:WPA;S:mynetwork;P:mypass;;
+
+2. 配置WIFI热点
+
+WIAP:T:WPA;S:mynetwork;P:mypass;;
+
+3. 配置以太网
+
+ETH:M:D;
+
+ETH:M:S;I:192.168.10.10;K:255.255.255.0;G:192.168.10.1;
+
+// AP/STA/ETH ，每次只能配置一项
+
+

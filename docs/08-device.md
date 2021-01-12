@@ -110,40 +110,6 @@
 }
 ```
 
-#### 配置网络
-
-- 请求
-
-```json
-{
-    "reqid":1839292,
-    "action":"device-netconfig",
-
-    "type":"eth0",
-    "mode":"static",
-    "ipv4-address":"192.168.20.10",
-    "ipv4-mask":"255.255.255.0",
-    "ipv4-gw":"192.168.20.1",
-    "ipv4-dns":"114.114.114.114",
-}
-```
-
-> type: 应用的配置类似：eth0 - 以太网口， wlan0 - wifi配置IP配置，wifi 热点配置
-> eth0, wlan0参数为：
-
-> 1. mode: staticip 静态网址；dynamic 动态网址; none 禁用网络；
-> 2. ipv4-address: 静态配置时， IPv4地址
-> 3. ipv4-mask: 静态配置时，网址掩码
-> 4. ipv4-gateway: 静态配置时，网关地址
-> 5. ipv4-dns: 静态配置时，dns服务器地址
-
-> wifi 参数为：
-
-> 1. wifi-ssid : 待连接的WIFI 热点名
-> 2. wifi-passwd : 待连接的WIFI热点密码
-> 3. wifi-ap-ssid : 本机做为热点时WIFI名称
-> 4. wifi-ap-passwd : 本机做为热点时，WIFI密码
-
 
 - 响应
 

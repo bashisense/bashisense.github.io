@@ -76,6 +76,8 @@
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#_6">配置说明</a>
     </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_7">二维码扫码配置项</a>
+    </li>
         </ul>
     </li>
     </ul>
@@ -727,6 +729,47 @@ HTTP头：token = , 使用登陆时返回的token
 }
 
 </code></pre>
+<pre><code class="language-json">{
+    &quot;p&quot;:&quot;@Admin2020&quot;,   // 默认帐号的密码
+
+    &quot;ap&quot;:{              // 配置WIFI热点
+        &quot;s&quot;:&quot;walos-xxx&quot;,    // SSID号
+        &quot;p&quot;:&quot;passwd2020&quot;    // 密码
+    },
+
+    &quot;sta&quot;:{             // 配置WIFI客户端
+        &quot;s&quot;:&quot;chinaneet-xxx&quot;,    // SSID号
+        &quot;p&quot;:&quot;passwd2020&quot;        // 密码
+    },
+
+    &quot;eth&quot;:{             // 配置以太网
+        &quot;m&quot;:&quot;dynamic&quot;   // 配置为动态IP模式
+    },
+
+    &quot;eth&quot;:{             // 配置以太网
+        &quot;m&quot;:&quot;static&quot;,   // 配置静态模式
+        &quot;ip&quot;:&quot;192.168.20.10&quot;,   // 静态IP
+        &quot;mk&quot;:&quot;255.255.255.0&quot;,   // 掩码
+        &quot;gw&quot;:&quot;102.168.20.1&quot;     // 网关
+    }
+}
+
+</code></pre>
+<h3 id="_7">二维码扫码配置项</h3>
+<ol>
+<li>配置WIFI网络</li>
+</ol>
+<p>WIFI:T:WPA;S:mynetwork;P:mypass;;</p>
+<ol>
+<li>配置WIFI热点</li>
+</ol>
+<p>WIAP:T:WPA;S:mynetwork;P:mypass;;</p>
+<ol>
+<li>配置以太网</li>
+</ol>
+<p>ETH:M:D;</p>
+<p>ETH:M:S;I:192.168.10.10;K:255.255.255.0;G:192.168.10.1;</p>
+<p>// AP/STA/ETH ，每次只能配置一项</p>
               
             </div>
           </div>

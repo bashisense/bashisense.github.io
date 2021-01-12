@@ -145,18 +145,20 @@
 <p>向同网段的6543端口发送广播报文：</p>
 <pre><code class="language-json">{
     &quot;action&quot;:&quot;scan&quot;
-}
+}       
 </code></pre>
 <p>如果该地址是WalOS在网设备，会响应：</p>
 <pre><code class="language-json">{
-    &quot;device-id&quot;:&quot;device-id&quot;,
-    &quot;walos-version&quot; : &quot;v2.1.0&quot;,             // WalOS 操作系统版本号
-    &quot;algm-version&quot;  : &quot;v1.1.0&quot;,             // 算法版本号
+    &quot;device-id&quot;:&quot;device-id&quot;,                // 设备ID
     &quot;hardware-version&quot; : &quot;v1.2.0&quot;,          // 硬件载体版本号
+    &quot;walos-version&quot; : &quot;v2.1.0&quot;,             // WalOS 操作系统版本号
+    &quot;protocol-version&quot;: &quot;v2.2.0&quot;,           // 协议版本号
+    &quot;algm-vendor&quot; : &quot;bashi&quot;,                // 算法供应商
+    &quot;algm-version&quot;  : &quot;v1.1.0&quot;,             // 算法版本号
 }
 </code></pre>
 <blockquote>
-<p>此时便可以获取到目标设备的ID与协议版本信息；</p>
+<p>此时便可以获取到目标设备的ID、协议版本信息以及设备的IP地址信息；</p>
 </blockquote>
 <h4 id="_3">独立模式登陆</h4>
 <p>设备配置成独立模式或另外几种模式时，设备均会启动WebAPI server，提供基于Http的API接口，此时对于接放的访问需要进行认证。</p>
@@ -217,51 +219,153 @@
     &quot;retcode&quot;:0
 }
 </code></pre>
-<ol>
-<li>修改终端模式的登入帐户密码</li>
-</ol>
-<p>终端模式时，设备需要登陆第三方平台，帐号可以通过配置软件配置，也可以通过API软件添加</p>
-<ul>
-<li>请求：</li>
-</ul>
-<pre><code class="language-json">{
-    &quot;action&quot;:&quot;passwd&quot;,
-    &quot;reqid&quot;:192839,         // 透传值，设备内唯一
-    &quot;user&quot;:&quot;walos&quot;,
-    &quot;passwd&quot;:&quot;passwd&quot;
-}
-</code></pre>
-<ul>
-<li>响应：</li>
-</ul>
-<pre><code class="language-json">{
-    &quot;reqid&quot;:192839,         // 透传值，设备内唯一
-    &quot;retcode&quot;:0
-}
-</code></pre>
 <h2 id="_4">终端模式登陆</h2>
-<ul>
-<li>请求：</li>
-</ul>
+<p>终端模式设备分为以下几个状态：
+1. 设备未连接状态：设备未连接到管理平台，可能是网络配置或服务器地址配置问题导致设备未能接入管理平台，此时设备如果有显示屏，则显示网络配置信息，提示用户配置网络以使设备可以连接到管理平台；</p>
+<ol>
+<li>设备已连接状态：设备已接入到管理平台，网络处于连通状态，设备与管理平台进行以下操作：</li>
+<li>
+<ol>
+<li>如果设备没有签名密钥，则请求平台获取签名密钥并存储到本地；如果已有此签名密钥，则转下一步；</li>
+</ol>
+</li>
+<li>
+<ol>
+<li>如果设备没有激活码，则注册设备到平台获取激活码，存储到本地，并显示激活码二维码，供App或小程序激活；如果已有激活码则转下一步；</li>
+</ol>
+</li>
+<li>
+<ol>
+<li>设备轮询激活状态（每5秒一次），当获取设备激活时，则进入下一步，订阅平台消息；</li>
+</ol>
+</li>
+<li>
+<ol>
+<li>设备向平台发送订阅消息，订阅设备通知，设备进入正常工作状态；</li>
+</ol>
+</li>
+</ol>
+<p>初次开机的设备会进行1/2/3/4步，已激活的设备直接进行第4步操作；</p>
+<ol>
+<li>
+<p>获取设备签名密钥</p>
+</li>
+<li>
+<p>请求：</p>
+</li>
+</ol>
 <pre><code class="language-json">{
-    &quot;action&quot;:&quot;auth&quot;,
-    &quot;reqid&quot;:192839,         // 透传值，设备内唯一
-    &quot;user&quot;:&quot;walos&quot;,
-    &quot;passwd&quot;:&quot;walos-passwd&quot;,
+    &quot;action&quot;:&quot;get_sign_code&quot;,
+    &quot;reqid&quot;:192839,             // 透传值，设备内唯一
+
+    &quot;device-id&quot;:&quot;device-id&quot;,    // 设备ID
+    &quot;timestamp&quot;:1560392020,     // 当时时间戳
+    &quot;once&quot; : 19283892,          // 随机数
+    &quot;signature&quot;:&quot;xxxxx&quot;         // 设备签名
 }
 </code></pre>
 <blockquote>
-<p>第三方平台，可以通过用户/密码/设备id三元组唯一标识一台设备
-登陆请求含用版本信息，用于平台确认设备是否是允许接入的版本</p>
+<p>第三方平台，device-id 唯一标识一台设备
+设备签名，sha1(sort(device-id、public-key、timestamp、nonce, “signature”))。sort的含义是将参数值按照字母字典排序，然后从小到大拼接成一个字符串。public-key是云平台的公钥，所有设备与第三方平台都有的。本接口计算签名时，需要把字符串常量 “signature”参与到计算之中，区别其他场景的签名。
+public-key 采用base64编码后的串</p>
 </blockquote>
 <ul>
 <li>响应：</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;reqid&quot;:192839,         // 透传值，设备内唯一
-    &quot;retcode&quot;:0
+    &quot;reqid&quot;:192839,             // 透传值，设备内唯一
+    &quot;sign-code&quot;:&quot;xxxxxx&quot;,       // 签名码，字符串
+    &quot;retcode&quot;:0                 // 获取成功
 }
 </code></pre>
+<ol>
+<li>
+<p>获取设备激活码</p>
+</li>
+<li>
+<p>请求：</p>
+</li>
+</ol>
+<pre><code class="language-json">{
+    &quot;action&quot;:&quot;register&quot;,
+    &quot;reqid&quot;:192839,             // 透传值，设备内唯一
+
+    &quot;device-id&quot;:&quot;device-id&quot;,    // 设备ID
+    &quot;timestamp&quot;:1560392020,     // 当时时间戳
+    &quot;once&quot; : 19283892,          // 随机数
+    &quot;signature&quot;:&quot;xxxxx&quot;         // 设备签名
+}
+</code></pre>
+<blockquote>
+<p>第三方平台，device-id 唯一标识一台设备
+设备签名，sha1(sort(device-id、sign-code、timestamp、nonce, "register"))。sort的含义是将参数值按照字母字典排序，然后从小到大拼接成一个字符串。public-key是云平台的公钥，所有设备与第三方平台都有的。本接口计算签名时，需要把字符串常量 “register”参与到计算之中，区别其他场景的签名。</p>
+</blockquote>
+<ul>
+<li>响应：</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;reqid&quot;:192839,             // 透传值，设备内唯一
+    &quot;active-code&quot;:&quot;xxxxxx&quot;,     // 激活码，字符串
+    &quot;retcode&quot;:0                 // 获取成功
+}
+</code></pre>
+<ol>
+<li>
+<p>获取激活状态</p>
+</li>
+<li>
+<p>请求：</p>
+</li>
+</ol>
+<pre><code class="language-json">{
+    &quot;action&quot;:&quot;active&quot;,
+    &quot;reqid&quot;:192839,             // 透传值，设备内唯一
+
+    &quot;active-code&quot;:&quot;xxxxxx&quot;,     // 激活码，字符串
+}
+</code></pre>
+<ul>
+<li>响应：</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;reqid&quot;:192839,             // 透传值，设备内唯一
+    &quot;secret&quot;:&quot;xxxxxx&quot;,          // 凭证密钥，用于登陆系统
+    &quot;retcode&quot;:0                 // 获取成功
+}
+</code></pre>
+<ol>
+<li>
+<p>订阅设备信息</p>
+</li>
+<li>
+<p>请求：</p>
+</li>
+</ol>
+<pre><code class="language-json">{
+    &quot;action&quot;:&quot;subscribe&quot;,
+    &quot;reqid&quot;:192839,         // 透传值，设备内唯一
+
+    &quot;secret&quot;:&quot;xxxxxx&quot;,      // 凭证密钥，用于登陆系统
+
+    &quot;device-id&quot;:&quot;device-id&quot;,    // 设备ID
+    &quot;timestamp&quot;:1560392020,     // 当时时间戳
+    &quot;once&quot; : 19283892,          // 随机数
+    &quot;signature&quot;:&quot;xxxxx&quot;         // 设备签名
+}
+</code></pre>
+<blockquote>
+<p>第三方平台，device-id 唯一标识一台设备
+设备签名，sha1(sort(device-id、sign-code、timestamp、nonce, "subscribe"))。sort的含义是将参数值按照字母字典排序，然后从小到大拼接成一个字符串。public-key是云平台的公钥，所有设备与第三方平台都有的。本接口计算签名时，需要把字符串常量 “subscribe”参与到计算之中，区别其他场景的签名。</p>
+</blockquote>
+<ul>
+<li>响应：</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;reqid&quot;:192839,             // 透传值，设备内唯一
+    &quot;retcode&quot;:0                 // 获取成功
+}
+</code></pre>
+<p>至此，设备进入被动模式，接收来自平台的指令，完成任务并返回响应</p>
               
             </div>
           </div>

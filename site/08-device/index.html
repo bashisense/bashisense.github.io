@@ -96,19 +96,17 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#_6">设备重置</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_7">配置网络</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_7">远程开门</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_8">远程开门</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_8">上传升级文件</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_9">上传升级文件</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_9">升级设备</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_10">升级设备</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_10">传感器快照</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_11">传感器快照</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_11">下载快照文件</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_12">下载快照文件</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_13">设置模式</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_12">设置模式</a>
     </li>
     </ul>
                     </li>
@@ -256,40 +254,6 @@ timestamp ： 1970.1.1 开始的毫秒数；</p>
     &quot;retcode&quot;:0
 }
 </code></pre>
-<h4 id="_7">配置网络</h4>
-<ul>
-<li>请求</li>
-</ul>
-<pre><code class="language-json">{
-    &quot;reqid&quot;:1839292,
-    &quot;action&quot;:&quot;device-netconfig&quot;,
-
-    &quot;type&quot;:&quot;eth0&quot;,
-    &quot;mode&quot;:&quot;static&quot;,
-    &quot;ipv4-address&quot;:&quot;192.168.20.10&quot;,
-    &quot;ipv4-mask&quot;:&quot;255.255.255.0&quot;,
-    &quot;ipv4-gw&quot;:&quot;192.168.20.1&quot;,
-    &quot;ipv4-dns&quot;:&quot;114.114.114.114&quot;,
-}
-</code></pre>
-<blockquote>
-<p>type: 应用的配置类似：eth0 - 以太网口， wlan0 - wifi配置IP配置，wifi 热点配置
-eth0, wlan0参数为：</p>
-<ol>
-<li>mode: staticip 静态网址；dynamic 动态网址; none 禁用网络；</li>
-<li>ipv4-address: 静态配置时， IPv4地址</li>
-<li>ipv4-mask: 静态配置时，网址掩码</li>
-<li>ipv4-gateway: 静态配置时，网关地址</li>
-<li>ipv4-dns: 静态配置时，dns服务器地址</li>
-</ol>
-<p>wifi 参数为：</p>
-<ol>
-<li>wifi-ssid : 待连接的WIFI 热点名</li>
-<li>wifi-passwd : 待连接的WIFI热点密码</li>
-<li>wifi-ap-ssid : 本机做为热点时WIFI名称</li>
-<li>wifi-ap-passwd : 本机做为热点时，WIFI密码</li>
-</ol>
-</blockquote>
 <ul>
 <li>响应</li>
 </ul>
@@ -298,7 +262,7 @@ eth0, wlan0参数为：</p>
     &quot;retcode&quot;:0
 }
 </code></pre>
-<h4 id="_8">远程开门</h4>
+<h4 id="_7">远程开门</h4>
 <ul>
 <li>请求</li>
 </ul>
@@ -316,7 +280,7 @@ eth0, wlan0参数为：</p>
     &quot;retcode&quot;:0
 }
 </code></pre>
-<h4 id="_9">上传升级文件</h4>
+<h4 id="_8">上传升级文件</h4>
 <p><strong>上传文件，单次数据长度必须在256kB以内，其data数据在转base64前应以256kB长度切片</strong></p>
 <ul>
 <li>请求</li>
@@ -348,7 +312,7 @@ data : base64编码的数据</p>
     &quot;retcode&quot;:0
 }
 </code></pre>
-<h4 id="_10">升级设备</h4>
+<h4 id="_9">升级设备</h4>
 <ul>
 <li>请求</li>
 </ul>
@@ -366,7 +330,7 @@ data : base64编码的数据</p>
     &quot;retcode&quot;:0
 }
 </code></pre>
-<h4 id="_11">传感器快照</h4>
+<h4 id="_10">传感器快照</h4>
 <ul>
 <li>请求</li>
 </ul>
@@ -390,7 +354,7 @@ data : base64编码的数据</p>
 <blockquote>
 <p>timestamp 为获取快照的时间戳，下载快照时需要此数据</p>
 </blockquote>
-<h4 id="_12">下载快照文件</h4>
+<h4 id="_11">下载快照文件</h4>
 <ul>
 <li>请求</li>
 </ul>
@@ -422,7 +386,7 @@ chanel : 准备获取的摄像头通道</p>
     &quot;data&quot;:&quot;base64-encoded file data&quot;
 }
 </code></pre>
-<h4 id="_13">设置模式</h4>
+<h4 id="_12">设置模式</h4>
 <p>设备运行在不同模式时，表示不同的功能，主要有四种模式：</p>
 <ol>
 <li>门锁模式：平时设备不点亮屏显与补光灯，当触摸按键时，点亮屏显+补光灯，识别人脸后开门或者读取开锁二维码后开门；</li>

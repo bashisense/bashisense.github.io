@@ -65,8 +65,24 @@
     <li class="toctree-l2"><a class="reference internal" href="#_2">获取设备地址</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#_3">独立模式登陆</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#_4">接入认证</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_4">终端模式登陆</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_5">修改管理员密码</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_6">终端模式登陆</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#_7">获取设备签名密钥</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_8">获取设备激活码</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_9">获取激活状态</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_10">订阅设备信息</a>
+    </li>
+        </ul>
     </li>
     </ul>
                     </li>
@@ -168,14 +184,10 @@
 请求消息体:JSON
 返回消息体:JSON, retcode = 0时正确， 非0时出错</p>
 </blockquote>
-<ol>
-<li>
-<p>接入认证</p>
-</li>
-<li>
-<p>请求：</p>
-</li>
-</ol>
+<h5 id="_4">接入认证</h5>
+<ul>
+<li>请求：</li>
+</ul>
 <pre><code class="language-json">{
     &quot;action&quot;:&quot;auth&quot;,
     &quot;reqid&quot;:192839,         // 透传值，设备内唯一
@@ -196,14 +208,10 @@
 <blockquote>
 <p>token用于后续api请求时的http header的token字段，后续的访问必须设置 Token 字段</p>
 </blockquote>
-<ol>
-<li>
-<p>修改管理员密码</p>
-</li>
-<li>
-<p>请求：</p>
-</li>
-</ol>
+<h5 id="_5">修改管理员密码</h5>
+<ul>
+<li>请求：</li>
+</ul>
 <pre><code class="language-json">{
     &quot;action&quot;:&quot;passwd&quot;,
     &quot;reqid&quot;:192839,         // 透传值，设备内唯一
@@ -219,41 +227,25 @@
     &quot;retcode&quot;:0
 }
 </code></pre>
-<h2 id="_4">终端模式登陆</h2>
+<h2 id="_6">终端模式登陆</h2>
 <p>终端模式设备分为以下几个状态：
 1. 设备未连接状态：设备未连接到管理平台，可能是网络配置或服务器地址配置问题导致设备未能接入管理平台，此时设备如果有显示屏，则显示网络配置信息，提示用户配置网络以使设备可以连接到管理平台；</p>
 <ol>
-<li>设备已连接状态：设备已接入到管理平台，网络处于连通状态，设备与管理平台进行以下操作：</li>
 <li>
-<ol>
-<li>如果设备没有签名密钥，则请求平台获取签名密钥并存储到本地；如果已有此签名密钥，则转下一步；</li>
-</ol>
+<p>设备已连接状态：设备已接入到管理平台，网络处于连通状态，设备与管理平台进行以下操作：</p>
 </li>
 <li>
-<ol>
+<p>如果设备没有签名密钥，则请求平台获取签名密钥并存储到本地；如果已有此签名密钥，则转下一步；</p>
+</li>
 <li>如果设备没有激活码，则注册设备到平台获取激活码，存储到本地，并显示激活码二维码，供App或小程序激活；如果已有激活码则转下一步；</li>
-</ol>
-</li>
-<li>
-<ol>
 <li>设备轮询激活状态（每5秒一次），当获取设备激活时，则进入下一步，订阅平台消息；</li>
-</ol>
-</li>
-<li>
-<ol>
 <li>设备向平台发送订阅消息，订阅设备通知，设备进入正常工作状态；</li>
 </ol>
-</li>
-</ol>
 <p>初次开机的设备会进行1/2/3/4步，已激活的设备直接进行第4步操作；</p>
-<ol>
-<li>
-<p>获取设备签名密钥</p>
-</li>
-<li>
-<p>请求：</p>
-</li>
-</ol>
+<h5 id="_7">获取设备签名密钥</h5>
+<ul>
+<li>请求：</li>
+</ul>
 <pre><code class="language-json">{
     &quot;action&quot;:&quot;get_sign_code&quot;,
     &quot;reqid&quot;:192839,             // 透传值，设备内唯一
@@ -278,14 +270,10 @@ public-key 采用base64编码后的串</p>
     &quot;retcode&quot;:0                 // 获取成功
 }
 </code></pre>
-<ol>
-<li>
-<p>获取设备激活码</p>
-</li>
-<li>
-<p>请求：</p>
-</li>
-</ol>
+<h5 id="_8">获取设备激活码</h5>
+<ul>
+<li>请求：</li>
+</ul>
 <pre><code class="language-json">{
     &quot;action&quot;:&quot;register&quot;,
     &quot;reqid&quot;:192839,             // 透传值，设备内唯一
@@ -309,14 +297,10 @@ public-key 采用base64编码后的串</p>
     &quot;retcode&quot;:0                 // 获取成功
 }
 </code></pre>
-<ol>
-<li>
-<p>获取激活状态</p>
-</li>
-<li>
-<p>请求：</p>
-</li>
-</ol>
+<h5 id="_9">获取激活状态</h5>
+<ul>
+<li>请求：</li>
+</ul>
 <pre><code class="language-json">{
     &quot;action&quot;:&quot;active&quot;,
     &quot;reqid&quot;:192839,             // 透传值，设备内唯一
@@ -333,14 +317,10 @@ public-key 采用base64编码后的串</p>
     &quot;retcode&quot;:0                 // 获取成功
 }
 </code></pre>
-<ol>
-<li>
-<p>订阅设备信息</p>
-</li>
-<li>
-<p>请求：</p>
-</li>
-</ol>
+<h5 id="_10">订阅设备信息</h5>
+<ul>
+<li>请求：</li>
+</ul>
 <pre><code class="language-json">{
     &quot;action&quot;:&quot;subscribe&quot;,
     &quot;reqid&quot;:192839,         // 透传值，设备内唯一

@@ -109,7 +109,7 @@
 
     "device-id":"device-id",    // 设备ID
     "timestamp":1560392020,     // 当时时间戳
-    "once" : 19283892,          // 随机数
+    "nonce" : 19283892,          // 随机数
     "signature":"xxxxx"         // 设备签名
 }
 ```
@@ -139,7 +139,7 @@
 
     "device-id":"device-id",    // 设备ID
     "timestamp":1560392020,     // 当时时间戳
-    "once" : 19283892,          // 随机数
+    "nonce" : 19283892,          // 随机数
     "signature":"xxxxx"         // 设备签名
 }
 ```
@@ -195,7 +195,7 @@
 
     "device-id":"device-id",    // 设备ID
     "timestamp":1560392020,     // 当时时间戳
-    "once" : 19283892,          // 随机数
+    "nonce" : 19283892,          // 随机数
     "signature":"xxxxx"         // 设备签名
 }
 ```

@@ -165,7 +165,7 @@
         "key":"show-mode",
         "value":"desc",
         "class":"interactive",
-        "desc" : "显示模式，name - 仅姓名, desc - 姓名+部门, none - 不显示文字",
+        "desc" : "显示模式，user - 姓名/部门/图片, none - 不显示隐私信息",
         "options" : "cp"
     },
 
@@ -173,7 +173,7 @@
         "key":"device-mode",
         "value":"advt",
         "class":"interactive",
-        "desc" : "设备模式，acs - 门禁模式，lock - 门锁模式，advt - 广告模式，therm - 测温模式",
+        "desc" : "设备模式，acs - 门禁模式，advt - 广告模式",
         "options" : "cp"
     },
 
@@ -261,13 +261,13 @@
         "key":"wifi-mode",
         "value":"ap",
         "class":"network",
-        "desc" : "WIFI模式，none 不使能wifi, ap - 热点模式，sta - 站点模式，mixed - 混合模式",
+        "desc" : "WIFI模式，none 不使能wifi, ap - 热点模式，sta - 站点模式",
         "options" : "wr"
     },
 
     {
         "key":"wifiap-ssid",
-        "value":"walos-wifi-abc",
+        "value":"wos-devid",
         "class":"network",
         "desc" : "WIFI热点模式SSID，热点模式时配置",
         "options" : "wr"
@@ -283,7 +283,7 @@
 
     {
         "key":"wifista-ssid",
-        "value":"walos-wifi-abc",
+        "value":"wifi-ap-ssid",
         "class":"network",
         "desc" : "WIFI站点模式时连接的热点SSID",
         "options" : "wr"
@@ -301,7 +301,7 @@
         "key":"manager-mode",
         "value":"cloud",
         "class":"manager",
-        "desc" : "管理模式，cloud - 接入八识云，local - 接入门禁控制器， none - 仅提供web服务，wechat - 接入企业微信， client - HTTP客户端",
+        "desc" : "管理模式，cloud - 接入云平台，local - 接入门禁控制器， none - 仅提供本地web api，wechat - 接入企业微信, websock - 接入websock服务",
         "options" : "wr"
     },
 
@@ -589,50 +589,26 @@
 }
 
 ```
-```json
-{
-    "p":"@Admin2020",   // 默认帐号的密码
-
-    "ap":{              // 配置WIFI热点
-        "s":"walos-xxx",    // SSID号
-        "p":"passwd2020"    // 密码
-    },
-
-    "sta":{             // 配置WIFI客户端
-        "s":"chinaneet-xxx",    // SSID号
-        "p":"passwd2020"        // 密码
-    },
-
-    "eth":{             // 配置以太网
-        "m":"dynamic"   // 配置为动态IP模式
-    },
-
-    "eth":{             // 配置以太网
-        "m":"static",   // 配置静态模式
-        "ip":"192.168.20.10",   // 静态IP
-        "mk":"255.255.255.0",   // 掩码
-        "gw":"102.168.20.1"     // 网关
-    }
-}
-
-```
 
 
 ### 二维码扫码配置项
-1. 配置WIFI网络
+
+用成的规则如下
+
+1. 配置连接到WIFI网络
 
 WIFI:T:WPA;S:mynetwork;P:mypass;;
 
-2. 配置WIFI热点
+2. 配置本机为WIFI热点
 
 WIAP:T:WPA;S:mynetwork;P:mypass;;
 
 3. 配置以太网
 
-ETH:M:D;
+动态IP地址方式：ETH:M:D;
 
+静态IP地址方式：
 ETH:M:S;I:192.168.10.10;K:255.255.255.0;G:192.168.10.1;
 
-// AP/STA/ETH ，每次只能配置一项
 
 

@@ -12,29 +12,18 @@
 >请求URL: http://dev-ip-addr:port:/api/card
 >HTTP头：token = , 使用登陆时返回的token
 
-终端模式时：
->请求类型: POST
->object = "user"
->HTTP头：token = , 使用登陆时返回的token
->消息体、返回体相关，无HTTP相关内容
-
 **id 大小不超过32Bytes, userid不超过32字节， rule不超过32字节**
 
-#### 添加门禁卡
-
-- 请求
-
+#### 卡对象
 ```json
-{
-    "reqid":92929,
-    "action":"card-add",
-    "id":"EeqZmH943F8",
-    "userid": "1avsoHu2EeqZmH943F8eUg==",
-    "rule": "Iksiwim",
-    "effect":192923,
-    "expire":150938992,
-    "data": "..."
-}
+    {
+        "id":"EeqZmH943F8",
+        "type": "ic",       // 卡类型，默认IC卡，可以为CPU，crypto等
+        "userid": "1avsoHu2EeqZmH943F8eUg==",   // 卡对应的用户ID
+        "effect":192923,
+        "expire":150938992,
+        "data": "..."   // 卡数据
+    }
 ```
 
 >id : 唯一标志卡的ID，仅内部使用，必填
@@ -44,12 +33,56 @@
 >expire : 用户过期时间，格式需要保持一致；必填
 >data : IC卡匹配数据，必填
 
+#### 添加门禁卡
+
+- 请求
+
+```json
+{
+    "action":"card-add",
+    
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    },
+
+    "body":{
+        "cards":[
+            {
+            "id":"EeqZmH943F8",
+            ... // 卡其它信息，详见本章卡对象说明
+            },
+            {
+            "id":"AeqZmH943F9",
+            ... // 卡其它信息，详见本章卡对象说明
+            },
+        ]
+    }
+}
+```
+
+
 - 响应
 
 ```json
 {
-    "reqid":92929,
-    "retcode":0
+    "retcode":0,
+
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    },
+
+    "body":{
+        "cards":[
+            {
+            "id":"EeqZmH943F8",
+            "retcode": 0
+            },
+            {
+            "id":"AeqZmH943F9",
+            "retcode": 0
+            },
+        ]
+    }
 }
 ```
 
@@ -59,9 +92,22 @@
 
 ```json
 {
-    "reqid":92929,
     "action":"card-del",
-    "id":"EeqZmH943F8"
+    
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    },
+
+    "body":{
+        "cards":[
+            {
+            "id":"EeqZmH943F8",
+            },
+            {
+            "id":"AeqZmH943F9",
+            },
+        ]
+    }
 }
 ```
 
@@ -69,8 +115,24 @@
 
 ```json
 {
-    "reqid":92929,
-    "retcode":0
+    "retcode":0,
+
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    },
+
+    "body":{
+        "cards":[
+            {
+            "id":"EeqZmH943F8",
+            "retcode": 0
+            },
+            {
+            "id":"AeqZmH943F9",
+            "retcode": 0
+            },
+        ]
+    }
 }
 ```
 
@@ -80,10 +142,16 @@
 
 ```json
 {
-    "reqid":92929,
     "action":"card-list",
-    "offset": 18,
-    "limit":2
+
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    },
+
+    "body":{
+        "offset": 18,
+        "limit":2
+    }
 }
 ```
 
@@ -95,27 +163,24 @@
 
 ```json
 {
-    "params":[
-        {
-            "id":"EeqZmH943F8",
-            "userid": "1avsoHu2EeqZmH943F8",
-            "rule": "Iksiwim",
-            "effect":192923,
-            "expire":150938992,
-            "data": "..."
-        },
-        {
-            "id":"aeqZmH943e4",
-            "userid": "soHu2EeqZmH943F8eUg==",
-            "rule": "Iksiwim",
-            "effect":192923,
-            "expire":150938992,
-            "data": "..."
-        }
-    ],
+    "retcode":0,
 
-    "reqid":92929,
-    "retcode":0
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    },
+    
+    "body":{
+        "cards":[
+            {
+            "id":"EeqZmH943F8",
+            ... // 卡其它信息，详见本章卡对象说明
+            },
+            {
+            "id":"AeqZmH943F9",
+            ... // 卡其它信息，详见本章卡对象说明
+            },
+        ]
+    }
 }
 ```
 

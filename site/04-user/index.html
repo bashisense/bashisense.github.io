@@ -102,7 +102,7 @@
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../07-rule/">规则管理</a>
+                    <li class="toctree-l1"><a class="" href="../07-rule.md">规则管理</a>
                     </li>
                 </ul>
                 <ul>
@@ -167,41 +167,44 @@ HTTP头：token = , 使用登陆时返回的token
 <p>请求URL: http://dev-ip-addr:port:/api/user
 HTTP头：token = , 使用登陆时返回的token</p>
 </blockquote>
-<p>终端模式时：</p>
-<blockquote>
-<p>请求类型: POST
-object = "user"
-HTTP头：token = , 使用登陆时返回的token
-消息体、返回体相关，无HTTP相关内容</p>
-</blockquote>
-<p><strong>限制条件： userid 不超过32字节， name不超过32字节， desc不超过32字节， others不超过32字节， rule不超过32字节</strong></p>
+<p><strong>限制条件： userid 不超过32字节， name不超过32字节， desc不超过32字节</strong></p>
 <h4 id="_3">用户对象</h4>
 <pre><code class="language-json">{
     &quot;userid&quot;: &quot;1avsoHu2EeqZmH943F8eUg&quot;,     // 用户ID，全局唯一
     &quot;name&quot;: &quot;李四&quot;,     // 用户姓名，必填
-    &quot;desc&quot;: &quot;研发部&quot;,   // 用户部门/住宅门牌号等，可不填写
-    &quot;others&quot;: &quot;17763548853&quot;,    // 附加信息，可用于梯控等场景，可不填写
-    &quot;effect&quot;: 1619019996,       // 用户生效时间，不填则当前时刻，EPOCH值
-    &quot;expire&quot;: 1619519996,       // 用户过期时间，不填则当前时刻+1年
-    &quot;rule&quot;: &quot;Iksiwim&quot;,          // 用户开门规则，默认识别即通过，可不填写
-    &quot;state&quot;: 0,                 // 用户状态，暂内部使用，可不填写
+    &quot;desc&quot;: &quot;研发部&quot;,   // 用户部门/住宅门牌号等，可不填写，平台可以发用户最近的组织名
+
+    &quot;effect&quot;: 1619019996,       // 用户生效时间，不填则默认为0，部分情况设备掉电丢失时间，此值填写有核验失败风险
+    &quot;expire&quot;: 1619519996,       // 用户过期时间，不填则当前时刻+1年，建议填写一个较大值如果不用的话，-1为不限制过期
+
+    &quot;state&quot;: 0,                 // 用户状态，正常用户是正值，负值为黑名单，定制产品使用，可不填写
+
     &quot;face&quot;:{
-        &quot;vendor&quot;:&quot;bashi&quot;,
-        &quot;version&quot;:&quot;v2.1.0&quot;,
-        &quot;feature&quot;: &quot;data....&quot;       // base64编码的用户特征值，由设备计算，平台不填写
-    }
+        &quot;vendor&quot;:&quot;bashi&quot;,       // 人脸算法供应商，double check使用
+        &quot;version&quot;:&quot;v2.1.0&quot;,     // 人脸算法版本, double check使用
+        &quot;feature&quot;: &quot;data....&quot;   // base64编码的用户特征值，由设备计算，同类型设备，算法版本一致的可以直接下载，节省时间
+    },
 }
 </code></pre>
-<p>对用户的操作与数据库的CRUD类似，增加了枚举设备中的所有用户，所有的信息以此为准</p>
+<blockquote>
+<p>对用户的操作与数据库的CRUD类似，增加了枚举设备中的所有用户，所有的信息以此为准
+后续行文为了简化，直接给出用户信息的缩略版本</p>
+</blockquote>
 <h4 id="_4">列举用户</h4>
 <ul>
 <li>请求</li>
 </ul>
 <pre><code class="language-json">{
     &quot;action&quot;: &quot;user-list&quot;,
-    &quot;reqid&quot;:129393,
-    &quot;offset&quot;: 1,
-    &quot;limit&quot;: 2
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;offset&quot;: 1,
+        &quot;limit&quot;: 2
+    }
 }
 </code></pre>
 <blockquote>
@@ -212,34 +215,23 @@ limit : 本次列表的数量;</p>
 <li>响应</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;reqid&quot;:129393,
-    &quot;retcode&quot;: 0,
-    &quot;params&quot;: [
-        {
-            &quot;create_datetime&quot;: &quot;2020-04-27 18:39:56&quot;,
-            &quot;desc&quot;: &quot;研发部&quot;,
-            &quot;effect&quot;: 1609519996,
-            &quot;expire&quot;: 1619519996,
-            &quot;modify_datetime&quot;: &quot;2020-04-27 18:39:56&quot;,
-            &quot;name&quot;: &quot;李四.张三&quot;,
-            &quot;others&quot;: &quot;17763548853&quot;,
-            &quot;rule&quot;: &quot;Iksiwim&quot;,
-            &quot;state&quot;: 0,
-            &quot;userid&quot;: &quot;1avsoHu2EeqZmH943F8eUg==&quot;,
-        },
-        {
-            &quot;create_datetime&quot;: &quot;2020-04-27 18:39:56&quot;,
-            &quot;desc&quot;: &quot;国际贸易部&quot;,
-            &quot;effect&quot;: 1609519996,
-            &quot;expire&quot;: 1619519996,
-            &quot;modify_datetime&quot;: &quot;2020-04-27 18:39:56&quot;,
-            &quot;name&quot;: &quot;张三.李四&quot;,
-            &quot;others&quot;: &quot;18563548853&quot;,
-            &quot;rule&quot;: &quot;Iksiwim&quot;,
-            &quot;state&quot;: 0,
-            &quot;userid&quot;: &quot;1aw6wHu2EeqZmH943F8eUg==&quot;
-        }
-    ],
+    &quot;retcode&quot;:0,                // 激活成功
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;,       // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;users&quot;: [
+            {
+                &quot;userid&quot;: &quot;1avsoHu2EeqZmH943F8eUg&quot;,
+                ... // 用户的其它信息，请参照本章的用户对象说明
+            },
+            {
+                &quot;userid&quot;: &quot;1aw6wHu2EeqZmH943F8eUg&quot;,
+                ... // 用户的其它信息，请参照本章的用户对象说明
+            }
+        ],
+    }
 </code></pre>
 <h4 id="_5">添加用户</h4>
 <ul>
@@ -247,47 +239,47 @@ limit : 本次列表的数量;</p>
 </ul>
 <pre><code class="language-json">{
     &quot;action&quot;: &quot;user-add&quot;,
-    &quot;reqid&quot;:129393,
-    &quot;params&quot;: [
-        {
-            &quot;userid&quot;: &quot;1avsoHu2EeqZmH943F8eUg==&quot;,
-            &quot;name&quot;: &quot;李四&quot;,
-            &quot;desc&quot;: &quot;研发部&quot;,
-            &quot;others&quot;: &quot;17763548853&quot;,
-            &quot;rule&quot;: &quot;Iksiwim&quot;,
-            &quot;effect&quot;: 1609519996,
-            &quot;expire&quot;:1619519996,
-            &quot;feature&quot;: &quot;...&quot;
-        },
-        {
-            &quot;userid&quot;: &quot;1aw6wHu2EeqZmH943F8eUg==&quot;,
-            &quot;name&quot;: &quot;张三&quot;,
-            &quot;desc&quot;: &quot;国际贸易部&quot;,
-            &quot;others&quot;: &quot;18563548853&quot;,
-            &quot;rule&quot;: &quot;Iksiwim&quot;,
-            &quot;effect&quot;: 1609519996,
-            &quot;expire&quot;: 1619519996,
-            &quot;feature&quot;: &quot;...&quot;
-        }
-    ]
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;users&quot;: [
+            {
+                &quot;userid&quot;: &quot;1avsoHu2EeqZmH943F8eUg&quot;,
+                ... // 用户的其它信息，请参照本章的用户对象说明
+            },
+            {
+                &quot;userid&quot;: &quot;1aw6wHu2EeqZmH943F8eUg&quot;,
+                ... // 用户的其它信息，请参照本章的用户对象说明
+            }
+        ]
+    }
 }
 </code></pre>
 <ul>
 <li>响应</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;params&quot;: [
-        { 
-            &quot;userid&quot;:&quot;1avsoHu2EeqZmH943F8eUg==&quot;,
-            &quot;ops&quot;: 0
-        },
-        {
-            &quot;userid&quot;:&quot;1aw6wHu2EeqZmH943F8eUg==&quot;,
-            &quot;ops&quot;:0
-        }
-    ],
-    &quot;reqid&quot;:129393,
-    &quot;retcode&quot;: 0
+    &quot;retcode&quot;: 0,   // 当有任意一项成功时，返回成功
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;users&quot;: [
+            { 
+                &quot;userid&quot;:&quot;1avsoHu2EeqZmH943F8eUg&quot;,
+                &quot;retcode&quot;: 0    // 本用户操作结果
+            },
+            {
+                &quot;userid&quot;:&quot;1aw6wHu2EeqZmH943F8eUg&quot;,
+                &quot;retcode&quot;: 0    // 本用户操作结果
+            }
+        ]
+    }
 }
 </code></pre>
 <h4 id="_6">删除用户</h4>
@@ -296,15 +288,21 @@ limit : 本次列表的数量;</p>
 </ul>
 <pre><code class="language-json">{
     &quot;action&quot;: &quot;user-del&quot;,
-    &quot;reqid&quot;:129393,
-    &quot;params&quot;: [
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;users&quot;: [
         {
             &quot;userid&quot;: &quot;1avsoHu2EeqZmH943F8eUg==&quot;
         },
         {
             &quot;userid&quot;: &quot;1aw6wHu2EeqZmH943F8eUg==&quot;
         }
-    ]
+        ]
+    }
 }
 </code></pre>
 <blockquote>
@@ -314,18 +312,24 @@ limit : 本次列表的数量;</p>
 <li>响应</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;params&quot;: [
+    &quot;retcode&quot;: 0,   // 当有任意一项成功时，返回成功
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;users&quot;: [
         {
             &quot;userid&quot;: &quot;1avsoHu2EeqZmH943F8eUg==&quot;,
-            &quot;ops&quot;:0
+            &quot;retcode&quot;: 0    // 本用户操作结果
         },
         {
             &quot;userid&quot;: &quot;1aw6wHu2EeqZmH943F8eUg==&quot;,
-            &quot;ops&quot;:0
+            &quot;retcode&quot;: 0    // 本用户操作结果
         }
-    ],
-    &quot;reqid&quot;:129393,
-    &quot;retcode&quot;: 0
+        ]
+    }
 }
 </code></pre>
 <h4 id="_7">修改用户</h4>
@@ -334,65 +338,48 @@ limit : 本次列表的数量;</p>
 </ul>
 <pre><code class="language-json">{
     &quot;action&quot;: &quot;user-update&quot;,
-    &quot;reqid&quot;:129393,
-    &quot;params&quot;: [
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;users&quot;: [
         {
             &quot;userid&quot;: &quot;1avsoHu2EeqZmH943F8eUg==&quot;,
-            &quot;name&quot;: &quot;李四.张三&quot;,
-            &quot;desc&quot;: &quot;销售部&quot;,
-            &quot;others&quot;: &quot;13663548853&quot;,
-            &quot;rule&quot;: &quot;Iksiwim&quot;,
-            &quot;effect&quot;: 1609519996,
-            &quot;expire&quot;:1619519996,
-            &quot;feature&quot;: &quot;...&quot;
+            ... // 用户的其它信息，请参照本章的用户对象说明
         },
         {
             &quot;userid&quot;: &quot;1aw6wHu2EeqZmH943F8eUg==&quot;,
-            &quot;name&quot;: &quot;张三.李四&quot;,
-            &quot;desc&quot;: &quot;国际贸易部&quot;,
-            &quot;others&quot;: &quot;13663548853&quot;,
-            &quot;rule&quot;: &quot;Iksiwim&quot;,
-            &quot;effect&quot;: 1609519996,
-            &quot;expire&quot;:1619519996,
-            &quot;feature&quot;: &quot;...&quot;
+            ... // 用户的其它信息，请参照本章的用户对象说明
         }
-    ]
+        ]
+    }
 }
 </code></pre>
 <ul>
 <li>响应</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;params&quot;: [
+    &quot;retcode&quot;: 0,   // 当有任意一项成功时，返回成功
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;: {
+        &quot;users&quot;: [
         {
-            &quot;create_datetime&quot;: &quot;2020-04-27 18:39:56&quot;,
-            &quot;desc&quot;: &quot;销售部&quot;,
-            &quot;effect&quot;: 1609519996,
-            &quot;expire&quot;:1619519996,
-            &quot;modify_datetime&quot;: &quot;2020-04-27 18:39:56&quot;,
-            &quot;name&quot;: &quot;李四.张三&quot;,
-            &quot;others&quot;: &quot;13663548853&quot;,
-            &quot;rule&quot;: &quot;Iksiwim&quot;,
-            &quot;state&quot;: 0,
             &quot;userid&quot;: &quot;1avsoHu2EeqZmH943F8eUg==&quot;,
-            &quot;ops&quot;:0
+            &quot;retcode&quot;: 0    // 本用户操作结果
         },
+
         {
-            &quot;create_datetime&quot;: &quot;2020-04-27 18:39:56&quot;,
-            &quot;desc&quot;: &quot;国际贸易部&quot;,
-            &quot;effect&quot;: 1609519996,
-            &quot;expire&quot;:1619519996,
-            &quot;modify_datetime&quot;: &quot;2020-04-27 18:39:56&quot;,
-            &quot;name&quot;: &quot;张三.李四&quot;,
-            &quot;others&quot;: &quot;13663548853&quot;,
-            &quot;rule&quot;: &quot;Iksiwim&quot;,
-            &quot;state&quot;: 0,
             &quot;userid&quot;: &quot;1aw6wHu2EeqZmH943F8eUg==&quot;,
-            &quot;ops&quot;:0
+            &quot;retcode&quot;: 0    // 本用户操作结果
         }
-    ],
-    &quot;reqid&quot;:129393,
-    &quot;retcode&quot;: 0
+        ]
+    },
 }
 </code></pre>
 <h4 id="_8">查询用户</h4>
@@ -400,16 +387,22 @@ limit : 本次列表的数量;</p>
 <li>请求</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;reqid&quot;:129393,
     &quot;action&quot;: &quot;user-info&quot;,
-    &quot;params&quot;: [
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;users&quot;: [
         {
-            &quot;userid&quot;: &quot;1avsoHu2EeqZmH943F8eUg==&quot;
+            &quot;userid&quot;: &quot;1avsoHu2EeqZmH943F8eUg==&quot;,
         },
         {
-            &quot;userid&quot;: &quot;1aw6wHu2EeqZmH943F8eUg==&quot;
+            &quot;userid&quot;: &quot;1aw6wHu2EeqZmH943F8eUg==&quot;,
         }
-    ]
+        ]
+    }
 }
 </code></pre>
 <ul>
@@ -417,46 +410,24 @@ limit : 本次列表的数量;</p>
 </ul>
 <pre><code class="language-json">
 {
-    &quot;params&quot;: [
+    &quot;retcode&quot;: 0,   // 当有任意一项成功时，返回成功
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;users&quot;: [
         {
-            &quot;create_datetime&quot;: &quot;2020-04-27 18:39:56&quot;,
-            &quot;desc&quot;: &quot;销售部&quot;,
-            &quot;expire&quot;: 1619519996,
-            &quot;effect&quot;: 1609519996,
-            &quot;modify_datetime&quot;: &quot;2020-04-27 18:39:56&quot;,
-            &quot;name&quot;: &quot;李四.张三&quot;,
-            &quot;others&quot;: &quot;13663548853&quot;,
-            &quot;rule&quot;: &quot;Iksiwim&quot;,
-            &quot;state&quot;: 0,
             &quot;userid&quot;: &quot;1avsoHu2EeqZmH943F8eUg==&quot;,
-            &quot;ops&quot;:0,
-            &quot;face&quot;:{ 
-                &quot;vendor&quot;:&quot;bashi&quot;,
-                &quot;version&quot;:&quot;v2.1.0&quot;,
-                &quot;feature&quot;: &quot;data....&quot;       // base64编码的用户特征值，由设备计算，平台不填写
-            }
+            ... // 用户的其它信息，请参照本章的用户对象说明
         },
         {
-            &quot;create_datetime&quot;: &quot;2020-04-27 18:39:56&quot;,
-            &quot;desc&quot;: &quot;国际贸易部&quot;,
-            &quot;effect&quot;: 1609519996,
-            &quot;expire&quot;:1619519996,
-            &quot;modify_datetime&quot;: &quot;2020-04-27 18:39:56&quot;,
-            &quot;name&quot;: &quot;张三.李四&quot;,
-            &quot;others&quot;: &quot;13663548853&quot;,
-            &quot;rule&quot;: &quot;Iksiwim&quot;,
-            &quot;state&quot;: 0,
             &quot;userid&quot;: &quot;1aw6wHu2EeqZmH943F8eUg==&quot;,
-            &quot;ops&quot;:0,
-            &quot;face&quot;:{ 
-                &quot;vendor&quot;:&quot;bashi&quot;,
-                &quot;version&quot;:&quot;v2.1.0&quot;,
-                &quot;feature&quot;: &quot;data....&quot;       // base64编码的用户特征值，由设备计算，平台不填写
-            }
+            ... // 用户的其它信息，请参照本章的用户对象说明
         }
-    ],
-    &quot;reqid&quot;:129393,
-    &quot;retcode&quot;: 0
+        ]
+    }
 }
 </code></pre>
 <h4 id="_9">上传用户文件</h4>
@@ -466,17 +437,22 @@ limit : 本次列表的数量;</p>
 </ul>
 <pre><code class="language-json">{
     &quot;action&quot;:&quot;user-upload&quot;,
-    &quot;reqid&quot;:129393,
 
-    &quot;filesize&quot;:32678,
-    &quot;filename&quot;:&quot;1aw6wHu2EeqZmH943F8eUg==.nv12&quot;,
-    &quot;offset&quot;:4096,
-    &quot;size&quot;: 4096,
-    &quot;data&quot;:&quot;base64-encoded file data&quot;
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;filesize&quot;:32678,
+        &quot;filename&quot;:&quot;1aw6wHu2EeqZmH943F8eUg==.nv12&quot;, // 文件名后缀代表文件类型，支持nv12, jpg, png
+        &quot;offset&quot;:4096,
+        &quot;size&quot;: 4096,
+        &quot;data&quot;:&quot;base64-encoded file data&quot;
+    }
 }
 </code></pre>
 <blockquote>
-<p>filename : 用户ID + 后缀, nv12时为nv12文件，png时为PNG文件，使用512x512的人脸图片，做底库使用
+<p>filename : 用户ID + 后缀, nv12时为nv12文件，使用512x512的人脸图片，做底库使用。jpg, png时，人脸图片最大边（长或宽）不超过400像素，人脸大小大于200像素
 filesize : 文件总的长度
 offset : 当前数据片段起始位置
 size : 当前数据片段长度
@@ -486,8 +462,11 @@ data : base64编码的数据</p>
 <li>响应</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;reqid&quot;:129393,
-    &quot;retcode&quot;:0
+    &quot;retcode&quot;:0,
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
 }
 </code></pre>
 <h4 id="_10">生成用户文件</h4>
@@ -497,15 +476,14 @@ data : base64编码的数据</p>
 </ul>
 <pre><code class="language-json">{
     &quot;action&quot;: &quot;user-gen&quot;,
-    &quot;reqid&quot;:129393,
-    &quot;params&quot;: [
-        {
-            &quot;userid&quot;: &quot;1avsoHu2EeqZmH943F8eUg==&quot;,
-        },
-        {
-            &quot;userid&quot;: &quot;1aw6wHu2EeqZmH943F8eUg==&quot;,
-        }
-    ]
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;userid&quot;: &quot;1avsoHu2EeqZmH943F8eUg==&quot;,
+    }
 }
 </code></pre>
 <ul>
@@ -513,17 +491,20 @@ data : base64编码的数据</p>
 </ul>
 <pre><code class="language-json">{
     &quot;retcode&quot;:0,
-    &quot;reqid&quot;:129393,
-    &quot;params&quot;: [
-        {
-            &quot;userid&quot;: &quot;1avsoHu2EeqZmH943F8eUg==&quot;,
-            &quot;ops&quot;:0
-        },
-        {
-            &quot;userid&quot;: &quot;1aw6wHu2EeqZmH943F8eUg==&quot;,
-            &quot;ops&quot;:0
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;: {
+        &quot;userid&quot;: &quot;1avsoHu2EeqZmH943F8eUg==&quot;,
+
+        &quot;face&quot;:{
+            &quot;vendor&quot;:&quot;bashi&quot;,       // 人脸算法供应商，double check使用
+            &quot;version&quot;:&quot;v2.1.0&quot;,     // 人脸算法版本, double check使用
+            &quot;feature&quot;: &quot;data....&quot;   // base64编码的用户特征值，由设备计算，同类型设备，算法版本一致的可以直接下载，节省时间
         }
-    ]
+    }
 }
 </code></pre>
 <h4 id="_11">下载帐户文件</h4>
@@ -532,26 +513,38 @@ data : base64编码的数据</p>
 </ul>
 <pre><code class="language-json">{
     &quot;action&quot;:&quot;user-download&quot;,
-    &quot;reqid&quot;:129393,
-    &quot;filename&quot;:&quot;1aw6wHu2EeqZmH943F8eUg==.nv12&quot;,
-    &quot;offset&quot;:0,
-    &quot;size&quot;: 4096,
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;filename&quot;:&quot;1aw6wHu2EeqZmH943F8eUg==.nv12&quot;,
+        &quot;offset&quot;:0,
+        &quot;size&quot;: 4096,
+    }
 }
 </code></pre>
 <blockquote>
-<p>filename : 用户ID+文件后缀名，.nv12/.png 上传的用户文件, .bmp 生成的UI文件</p>
+<p>filename : 用户ID+文件后缀名，.nv12/.jpg/.png 上传的用户文件, _ui.png, _ui.jpg 为生成的UI文件
+UI文件一般仅支持_ui.png或_ui.bmp</p>
 </blockquote>
 <ul>
 <li>响应</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;reqid&quot;:129393,
+    &quot;retcode&quot;:0,
 
-    &quot;filename&quot;:&quot;1aw6wHu2EeqZmH943F8eUg==.nv12&quot;,
-    &quot;filesize&quot;:32678,
-    &quot;offset&quot;:0,
-    &quot;size&quot;: 32000,
-    &quot;data&quot;:&quot;base64-encoded file data&quot;
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot; : {
+        &quot;filename&quot;:&quot;1aw6wHu2EeqZmH943F8eUg==.nv12&quot;,
+        &quot;filesize&quot;:32678,   // 文件总体大小
+        &quot;offset&quot;:0,         // 本次下载的offset
+        &quot;size&quot;: 32000,      // 本次下载的大小
+        &quot;data&quot;:&quot;base64-encoded file data&quot;
+    }
 }
 </code></pre>
               

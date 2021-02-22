@@ -12,12 +12,6 @@
 >请求URL: http://dev-ip-addr:port:/api/visitor
 >HTTP头：token = , 使用登陆时返回的token
 
-终端模式时：
->请求类型: POST
->object = "user"
->HTTP头：token = , 使用登陆时返回的token
->消息体、返回体相关，无HTTP相关内容
-
 **vid 大小不超过32Bytes， code为6位数字**
 
 #### 访客对象
@@ -27,7 +21,7 @@
     "vid": "98s0k9sksk",        // visitor id，全局唯一
     "code": "330669",           // 访客码，手输入密码（6位）或二维码（16位）
     "effect": 1586429594,       // 生效时间
-    "expire": 1586515994        // 过期时间
+    "expire": 1586515994        // 过期时间， -1为永不过期
 }
 ```
 
@@ -38,15 +32,29 @@
 ```json
 {
     "action": "visitor-add",
+
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    },
+
     "reqid":129393,
-    "params": [
-        {
-            "vid": "98s0k9sksk",
-            "code": "330669",
-            "effect": 1586429594,
-            "expire": 1586515994
-        }
-    ]
+    "body": {
+        "visitors": [
+            {
+                "vid": "98s0k9sksk",
+                "code": "330669",
+                "effect": 1586429594,
+                "expire": 1586515994
+            },
+
+            {
+                "vid": "98s0k9sksk",
+                "code": "330669",
+                "effect": 1586429594,
+                "expire": 1586515994
+            },
+        ]
+    }
 }
 ```
 
@@ -54,18 +62,24 @@
 
 ```json
 {
-    "params": [
-        {
-            "vid": "90s0k9sbca",
-            "ops":0
-        },
-        {
-            "vid": "98s0k9sksk",
-            "ops":0
-        }
-    ],
-    "reqid":129393,
-    "retcode": 0
+    "retcode": 0,
+
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    },
+
+    "body": {
+        "visitors":[
+            {
+                "vid": "90s0k9sbca",
+                "retcode": 0    // 本访客操作结果
+            },
+            {
+                "vid": "98s0k9sksk",
+                "retcode": 0    // 本访客操作结果
+            }
+        ],
+    }
 }
 ```
 
@@ -76,15 +90,22 @@
 ```json
 {
     "action": "visitor-del",
-    "reqid":129393,
-    "params": [
+
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    },
+    
+    "body": {
+        "visitors":[
         {
             "vid": "98s0k9sksk",
         },
+
         {
             "vid": "90s0k9sbca",
         }
-    ]
+        ]
+    }
 }
 ```
 
@@ -92,17 +113,24 @@
 
 ```json
 {
-    "params": [
+    "retcode": 0,
+
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    },
+
+    "body": {
+        "visitors": [
         {
             "vid": "98s0k9sksk",
-            "ops":0
+            "retcode": 0    // 本访客操作结果
         },
+        
         {
             "vid": "90s0k9sbca",
-            "ops":0
+            "retcode": 0    // 本访客操作结果
         }
-    ],
-    "reqid":129393,
-    "retcode": 0
+        ],
+    }
 }
 ```

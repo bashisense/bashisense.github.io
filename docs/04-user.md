@@ -12,13 +12,7 @@
 >请求URL: http://dev-ip-addr:port:/api/user
 >HTTP头：token = , 使用登陆时返回的token
 
-终端模式时：
->请求类型: POST
->object = "user"
->HTTP头：token = , 使用登陆时返回的token
->消息体、返回体相关，无HTTP相关内容
-
-**限制条件： userid 不超过32字节， name不超过32字节， desc不超过32字节， others不超过32字节， rule不超过32字节**
+**限制条件： userid 不超过32字节， name不超过32字节， desc不超过32字节**
 
 #### 用户对象
 
@@ -26,21 +20,23 @@
 {
     "userid": "1avsoHu2EeqZmH943F8eUg",     // 用户ID，全局唯一
     "name": "李四",     // 用户姓名，必填
-    "desc": "研发部",   // 用户部门/住宅门牌号等，可不填写
-    "others": "17763548853",    // 附加信息，可用于梯控等场景，可不填写
-    "effect": 1619019996,       // 用户生效时间，不填则当前时刻，EPOCH值
-    "expire": 1619519996,       // 用户过期时间，不填则当前时刻+1年
-    "rule": "Iksiwim",          // 用户开门规则，默认识别即通过，可不填写
-    "state": 0,                 // 用户状态，暂内部使用，可不填写
+    "desc": "研发部",   // 用户部门/住宅门牌号等，可不填写，平台可以发用户最近的组织名
+
+    "effect": 1619019996,       // 用户生效时间，不填则默认为0，部分情况设备掉电丢失时间，此值填写有核验失败风险
+    "expire": 1619519996,       // 用户过期时间，不填则当前时刻+1年，建议填写一个较大值如果不用的话，-1为不限制过期
+    
+    "state": 0,                 // 用户状态，正常用户是正值，负值为黑名单，定制产品使用，可不填写
+    
     "face":{
-        "vendor":"bashi",
-        "version":"v2.1.0",
-        "feature": "data...."       // base64编码的用户特征值，由设备计算，平台不填写
-    }
+        "vendor":"bashi",       // 人脸算法供应商，double check使用
+        "version":"v2.1.0",     // 人脸算法版本, double check使用
+        "feature": "data...."   // base64编码的用户特征值，由设备计算，同类型设备，算法版本一致的可以直接下载，节省时间
+    },
 }
 ```
 
-对用户的操作与数据库的CRUD类似，增加了枚举设备中的所有用户，所有的信息以此为准
+> 对用户的操作与数据库的CRUD类似，增加了枚举设备中的所有用户，所有的信息以此为准
+> 后续行文为了简化，直接给出用户信息的缩略版本
 
 #### 列举用户
 
@@ -49,9 +45,15 @@
 ```json
 {
     "action": "user-list",
-    "reqid":129393,
-    "offset": 1,
-    "limit": 2
+
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    },
+    
+    "body":{
+        "offset": 1,
+        "limit": 2
+    }
 }
 ```
 
@@ -63,34 +65,23 @@
 
 ```json
 {
-    "reqid":129393,
-    "retcode": 0,
-    "params": [
-        {
-            "create_datetime": "2020-04-27 18:39:56",
-            "desc": "研发部",
-            "effect": 1609519996,
-            "expire": 1619519996,
-            "modify_datetime": "2020-04-27 18:39:56",
-            "name": "李四.张三",
-            "others": "17763548853",
-            "rule": "Iksiwim",
-            "state": 0,
-            "userid": "1avsoHu2EeqZmH943F8eUg==",
-        },
-        {
-            "create_datetime": "2020-04-27 18:39:56",
-            "desc": "国际贸易部",
-            "effect": 1609519996,
-            "expire": 1619519996,
-            "modify_datetime": "2020-04-27 18:39:56",
-            "name": "张三.李四",
-            "others": "18563548853",
-            "rule": "Iksiwim",
-            "state": 0,
-            "userid": "1aw6wHu2EeqZmH943F8eUg=="
-        }
-    ],
+    "retcode":0,                // 激活成功
+    "header":{
+        "reqid":"129393",       // 透传值，设备内唯一
+    },
+    
+    "body":{
+        "users": [
+            {
+                "userid": "1avsoHu2EeqZmH943F8eUg",
+                ... // 用户的其它信息，请参照本章的用户对象说明
+            },
+            {
+                "userid": "1aw6wHu2EeqZmH943F8eUg",
+                ... // 用户的其它信息，请参照本章的用户对象说明
+            }
+        ],
+    }
 ```
 
 #### 添加用户
@@ -100,29 +91,23 @@
 ```json
 {
     "action": "user-add",
-    "reqid":129393,
-    "params": [
-        {
-            "userid": "1avsoHu2EeqZmH943F8eUg==",
-            "name": "李四",
-            "desc": "研发部",
-            "others": "17763548853",
-            "rule": "Iksiwim",
-            "effect": 1609519996,
-            "expire":1619519996,
-            "feature": "..."
-        },
-        {
-            "userid": "1aw6wHu2EeqZmH943F8eUg==",
-            "name": "张三",
-            "desc": "国际贸易部",
-            "others": "18563548853",
-            "rule": "Iksiwim",
-            "effect": 1609519996,
-            "expire": 1619519996,
-            "feature": "..."
-        }
-    ]
+
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    },
+    
+    "body":{
+        "users": [
+            {
+                "userid": "1avsoHu2EeqZmH943F8eUg",
+                ... // 用户的其它信息，请参照本章的用户对象说明
+            },
+            {
+                "userid": "1aw6wHu2EeqZmH943F8eUg",
+                ... // 用户的其它信息，请参照本章的用户对象说明
+            }
+        ]
+    }
 }
 ```
 
@@ -130,18 +115,24 @@
 
 ```json
 {
-    "params": [
-        { 
-            "userid":"1avsoHu2EeqZmH943F8eUg==",
-            "ops": 0
-        },
-        {
-            "userid":"1aw6wHu2EeqZmH943F8eUg==",
-            "ops":0
-        }
-    ],
-    "reqid":129393,
-    "retcode": 0
+    "retcode": 0,   // 当有任意一项成功时，返回成功
+
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    },
+
+    "body":{
+        "users": [
+            { 
+                "userid":"1avsoHu2EeqZmH943F8eUg",
+                "retcode": 0    // 本用户操作结果
+            },
+            {
+                "userid":"1aw6wHu2EeqZmH943F8eUg",
+                "retcode": 0    // 本用户操作结果
+            }
+        ]
+    }
 }
 ```
 
@@ -152,15 +143,21 @@
 ```json
 {
     "action": "user-del",
-    "reqid":129393,
-    "params": [
+
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    },
+
+    "body":{
+        "users": [
         {
             "userid": "1avsoHu2EeqZmH943F8eUg=="
         },
         {
             "userid": "1aw6wHu2EeqZmH943F8eUg=="
         }
-    ]
+        ]
+    }
 }
 ```
 
@@ -170,18 +167,24 @@
 
 ```json
 {
-    "params": [
+    "retcode": 0,   // 当有任意一项成功时，返回成功
+
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    },
+
+    "body":{
+        "users": [
         {
             "userid": "1avsoHu2EeqZmH943F8eUg==",
-            "ops":0
+            "retcode": 0    // 本用户操作结果
         },
         {
             "userid": "1aw6wHu2EeqZmH943F8eUg==",
-            "ops":0
+            "retcode": 0    // 本用户操作结果
         }
-    ],
-    "reqid":129393,
-    "retcode": 0
+        ]
+    }
 }
 ```
 
@@ -192,29 +195,23 @@
 ```json
 {
     "action": "user-update",
-    "reqid":129393,
-    "params": [
+
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    },
+
+    "body":{
+        "users": [
         {
             "userid": "1avsoHu2EeqZmH943F8eUg==",
-            "name": "李四.张三",
-            "desc": "销售部",
-            "others": "13663548853",
-            "rule": "Iksiwim",
-            "effect": 1609519996,
-            "expire":1619519996,
-            "feature": "..."
+            ... // 用户的其它信息，请参照本章的用户对象说明
         },
         {
             "userid": "1aw6wHu2EeqZmH943F8eUg==",
-            "name": "张三.李四",
-            "desc": "国际贸易部",
-            "others": "13663548853",
-            "rule": "Iksiwim",
-            "effect": 1609519996,
-            "expire":1619519996,
-            "feature": "..."
+            ... // 用户的其它信息，请参照本章的用户对象说明
         }
-    ]
+        ]
+    }
 }
 ```
 
@@ -222,36 +219,25 @@
 
 ```json
 {
-    "params": [
+    "retcode": 0,   // 当有任意一项成功时，返回成功
+
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    },
+
+    "body": {
+        "users": [
         {
-            "create_datetime": "2020-04-27 18:39:56",
-            "desc": "销售部",
-            "effect": 1609519996,
-            "expire":1619519996,
-            "modify_datetime": "2020-04-27 18:39:56",
-            "name": "李四.张三",
-            "others": "13663548853",
-            "rule": "Iksiwim",
-            "state": 0,
             "userid": "1avsoHu2EeqZmH943F8eUg==",
-            "ops":0
+            "retcode": 0    // 本用户操作结果
         },
+
         {
-            "create_datetime": "2020-04-27 18:39:56",
-            "desc": "国际贸易部",
-            "effect": 1609519996,
-            "expire":1619519996,
-            "modify_datetime": "2020-04-27 18:39:56",
-            "name": "张三.李四",
-            "others": "13663548853",
-            "rule": "Iksiwim",
-            "state": 0,
             "userid": "1aw6wHu2EeqZmH943F8eUg==",
-            "ops":0
+            "retcode": 0    // 本用户操作结果
         }
-    ],
-    "reqid":129393,
-    "retcode": 0
+        ]
+    },
 }
 ```
 
@@ -261,16 +247,22 @@
 
 ```json
 {
-    "reqid":129393,
     "action": "user-info",
-    "params": [
+ 
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    },
+    
+    "body":{
+        "users": [
         {
-            "userid": "1avsoHu2EeqZmH943F8eUg=="
+            "userid": "1avsoHu2EeqZmH943F8eUg==",
         },
         {
-            "userid": "1aw6wHu2EeqZmH943F8eUg=="
+            "userid": "1aw6wHu2EeqZmH943F8eUg==",
         }
-    ]
+        ]
+    }
 }
 ```
 
@@ -279,46 +271,24 @@
 ```json
 
 {
-    "params": [
+    "retcode": 0,   // 当有任意一项成功时，返回成功
+
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    },
+    
+    "body":{
+        "users": [
         {
-            "create_datetime": "2020-04-27 18:39:56",
-            "desc": "销售部",
-            "expire": 1619519996,
-            "effect": 1609519996,
-            "modify_datetime": "2020-04-27 18:39:56",
-            "name": "李四.张三",
-            "others": "13663548853",
-            "rule": "Iksiwim",
-            "state": 0,
             "userid": "1avsoHu2EeqZmH943F8eUg==",
-            "ops":0,
-            "face":{ 
-                "vendor":"bashi",
-                "version":"v2.1.0",
-                "feature": "data...."       // base64编码的用户特征值，由设备计算，平台不填写
-            }
+            ... // 用户的其它信息，请参照本章的用户对象说明
         },
         {
-            "create_datetime": "2020-04-27 18:39:56",
-            "desc": "国际贸易部",
-            "effect": 1609519996,
-            "expire":1619519996,
-            "modify_datetime": "2020-04-27 18:39:56",
-            "name": "张三.李四",
-            "others": "13663548853",
-            "rule": "Iksiwim",
-            "state": 0,
             "userid": "1aw6wHu2EeqZmH943F8eUg==",
-            "ops":0,
-            "face":{ 
-                "vendor":"bashi",
-                "version":"v2.1.0",
-                "feature": "data...."       // base64编码的用户特征值，由设备计算，平台不填写
-            }
+            ... // 用户的其它信息，请参照本章的用户对象说明
         }
-    ],
-    "reqid":129393,
-    "retcode": 0
+        ]
+    }
 }
 ```
 
@@ -331,17 +301,22 @@
 ```json
 {
     "action":"user-upload",
-    "reqid":129393,
+    
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    },
 
-    "filesize":32678,
-    "filename":"1aw6wHu2EeqZmH943F8eUg==.nv12",
-    "offset":4096,
-    "size": 4096,
-    "data":"base64-encoded file data"
+    "body":{
+        "filesize":32678,
+        "filename":"1aw6wHu2EeqZmH943F8eUg==.nv12", // 文件名后缀代表文件类型，支持nv12, jpg, png
+        "offset":4096,
+        "size": 4096,
+        "data":"base64-encoded file data"
+    }
 }
 ```
 
->filename : 用户ID + 后缀, nv12时为nv12文件，png时为PNG文件，使用512x512的人脸图片，做底库使用
+>filename : 用户ID + 后缀, nv12时为nv12文件，使用512x512的人脸图片，做底库使用。jpg, png时，人脸图片最大边（长或宽）不超过400像素，人脸大小大于200像素
 >filesize : 文件总的长度
 >offset : 当前数据片段起始位置
 >size : 当前数据片段长度
@@ -351,8 +326,11 @@
 
 ```json
 {
-    "reqid":129393,
-    "retcode":0
+    "retcode":0,
+
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    },
 }
 ```
 
@@ -365,15 +343,14 @@
 ```json
 {
     "action": "user-gen",
-    "reqid":129393,
-    "params": [
-        {
-            "userid": "1avsoHu2EeqZmH943F8eUg==",
-        },
-        {
-            "userid": "1aw6wHu2EeqZmH943F8eUg==",
-        }
-    ]
+    
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    },
+    
+    "body":{
+        "userid": "1avsoHu2EeqZmH943F8eUg==",
+    }
 }
 ```
 
@@ -382,17 +359,20 @@
 ```json
 {
     "retcode":0,
-    "reqid":129393,
-    "params": [
-        {
-            "userid": "1avsoHu2EeqZmH943F8eUg==",
-            "ops":0
-        },
-        {
-            "userid": "1aw6wHu2EeqZmH943F8eUg==",
-            "ops":0
+
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    },
+
+    "body": {
+        "userid": "1avsoHu2EeqZmH943F8eUg==",
+
+        "face":{
+            "vendor":"bashi",       // 人脸算法供应商，double check使用
+            "version":"v2.1.0",     // 人脸算法版本, double check使用
+            "feature": "data...."   // base64编码的用户特征值，由设备计算，同类型设备，算法版本一致的可以直接下载，节省时间
         }
-    ]
+    }
 }
 ```
 
@@ -403,25 +383,37 @@
 ```json
 {
     "action":"user-download",
-    "reqid":129393,
-    "filename":"1aw6wHu2EeqZmH943F8eUg==.nv12",
-    "offset":0,
-    "size": 4096,
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    },
+
+    "body":{
+        "filename":"1aw6wHu2EeqZmH943F8eUg==.nv12",
+        "offset":0,
+        "size": 4096,
+    }
 }
 ```
 
-> filename : 用户ID+文件后缀名，.nv12/.png 上传的用户文件, .bmp 生成的UI文件
+> filename : 用户ID+文件后缀名，.nv12/.jpg/.png 上传的用户文件, _ui.png, _ui.jpg 为生成的UI文件
+> UI文件一般仅支持_ui.png或_ui.bmp
 
 - 响应
 
 ```json
 {
-    "reqid":129393,
+    "retcode":0,
 
-    "filename":"1aw6wHu2EeqZmH943F8eUg==.nv12",
-    "filesize":32678,
-    "offset":0,
-    "size": 32000,
-    "data":"base64-encoded file data"
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    },
+
+    "body" : {
+        "filename":"1aw6wHu2EeqZmH943F8eUg==.nv12",
+        "filesize":32678,   // 文件总体大小
+        "offset":0,         // 本次下载的offset
+        "size": 32000,      // 本次下载的大小
+        "data":"base64-encoded file data"
+    }
 }
 ```

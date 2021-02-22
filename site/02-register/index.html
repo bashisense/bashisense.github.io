@@ -104,7 +104,7 @@
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../07-rule/">规则管理</a>
+                    <li class="toctree-l1"><a class="" href="../07-rule.md">规则管理</a>
                     </li>
                 </ul>
                 <ul>
@@ -158,12 +158,12 @@
                 <h1 id="_1">注册登陆</h1>
 <hr />
 <h4 id="_2">获取设备地址</h4>
-<p>向同网段的6543端口发送广播报文：</p>
+<p>向同网段的6543端口发送广播报文，可以获取到设备的信息响应，在任意模式下，设备都会响应扫描请求，扫描请求/响应与设备的管理模式无关</p>
 <pre><code class="language-json">{
     &quot;action&quot;:&quot;scan&quot;
 }       
 </code></pre>
-<p>如果该地址是WalOS在网设备，会响应：</p>
+<p>如果该地址段有WalOS在网设备（通常接到同一个交换机，在二层网络上相通，IP地址在同一个网段），会响应：</p>
 <pre><code class="language-json">{
     &quot;device-id&quot;:&quot;device-id&quot;,                // 设备ID
     &quot;hardware-version&quot; : &quot;v1.2.0&quot;,          // 硬件载体版本号
@@ -190,19 +190,31 @@
 </ul>
 <pre><code class="language-json">{
     &quot;action&quot;:&quot;auth&quot;,
-    &quot;reqid&quot;:192839,         // 透传值，设备内唯一
-    &quot;user&quot;:&quot;admin&quot;,
-    &quot;passwd&quot;:&quot;admin-passwd&quot;
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;192839&quot;,         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;user&quot;:&quot;admin&quot;,
+        &quot;passwd&quot;:&quot;admin-passwd&quot;
+    }
 }
 </code></pre>
 <ul>
 <li>响应：</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;token&quot;:&quot;823lsefhw03slej&quot;,
-    &quot;timestamp&quot;:1560392020,
-    &quot;reqid&quot;:192839,         // 透传值，设备内唯一
-    &quot;retcode&quot;:0
+    &quot;retcode&quot;:0,
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;192839&quot;,         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;token&quot;:&quot;823lsefhw03slej&quot;,
+        &quot;timestamp&quot;:1560392020,
+    }
 }
 </code></pre>
 <blockquote>
@@ -214,9 +226,15 @@
 </ul>
 <pre><code class="language-json">{
     &quot;action&quot;:&quot;passwd&quot;,
-    &quot;reqid&quot;:192839,         // 透传值，设备内唯一
-    &quot;user&quot;:&quot;admin&quot;,
-    &quot;passwd&quot;:&quot;admin-passwd&quot;
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;192839&quot;,         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;user&quot;:&quot;admin&quot;,
+        &quot;passwd&quot;:&quot;admin-new-passwd&quot;
+    }
 }
 </code></pre>
 <ul>
@@ -229,7 +247,7 @@
 </code></pre>
 <h2 id="_6">终端模式登陆</h2>
 <p>终端模式设备分为以下几个状态：
-1. 设备未连接状态：设备未连接到管理平台，可能是网络配置或服务器地址配置问题导致设备未能接入管理平台，此时设备如果有显示屏，则显示网络配置信息，提示用户配置网络以使设备可以连接到管理平台；</p>
+1. 设备未连接状态：设备从未连接到管理平台，可能是网络配置或服务器地址配置问题导致设备未能接入管理平台，此时设备如果有显示屏，则显示网络配置信息，提示用户配置网络以使设备可以连接到管理平台；</p>
 <ol>
 <li>
 <p>设备已连接状态：设备已接入到管理平台，网络处于连通状态，设备与管理平台进行以下操作：</p>
@@ -248,101 +266,146 @@
 </ul>
 <pre><code class="language-json">{
     &quot;action&quot;:&quot;get_sign_code&quot;,
-    &quot;reqid&quot;:192839,             // 透传值，设备内唯一
 
-    &quot;device-id&quot;:&quot;device-id&quot;,    // 设备ID
-    &quot;timestamp&quot;:1560392020,     // 当时时间戳
-    &quot;nonce&quot; : 19283892,          // 随机数
-    &quot;signature&quot;:&quot;xxxxx&quot;         // 设备签名
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;192839&quot;,         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;device-id&quot;:&quot;device-id&quot;,    // 设备ID
+        &quot;timestamp&quot;:1560392020,     // 当时时间戳，计算签名时请转成字符串
+        &quot;nonce&quot; : 19283892,         // 随机数，计算 签名时请转成字符串
+        &quot;signature&quot;:&quot;xxxxx&quot;         // 设备签名
+    }
 }
 </code></pre>
 <blockquote>
-<p>第三方平台，device-id 唯一标识一台设备
+<p>device-id 唯一标识一台设备
 设备签名，sha1(sort(device-id、public-key、timestamp、nonce, “signature”))。sort的含义是将参数值按照字母字典排序，然后从小到大拼接成一个字符串。public-key是云平台的公钥，所有设备与第三方平台都有的。本接口计算签名时，需要把字符串常量 “signature”参与到计算之中，区别其他场景的签名。
-public-key 采用base64编码后的串</p>
+public-key 采用base64编码后的串
+<strong><em>如平台无需求确认设备是否为我司产品，可以忽略此命令的签名，直接返回secret_code用于后续签名即可</em></strong></p>
 </blockquote>
 <ul>
 <li>响应：</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;reqid&quot;:192839,             // 透传值，设备内唯一
-    &quot;sign-code&quot;:&quot;xxxxxx&quot;,       // 签名码，字符串
-    &quot;retcode&quot;:0                 // 获取成功
+    &quot;retcode&quot;:0,                 // 获取成功
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;192839&quot;,         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;secret_code&quot;:&quot;xxxxxx&quot;,       // 签名码，字符串
+    }
 }
 </code></pre>
+<blockquote>
+<p>设备仅在第一次登陆平台时获取secret_code，并存储此值，直到设备被复位到出厂设备，后续一直使用此值签名；</p>
+</blockquote>
 <h5 id="_8">获取设备激活码</h5>
 <ul>
 <li>请求：</li>
 </ul>
 <pre><code class="language-json">{
     &quot;action&quot;:&quot;register&quot;,
-    &quot;reqid&quot;:192839,             // 透传值，设备内唯一
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;192839&quot;,         // 透传值，设备内唯一
+    },
 
-    &quot;device-id&quot;:&quot;device-id&quot;,    // 设备ID
-    &quot;timestamp&quot;:1560392020,     // 当时时间戳
-    &quot;nonce&quot; : 19283892,          // 随机数
-    &quot;signature&quot;:&quot;xxxxx&quot;         // 设备签名
+    &quot;body&quot;:{
+        &quot;device-id&quot;:&quot;device-id&quot;,    // 设备ID
+        &quot;timestamp&quot;:1560392020,     // 当时时间戳，计算签名时请转成字符串
+        &quot;nonce&quot; : 19283892,         // 随机数，计算 签名时请转成字符串
+        &quot;signature&quot;:&quot;xxxxx&quot;         // 设备签名
+    }
 }
 </code></pre>
 <blockquote>
 <p>第三方平台，device-id 唯一标识一台设备
-设备签名，sha1(sort(device-id、sign-code、timestamp、nonce, "register"))。sort的含义是将参数值按照字母字典排序，然后从小到大拼接成一个字符串。sign-code是public-key是云平台的公钥,生成base64字符串方式，所有设备与第三方平台都有的。本接口计算签名时，需要把字符串常量 “register”参与到计算之中，区别其他场景的签名。</p>
+设备签名，sha1(sort(device-id、secret_code、timestamp、nonce, "register"))。sort的含义是将参数值按照字母字典排序，然后从小到大拼接成一个字符串。本接口计算签名时，需要把字符串常量 “register”参与到计算之中，区别其他场景的签名。</p>
 </blockquote>
 <ul>
 <li>响应：</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;reqid&quot;:192839,             // 透传值，设备内唯一
-    &quot;active-code&quot;:&quot;xxxxxx&quot;,     // 激活码，字符串
-    &quot;retcode&quot;:0                 // 获取成功
+    &quot;retcode&quot;:0,                 // 获取成功
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;192839&quot;,         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;active_code&quot;:&quot;xxxxxx&quot;,     // 激活码，字符串
+    }
 }
 </code></pre>
+<blockquote>
+<p>设备会存储此激活码，每次注册到平台，返回的激活码应一致</p>
+</blockquote>
 <h5 id="_9">获取激活状态</h5>
 <ul>
 <li>请求：</li>
 </ul>
 <pre><code class="language-json">{
     &quot;action&quot;:&quot;active&quot;,
-    &quot;reqid&quot;:192839,             // 透传值，设备内唯一
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;192839&quot;,         // 透传值，设备内唯一
+    },
 
-    &quot;active-code&quot;:&quot;xxxxxx&quot;,     // 激活码，字符串
+    &quot;body&quot;:{
+        &quot;active_code&quot;:&quot;xxxxxx&quot;,     // 激活码，字符串
+    }
 }
 </code></pre>
 <ul>
 <li>响应：</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;reqid&quot;:192839,             // 透传值，设备内唯一
-    &quot;secret&quot;:&quot;xxxxxx&quot;,          // 凭证密钥，用于登陆系统
-    &quot;retcode&quot;:0                 // 获取成功
+    &quot;retcode&quot;:0,                 // 激活成功
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;192839&quot;,         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;secret&quot;:&quot;xxxxxx&quot;,          // 凭证密钥，用于登陆系统
+    }
 }
 </code></pre>
+<blockquote>
+<p>设备存储secret值，用于登陆后的订阅命令；
+已激活的设备，在连接入平台时，不再发送激活指令，直到设备解绑定；
+激活返回失败时，设备应该轮询激活，时延设定为5秒直到返回激活成功，或者直接收到激活指令；
+接收到激活指令后（body部分为secret），停止轮询，完成激活任务。应用平台retcode:0</p>
+</blockquote>
 <h5 id="_10">订阅设备信息</h5>
 <ul>
 <li>请求：</li>
 </ul>
 <pre><code class="language-json">{
     &quot;action&quot;:&quot;subscribe&quot;,
-    &quot;reqid&quot;:192839,         // 透传值，设备内唯一
 
-    &quot;secret&quot;:&quot;xxxxxx&quot;,      // 凭证密钥，用于登陆系统
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;192839&quot;,         // 透传值，设备内唯一
+    },
 
-    &quot;device-id&quot;:&quot;device-id&quot;,    // 设备ID
-    &quot;timestamp&quot;:1560392020,     // 当时时间戳
-    &quot;nonce&quot; : 19283892,          // 随机数
-    &quot;signature&quot;:&quot;xxxxx&quot;         // 设备签名
+    &quot;body&quot;:{
+        &quot;secret&quot;:&quot;xxxxxx&quot;,      // 凭证密钥，用于登陆系统
+    }
 }
 </code></pre>
-<blockquote>
-<p>第三方平台，device-id 唯一标识一台设备
-设备签名，sha1(sort(device-id、sign-code、timestamp、nonce, "subscribe"))。sort的含义是将参数值按照字母字典排序，然后从小到大拼接成一个字符串。sign-code是public-key是云平台的公钥,生成base64字符串方式，所有设备与第三方平台都有的。本接口计算签名时，需要把字符串常量 “subscribe”参与到计算之中，区别其他场景的签名。</p>
-</blockquote>
 <ul>
 <li>响应：</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;reqid&quot;:192839,             // 透传值，设备内唯一
-    &quot;retcode&quot;:0                 // 获取成功
+    &quot;retcode&quot;:0,                 // 激活成功
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;192839&quot;,         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{        // 选填，订阅后平台可响应时间信息，设备自动校准时间
+        &quot;timestamp&quot;:15992901,       // 平台时间戳
+        &quot;timezone&quot;:-480             // 平台时区，分钟数偏移，东区为负西区为正，-480为东八区
+    }
 }
 </code></pre>
 <p>至此，设备进入被动模式，接收来自平台的指令，完成任务并返回响应</p>

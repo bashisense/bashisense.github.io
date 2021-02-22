@@ -59,16 +59,16 @@
                     <li class="toctree-l1 current"><a class="reference internal current" href="./">系统简介</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#_2">管理模式</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_3">终端模式</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#websocket">websocket协议:</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_3">协议消息格式</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_4">终端模式</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_5">独立模式</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_4">独立模式</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_5">行文约定</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_6">行文约定</a>
     </li>
     </ul>
                     </li>
@@ -94,7 +94,7 @@
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../07-rule/">规则管理</a>
+                    <li class="toctree-l1"><a class="" href="../07-rule.md">规则管理</a>
                     </li>
                 </ul>
                 <ul>
@@ -157,22 +157,46 @@
 <li>交互子系统: 通过图形界面、语音、触摸屏等实现用用户的交互； </li>
 </ol>
 <h2 id="_2">管理模式</h2>
-<p>WalOS可以配置为多种管理模式，用于对接不同的平台，主要模式有：</p>
-<ol>
-<li><strong>智云模式</strong>：设备接入八识智云平台，用户通过小程序、安卓app、PC客户端访问八识智云平台，间接访问设备；</li>
-<li><strong>微信模式</strong>：设备接入企业微信平台，通过企业微信的考勤、门禁功能使用设备；</li>
-<li><strong>终端模式</strong>：设备可提供websocket client，接入第三方云平台，用户通过第三方云平台管理设备，或八识门禁控制器盒子，通过客户端管理；</li>
-<li><strong>独立模式</strong>：设备不接入任何平台，仅提供HTTP API接口，第三方应用通过API接口管理使用设备（此模式一直要用）；</li>
-</ol>
-<p><strong> 其中独立模式一直存在，可与 1/2/3 三种方式并存，但1/2/3 模式同一个时刻仅一种模式有效，不可并存 </strong></p>
-<p>本文档主要说明终端模式与独立模式的协议内容，两者的协议内容基本一致，仅底层传输协议不同。</p>
-<h2 id="_3">终端模式</h2>
-<p>设备运行于终端模式时，设备本身做为客户端(client),根据配置的manager-server系统，主动连接第三方服务端平台，采用websocket协议：设备通过websocket协议请求服务端，并建立长连接，上报心跳、事件（识别事件或运行告警事件）等，并根据服务端下发的请求，响应处理任务，这些任务包括用户管理、配置管理、访客管理、规则管理、广告管理、门卡管理等。</p>
-<h4 id="websocket">websocket协议:</h4>
+<p>WalOS可以配置为多种管理模式，用于对接不同的平台，目前支持Websocket协议，Http协议。</p>
+<h3 id="_3">协议消息格式</h3>
+<p>典型的协议消息体：
+- 请求， 服务器向设备发送请求</p>
+<pre><code class="language-json">{
+    &quot;action&quot;: &quot;info&quot;,           // 1. 请求命令字
+
+    &quot;header&quot;:{                  // 2. 消息头信息
+        &quot;reqid&quot;:&quot;192839&quot;        // 2.1 请求ID，透传值，由发起方设置，接受方处理后连同消息一块返回。
+    },
+
+    &quot;body&quot;:{                    // 3. 消息体，包括与命令字相关的消息内容，如果命令无消息内容则此项不存在
+
+    }
+}
+</code></pre>
+<ul>
+<li>响应，设备向服务器发送响应</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;retcode&quot;:0,                // 1. 响应状态码，0 为成功，其它值为失败错误码，错误码见附录
+
+    &quot;header&quot;:{                  // 2. 消息头信息
+        &quot;reqid&quot;:&quot;192839&quot;        // 2.1 请求ID，透传值，由发起方设置，接受方处理后连同消息一块返回。
+    },
+
+    &quot;body&quot;:{                    // 3. 响应消息体
+        &quot;device-id&quot; : &quot;device-id&quot;,          // 硬件设备ID号
+        &quot;walos-version&quot; : &quot;v2.1.0&quot;,         // WalOS 操作系统版本号
+        &quot;algm-version&quot;  : &quot;v1.1.0&quot;,         // 算法版本号
+        &quot;hardware-version&quot; : &quot;v1.2.0&quot;,      // 硬件载体版本号
+    }
+}
+</code></pre>
+<h3 id="_4">终端模式</h3>
+<p>采用websocket协议连接第三方平台，设备做为客户端使用，主要交互过程：</p>
 <ul>
 <li>
 <ol>
-<li>设备通过向服务端发起连接，并注册设备到服务端；</li>
+<li>设备通过向服务端发起连接，并注册设备到服务端，订阅设备消息；</li>
 </ol>
 </li>
 <li>
@@ -190,65 +214,38 @@
 <li>设备向服务端提交运行告警事件、识别事件等；</li>
 </ol>
 </li>
+<li>
+<ol>
+<li>设备向服务端请求数据（对时等）；</li>
+</ol>
+</li>
 </ul>
-<p>典型的websocket协议消息体：
-- 请求， 服务器向设备发送请求</p>
-<pre><code class="language-json">{
-    &quot;action&quot;: &quot;info&quot;,       // 请求命令字
-    &quot;reqid&quot;:192839         // 透传值，设备内唯一
-}
-</code></pre>
+<h3 id="_5">独立模式</h3>
+<p>独立模式在设备启动后直接以服务器方式运行，平台以客户端方式通过HTTP API访问设备，主要交互过程：</p>
 <ul>
-<li>响应，设备向服务器发送响应</li>
-</ul>
-<pre><code class="language-json">{
-    &quot;reqid&quot;:192839,        // 透传值，设备内唯一，与请求命令配对
-
-    &quot;walos-version&quot; : &quot;v2.1.0&quot;,             // WalOS 操作系统版本号
-    &quot;algm-version&quot;  : &quot;v1.1.0&quot;,             // 算法版本号
-    &quot;hardware-version&quot; : &quot;v1.2.0&quot;,          // 硬件载体版本号
-    &quot;device-id&quot; : &quot;device-id&quot;,
-
-    &quot;retcode&quot;:0             // 响应状态码，0 为成功，其它值为失败
-}
-</code></pre>
-<h2 id="_4">独立模式</h2>
-<p>独立模式在设备启动后一直运行，不受设备配置为终端模式时影响，但如果配置为独立模式，设备将向manager-server提交事件信息，独立模式不配置时，虽然可以通过HTTP API的方式访问设备，但设备并不向manager-server配置提交事件。</p>
-<p>使用独立模式的典型过程：</p>
+<li>
 <ol>
 <li>采用扫描程序，发现局域网内设备或通过固定IP地址连接设备，请登陆设备；</li>
+</ol>
+</li>
+<li>
+<ol>
 <li>向设备发送http请求，设备接收请求、处理任务并返回处理结果；</li>
+</ol>
+</li>
+<li>
+<ol>
 <li>如果设备配置为独立模式，则设备向manager-server提交运行告警事件、识别事件。</li>
 </ol>
+</li>
+</ul>
 <p>典型请求：</p>
 <blockquote>
 <p>请求URL: http://dev-ip-addr:port:/api/info
 请求类型: POST
-HTTP头：token = 登陆前获取info信息可不填写，其它必须填写登陆时返回的token值
-请求消息体:JSON
-返回消息体:JSON, retcode = 0时正确， 非0时出错</p>
+HTTP头：token = 登陆前获取info信息可不填写，其它必须填写登陆时返回的token值</p>
 </blockquote>
-<p>例:查询设备基本信息：</p>
-<ul>
-<li>请求</li>
-</ul>
-<pre><code class="language-json">{
-    &quot;action&quot;: &quot;info&quot;,
-    &quot;reqid&quot;:192839         // 透传值，设备内唯一
-}
-</code></pre>
-<ul>
-<li>响应</li>
-</ul>
-<pre><code class="language-json">{
-    &quot;walos-version&quot; : &quot;v2.1.0&quot;,             // WalOS 操作系统版本号
-    &quot;algm-version&quot;  : &quot;v1.1.0&quot;,             // 算法版本号
-    &quot;hardware-version&quot; : &quot;v1.2.0&quot;,          // 硬件载体版本号
-    &quot;device-id&quot; : &quot;device-id&quot;,
-    &quot;retcode&quot;:0
-}
-</code></pre>
-<h2 id="_5">行文约定</h2>
+<h2 id="_6">行文约定</h2>
 <p>本文后续部分，主要为请求-响应的数据包格式，直接对应到终端模式中的websocket的请求-响应，独立模式的请求-响应，以及终端模式的获取任务的响应信息-结果提交部分，这两部分的内容基本上是一致的，仅仅是因为模式不同，与传输有关的地方有差异而已。  </p>
               
             </div>

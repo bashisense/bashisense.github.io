@@ -92,7 +92,7 @@
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../07-rule/">规则管理</a>
+                    <li class="toctree-l1"><a class="" href="../07-rule.md">规则管理</a>
                     </li>
                 </ul>
                 <ul>
@@ -157,25 +157,27 @@ HTTP头：token = , 使用登陆时返回的token
 <p>请求URL: http://dev-ip-addr:port:/api/logr
 HTTP头：token = , 使用登陆时返回的token</p>
 </blockquote>
-<p>终端模式时：</p>
-<blockquote>
-<p>请求类型: POST
-object = "user"
-HTTP头：token = , 使用登陆时返回的token
-消息体、返回体相关，无HTTP相关内容</p>
-</blockquote>
 <h4 id="_3">事件对象</h4>
 <pre><code class="language-json">{
     &quot;seqnum&quot;: 6,                // 事件编号，设备唯一
-    &quot;timestamp&quot;: 1587985190,    // 事件发生时的时间戳
+    &quot;timestamp&quot;: 1587985190,    // 事件发生时的时间戳, 精确到毫秒
+
     &quot;type&quot;:&quot;logr&quot;,          // 事件类型，logr-识别，open - 开门状态， remote - 远程开门
                             // fire -火警告警， disa - 防拆告警， card - 刷卡， visitor 访客，
 
+    // 访客事件包括此项
+    &quot;vid&quot;: &quot;9sdkskw9&quot;, 
+
+    // 人脸识别事件包括下面三项
+    &quot;userid&quot;: &quot;TUID-876991&quot;, // 识别出的用户ID，或陌生人 0000开头的ID
     &quot;score&quot;: 1,         //  识别相似度
     &quot;sharp&quot;: 0,         //  照片清晰度
+
+    // 测温应用包括此项
     &quot;therm&quot;: 0,         //  测温值
-    &quot;userid&quot;: &quot;TUID-876991&quot;, // 识别出的用户ID，或陌生人 0000开头的ID
-    &quot;data&quot;:&quot;...&quot;,       // base64编码的其它值（此值暂不填写）
+
+    // 刷卡事件包括此项
+    &quot;data&quot;:&quot;...&quot;,       // base64编码的刷卡值
 }
 ````
 
@@ -186,17 +188,26 @@ HTTP头：token = , 使用登陆时返回的token
 ```json
 {
     &quot;action&quot;:&quot;event-info&quot;,
-    &quot;reqid&quot;:82929,
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    }
 }
 </code></pre>
 <ul>
 <li>响应</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;max&quot;: 9,
-    &quot;min&quot;: 1,
-    &quot;reqid&quot;:82929,
-    &quot;retcode&quot;: 0
+    &quot;retcode&quot;: 0,
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;max&quot;: 9,
+        &quot;min&quot;: 1,
+    }
 }
 </code></pre>
 <h4 id="_4">获取日志数据</h4>
@@ -205,9 +216,15 @@ HTTP头：token = , 使用登陆时返回的token
 </ul>
 <pre><code class="language-json">{
     &quot;action&quot;:&quot;event-fetch&quot;,
-    &quot;reqid&quot;:82929,
-    &quot;seqnum&quot;:6,
-    &quot;count&quot;:2
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;seqnum&quot;:6,
+        &quot;count&quot;:2
+    }
 }
 </code></pre>
 <blockquote>
@@ -218,26 +235,24 @@ count ： 获取条数；选填，默认10条</p>
 <li>响应</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;logger&quot;: [
+    &quot;retcode&quot;: 0,
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;: {
+        &quot;events&quot;:[
         {
-            &quot;score&quot;: 1,
             &quot;seqnum&quot;: 6,
-            &quot;sharp&quot;: 0,
-            &quot;therm&quot;: 0,    
-            &quot;timestamp&quot;: 1587985190,
-            &quot;userid&quot;: &quot;TUID-876991&quot;
+            ... // 事件的其它信息，请参照本章的事件对象说明
         },
         {
-            &quot;score&quot;: 1,
             &quot;seqnum&quot;: 7,
-            &quot;sharp&quot;: 0,
-            &quot;therm&quot;: 0, 
-            &quot;timestamp&quot;: 1587983490,
-            &quot;userid&quot;: &quot;TUID-1039100&quot;
+            ... // 事件的其它信息，请参照本章的事件对象说明
         }
-    ],
-    &quot;reqid&quot;:82929,
-    &quot;retcode&quot;: 0
+        ],
+    }
 }
 </code></pre>
 <h4 id="_5">下载日志图片</h4>
@@ -246,27 +261,40 @@ count ： 获取条数；选填，默认10条</p>
 </ul>
 <pre><code class="language-json">{
     &quot;action&quot;:&quot;event-download&quot;,
-    &quot;reqid&quot;:82929,
-    &quot;type&quot;:&quot;logr&quot;,
-    &quot;timestamp&quot;: 1587983490,
-    &quot;offset&quot;:0,
-    &quot;size&quot;: 32000
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;timestamp&quot;: 1587983490,
+        &quot;type&quot;:&quot;logr&quot;,
+        &quot;offset&quot;:0,
+        &quot;size&quot;: 32000
+    }
 }
 </code></pre>
 <blockquote>
-<p>timestamp : 日志生成的时间戳</p>
+<p>timestamp : 日志生成的时间戳，下载此日志对应的图片，如果有的话</p>
 </blockquote>
 <ul>
 <li>响应</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;reqid&quot;:82929,
-    &quot;type&quot;:&quot;logr&quot;,
-    &quot;filesize&quot;:32678,
-    &quot;filename&quot;:&quot;1587983490.jpg&quot;,
-    &quot;offset&quot;:0,
-    &quot;size&quot;: 32000,
-    &quot;data&quot;:&quot;base64-encoded file data&quot;
+    &quot;retcode&quot;: 0,
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;type&quot;:&quot;logr&quot;,
+        &quot;filesize&quot;:32678,
+        &quot;filename&quot;:&quot;1587983490.jpg&quot;,
+        &quot;offset&quot;:0,
+        &quot;size&quot;: 32000,
+        &quot;data&quot;:&quot;base64-encoded file data&quot;
+    }
 }
 </code></pre>
 <h4 id="_6">日志通知</h4>
@@ -274,18 +302,17 @@ count ： 获取条数；选填，默认10条</p>
 <li>请求</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;action&quot;:&quot;event&quot;,
+    &quot;action&quot;:&quot;event-report&quot;,
 
-    &quot;device-id&quot;:&quot;device-id&quot;,    // 发出事件的设备ID
-    &quot;seqnum&quot;: 6,                // 当前事件的序号
-    &quot;type&quot;:&quot;logr&quot;,              // 事件的类型
-    &quot;timestamp&quot;:1587983490,     // 事件发生的时间戳，EPOCH时间*1000 + 毫秒数
-    &quot;sharp&quot;:0.983,  // 人脸清晰度，如果有，仅logr情况下有意义
-    &quot;score&quot;:0.834,  // 人脸识别的相似度，如果有，仅logr情况下有意义
-    &quot;therm&quot;:36.5,   // 体温值，如果有，仅logr情况下有意义
-    &quot;userid&quot;:&quot;USERID028SL0LSLS&quot;,    // 识别出的人脸ID，0000开头的为陌生人，仅logr情况下有意义
-    &quot;username&quot;:&quot;张三&quot;,  // 识别出的人名，部分版本/设备没有此项
-    &quot;data&quot;:base64(data) // 事件附件消息，如果有的话
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;device-id&quot;:&quot;device-id&quot;,    // 发出事件的设备ID
+        &quot;seqnum&quot;: 6,                // 当前事件的序号
+        ... // 事件的其它信息，请参照本章的事件对象说明
+    }
 }
 </code></pre>
               
@@ -295,7 +322,7 @@ count ： 获取条数；选填，默认10条</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../07-rule/" class="btn btn-neutral float-right" title="规则管理">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../08-device/" class="btn btn-neutral float-right" title="设备管理">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
         <a href="../05-visitor/" class="btn btn-neutral" title="访客管理"><span class="icon icon-circle-arrow-left"></span> Previous</a>
@@ -327,7 +354,7 @@ count ： 获取条数；选填，默认10条</p>
         <span><a href="../05-visitor/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../07-rule/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../08-device/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

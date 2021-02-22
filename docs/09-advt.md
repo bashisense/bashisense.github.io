@@ -12,12 +12,6 @@
 >请求URL: http://dev-ip-addr:port:/api/advt
 >HTTP头：token = , 使用登陆时返回的token
 
-终端模式时：
->请求类型: POST
->object = "user"
->HTTP头：token = , 使用登陆时返回的token
->消息体、返回体相关，无HTTP相关内容
-
 **id 大小不超过32Bytes**
 
 #### 添加广告图片
@@ -28,17 +22,22 @@
 
 ```json
 {
-    "reqid":19292,
     "action":"advt-add",
 
-    "id":"9ssosxlsiw",
-    "effect":1929292,
-    "expire":1593282304,
-    "duration":30,
-    "filesize":329382,
-    "offset":0,
-    "size":3200,
-    "data":"base64 encoded data"
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    },
+
+    "body":{
+        "id":"9ssosxlsiw",
+        "effect":1929292,
+        "expire":1593282304,
+        "duration":30,
+        "filesize":329382,
+        "offset":0,
+        "size":3200,
+        "data":"base64 encoded data"
+    }
 }
 ```
 
@@ -49,8 +48,11 @@
 
 ```json
 {
-    "reqid":19292,
-    "retcode":0
+    "retcode":0,
+    
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    },
 }
 ```
 
@@ -60,9 +62,15 @@
 
 ```json
 {
-    "reqid":19292,
     "action":"advt-del",
-    "id":"9ssosxlsiw"
+
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    },
+
+    "body":{
+        "id":"9ssosxlsiw"
+    }
 }
 ```
 
@@ -70,8 +78,11 @@
 
 ```json
 {
-    "reqid":19292,
-    "retcode":0
+    "retcode":0,
+    
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    },
 }
 ```
 
@@ -81,8 +92,11 @@
 
 ```json
 {
-    "reqid":19292,
     "action":"advt-list",
+    
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    },
 }
 ```
 
@@ -90,11 +104,17 @@
 
 ```json
 {
-    "reqid":19292,
-    "params":[
-        "9ssosxlsiw",
-        "isjdwew938"
-    ],
-    "retcode":0
+    "retcode":0,
+    
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    },
+
+    "body":{
+        "ads":[
+            { "id":"9ssosxlsiw" },
+            { "id":"isjdwew938" }
+        ]
+    }
 }
 ```

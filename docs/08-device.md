@@ -12,12 +12,6 @@
 >请求URL: http://dev-ip-addr:port:/api/device
 >HTTP头：token = , 使用登陆时返回的token
 
-终端模式时：
->请求类型: POST
->object = "user"
->HTTP头：token = , 使用登陆时返回的token
->消息体、返回体相关，无HTTP相关内容
-
 
 #### 查询设备配置
 
@@ -26,7 +20,10 @@
 ```json
 {
     "action":"device-info",
-    "reqid":1839292
+
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    },
 }
 ```
 
@@ -35,10 +32,19 @@
 ```json
 {
     "retcode":0,
-    "reqid":1839292,
 
-    // 返回设备的配置列表
-    // ....
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    },
+
+    "body": {
+        "device-id":"device-id",                // 设备ID
+        "hardware-version" : "v1.2.0",          // 硬件载体版本号
+        "walos-version" : "v2.1.0",             // WalOS 操作系统版本号
+        "protocol-version": "v2.2.0",           // 协议版本号
+        "algm-vendor" : "bashi",                // 算法供应商
+        "algm-version"  : "v1.1.0",             // 算法版本号
+    }
 }
 ```
 
@@ -49,9 +55,15 @@
 ```json
 {
     "action":"device-time",
-    "reqid":1839292,
-    "timezone":-480,
-    "timestamp":161589233
+
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    },
+    
+    "body":{
+        "timezone":-480,
+        "timestamp":161589233
+    }
 }
 ```
 
@@ -62,8 +74,11 @@
 
 ```json
 {
-    "reqid":1839292,
-    "retcode":0
+    "retcode":0,
+
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    }
 }
 ```
 
@@ -74,7 +89,10 @@
 ```json
 {
     "action":"device-reboot",
-    "reqid":1839292,
+
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    }
 }
 ```
 
@@ -82,8 +100,11 @@
 
 ```json
 {
-    "reqid":1839292,
-    "retcode":0
+    "retcode":0,
+
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    }
 }
 ```
 
@@ -94,8 +115,11 @@
 
 ```json
 {
-    "reqid":1839292,
-    "action":"device-reset"
+    "action":"device-reset",
+
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    }
 }
 ```
 
@@ -105,18 +129,11 @@
 
 ```json
 {
-    "reqid":1839292,
-    "retcode":0
-}
-```
+    "retcode":0,
 
-
-- 响应
-
-```json
-{
-    "reqid":1839292,
-    "retcode":0
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    }
 }
 ```
 
@@ -126,11 +143,17 @@
 
 ```json
 {
-    "reqid":1839292,
     "action":"device-opendoor",
-    "userid":"1avsoHu2EeqZmH943F8eUg==",
-    "type":"open",   // "open" - 开门动作， "close“关门动作；不填默认为开门
-    "delay":12,     // 延时多久开门，不填只默认用户识别开门时间，-1为常开或常闭
+
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    },
+
+    "body":{
+        "userid":"1avsoHu2EeqZmH943F8eUg==",
+        "type":"open",   // "open" - 开门动作， "close“关门动作；不填默认为开门
+        "delay":12,     // 延时多久开门，不填只默认用户识别开门时间，-1为常开或常闭
+    }
 }
 ```
 
@@ -138,8 +161,11 @@
 
 ```json
 {
-    "reqid":1839292,
-    "retcode":0
+    "retcode":0,
+
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    }
 }
 ```
 
@@ -151,14 +177,20 @@
 
 ```json
 {
-    "reqid":1839292,
     "action":"device-upload",
-    "type":"upgrade",
-    "filesize":32678,
-    "filename":"walos-v2.3.4.bin",
-    "offset":4096,
-    "size": 4096,
-    "data":"base64-encoded file data"
+
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    },
+
+    "body":{
+        "type":"upgrade",
+        "filesize":32678,
+        "filename":"walos-v2.3.4.bin",
+        "offset":4096,
+        "size": 4096,
+        "data":"base64-encoded file data"
+    }
 }
 ```
 
@@ -173,8 +205,11 @@
 
 ```json
 {
-    "reqid":1839292,
-    "retcode":0
+    "retcode":0,
+
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    }
 }
 ```
 
@@ -184,9 +219,15 @@
 
 ```json
 {
-    "reqid":1839292,
     "action":"device-upgrade",
-    "filename":"walos-v2.3.4.bin"
+
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    },
+
+    "body":{
+        "filename":"walos-v2.3.4.bin"
+    }
 }
 ```
 
@@ -194,8 +235,11 @@
 
 ```json
 {
-    "reqid":1839292,
-    "retcode":0
+    "retcode":0,
+
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    }
 }
 ```
 
@@ -205,8 +249,11 @@
 
 ```json
 {
-    "reqid":1839292,
-    "action":"device-snapshot"
+    "action":"device-snapshot",
+
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    },
 }
 ```
 
@@ -216,9 +263,15 @@
 
 ```json
 {
-    "reqid":1839292,
-    "retcode": 0,
-    "timestamp": "1587985190"
+    "retcode":0,
+
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    },
+
+    "body":{
+        "timestamp": "1587985190"   // 快照时间戳，用于读取快照的ID
+    }
 }
 ```
 
@@ -230,13 +283,19 @@
 
 ```json
 {
-    "reqid":1839292,
     "action":"device-download",
-    "type":"snapshot",
-    "chanel":0,
-    "offset":0,
-    "size": 32000,
-    "timestamp":1584518255389
+
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    },
+    
+    "body":{
+        "type":"snapshot",
+        "chanel":0,
+        "offset":0,
+        "size": 32000,
+        "timestamp":1584518255389
+    }
 }
 ```
 
@@ -247,43 +306,20 @@
 
 ```json
 {
-    "reqid":1839292,
-    "action":"device-download",
-    "type":"snapshot",
-    "filesize":32678,
-    "filename":"SNAP0-1584518255389.nv12",
-    "offset":0,
-    "size": 32000,
-    "data":"base64-encoded file data"
-}
-```
+    "retcode":0,
 
-
-#### 设置模式
-
-设备运行在不同模式时，表示不同的功能，主要有两种模式：
-
-1. 门禁模式：正常工作时进行人脸识别，识别后开门。识别期间可以通过按键进入访客二维码读码状态，读取访客码并开门。
-2. 广告模式：支持广告播放方案，开启后主界面将播放广告，右下角显示人脸视频；
-
-- 请求
-
-```json 
-{
-    "reqid":1839292,
-    "action":"device-mode",
-    "type":"acs",
-}
-```
-
-> type : acs 门禁模式， advt 广告模式；
-
-- 响应
-
-```json
-{
-    "reqid":1839292,
-    "retcode":0
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    },
+    
+    "body": {
+        "type":"snapshot",
+        "filesize":32678,
+        "filename":"SNAP0-1584518255389.nv12",
+        "offset":0,
+        "size": 32000,
+        "data":"base64-encoded file data"
+    }
 }
 ```
 
@@ -295,8 +331,11 @@
 
 ```json 
 {
-    "reqid":1839292,
     "action":"apply-network",
+
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    },
 }
 ```
 
@@ -306,8 +345,11 @@
 
 ```json
 {
-    "reqid":1839292,
-    "retcode":0
+    "retcode":0,
+
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    },
 }
 ```
 
@@ -320,8 +362,11 @@
 
 ```json 
 {
-    "reqid":1839292,
     "action":"apply-manager-mode",
+
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    },
 }
 ```
 
@@ -331,8 +376,11 @@
 
 ```json
 {
-    "reqid":1839292,
-    "retcode":0
+    "retcode":0,
+    
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    },
 }
 ```
 
@@ -344,9 +392,15 @@
 
 ```json 
 {
-    "reqid":1839292,
     "action":"device-read-card",
-    "timeout":20        // 超时后再有刷卡，不上报数据；当有卡被读到后，清除状态与定时器
+
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    },
+
+    "body": {
+        "timeout":20       // 超时后再有刷卡，不上报数据；当有卡被读到后，清除状态与定时器
+    }
 }
 ```
 
@@ -357,24 +411,36 @@
 
 ```json
 {
-    "reqid":1839292,
-    "retcode":0
+    "retcode":0,
+    
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    },
+
+    "body":{
+        "data":... // base64编码的卡ID号
+    }
 }
 ```
 
 - 事件
-```json
 
-- 请求
+独立模式时，通过事件上报卡信息
 
 ```json
 {
-    "action":"event",
+    "action":"event-read-card",
 
-    "device-id":"device-id",    // 发出事件的设备ID
-    "type":"read-card",         // 事件的类型，读取到的卡数据
-    "timestamp":1587983490,     // 事件发生的时间戳，EPOCH时间*1000 + 毫秒数
-    "data":base64(data)         // 读到的卡数据的base64编码
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    },
+
+    "body":{
+        "device-id":"device-id",    // 发出事件的设备ID
+        "type":"read-card",         // 事件的类型，读取到的卡数据
+        "timestamp":1587983490,     // 事件发生的时间戳，EPOCH时间*1000 + 毫秒数
+        "data":base64(data)         // 读到的卡数据的base64编码
+    }
 }
 ```
 

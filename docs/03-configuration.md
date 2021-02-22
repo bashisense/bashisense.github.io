@@ -11,12 +11,6 @@
 >请求类型: POST
 >HTTP头：token = , 使用登陆时返回的token
 
-终端模式时：
->请求类型: POST
->object = "config"
->HTTP头：token = , 使用登陆时返回的token
->消息体、返回体相关，无HTTP相关内容
-
 #### 查询设备的配置项：
 
 - 请求
@@ -24,7 +18,9 @@
 ```json
 {
     "action": "config-list",
-    "reqid":192839         // 透传值，设备内唯一
+    "header":{
+        "reqid":"192839"         // 透传值，设备内唯一
+    }
 }
 ```
 
@@ -32,68 +28,36 @@
 
 ```json
 {
-    "params": [
-    {
-        "key":"org-id",
-        "value":"Bashi Technology",
-        "class":"interactive",
-        "desc" : "组织，与GMT 0 相差的分钟数",
-        "options" : "cp"
+    "retcode": 0,
+    
+    "header":{
+        "reqid":"192839"         // 透传值，设备内唯一
     },
+
+    "body":{
+        "configs":[
+        {
+            "key":"org-id",
+            "value":"Bashi Technology",
+            "class":"interactive",
+            "desc" : "组织",
+            "options" : "cp"
+        },
         ...
-    {
-        "key":"door-id",
-        "value":"Build1 Door2",
-        "class":"interactive",
-        "desc" : "当前门禁机管理的门的名称",
-        "options" : "cp"
-    },
-    ],
-    "reqid":192839,         // 透传值，设备内唯一
-    "retcode": 0
+        {
+            "key":"door-id",
+            "value":"Build1 Door2",
+            "class":"interactive",
+            "desc" : "当前门禁机管理的门的名称",
+            "options" : "cp"
+        },
+        ],
+    }
 }
 ```
 
->  options: wr表示可配置可写，cp表壳可配置可写并且控制平台要用
+>  options: wr表示可配置可写，cp表示可配置可写并且控制平台要用
 >  options: 使用时请与给的配置列表保持一致；
-
-####  获取设备的配置：
-
-- 请求
-
-```json
-{
-    "action": "config-get",
-    "reqid":192839,         // 透传值，设备内唯一
-    "params": [
-        "relay-mode",
-        "therm-mode",
-        "algm-threshold"
-    ]
-}
-```
-
->params 数组内的数据项为请求的配置项，支持同时获取多个配置项
-
-- 响应
-
-```json
-{
-    "params": [
-        {
-            "relay-mode": "enable"
-        },
-        {
-            "therm-mode": "forehead"
-        },
-        {
-            "algm-threshold": "0.8"
-        }
-    ],
-    "reqid":192839,         // 透传值，设备内唯一
-    "retcode": 0
-}
-```
 
 ####  配置设备
 
@@ -102,18 +66,24 @@
 ```json
 {
     "action": "config-set",
-    "reqid":192839,         // 透传值，设备内唯一
-    "params": [
-        {
-            "relay-mode": "enable"
-        },
-        {
-            "therm-mode": "wrist"
-        },
-        {
-            "algm-threshold": "0.8"
-        }
-    ]
+
+    "header":{
+        "reqid":"192839"         // 透传值，设备内唯一
+    },
+    
+    "body":{
+        "configs": [
+            {
+                "relay-mode": "enable"
+            },
+            {
+                "therm-mode": "wrist"
+            },
+            {
+                "algm-threshold": "0.8"
+            }
+        ]
+    }
 }
 ```
 
@@ -121,19 +91,27 @@
 
 ```json
 {
-    "params": [
-        {
-            "relay-mode": "enable"
-        },
-        {
-            "therm-mode": "wrist"
-        },
-        {
-            "algm-threshold": "0.8"
-        }
-    ],
-    "reqid":192839,         // 透传值，设备内唯一
-    "retcode": 0
+    "retcode": 0,
+
+    "header":{
+        "reqid":"192839"         // 透传值，设备内唯一
+    },
+
+    "body": {       // 返回成功配置好的配置项，配置失败的不返回
+        "configs": [
+            {
+                "relay-mode": "enable"
+            },
+
+            {
+                "therm-mode": "wrist"
+            },
+
+            {
+                "algm-threshold": "0.8"
+            }
+        ]
+    }
 }
 ```
 
@@ -163,7 +141,7 @@
 
     {
         "key":"show-mode",
-        "value":"desc",
+        "value":"none",
         "class":"interactive",
         "desc" : "显示模式，user - 姓名/部门/图片, none - 不显示隐私信息",
         "options" : "cp"
@@ -181,7 +159,7 @@
         "key":"voice-mode",
         "value":"default",
         "class":"interactive",
-        "desc" : "声音模式， disable - 无语音提示，default - 默认语音提示，user - 用户自定义",
+        "desc" : "声音模式， disable - 无语音提示，default - 默认语音提示",
         "options" : "cp"
     },
 
@@ -189,7 +167,7 @@
         "key":"lang-mode",
         "value":"cn",
         "class":"interactive",
-        "desc" : "语言配置，使用的文字、语音语言",
+        "desc" : "语言配置，使用的文字、语音语言，支持cn/en",
         "options" : "cp"
     },
 
@@ -301,7 +279,7 @@
         "key":"manager-mode",
         "value":"cloud",
         "class":"manager",
-        "desc" : "管理模式，cloud - 接入云平台，local - 接入门禁控制器， none - 仅提供本地web api，wechat - 接入企业微信, websock - 接入websock服务",
+        "desc" : "管理模式，cloud - 接入云平台，none - 仅提供本地web api，wechat - 接入企业微信, local - 接入websock服务",
         "options" : "wr"
     },
 
@@ -318,14 +296,6 @@
         "value":"3000",
         "class":"manager",
         "desc" : "管理服务器端口",
-        "options" : "wr"
-    },
-
-    {
-        "key":"manager-server-path",
-        "value":"report",
-        "class":"manager",
-        "desc" : "管理服务器路径",
         "options" : "wr"
     },
 
@@ -485,7 +455,7 @@
         "key":"auth-mode",
         "value":"single",
         "class":"algorithm",
-        "desc" : "核验模式，single - 刷卡或人脸，card - 刷卡+人脸， therm - 人脸+测温",
+        "desc" : "核验模式，single - 刷卡或人脸，card - 刷卡+人脸",
         "options" : "cp"
     },
 
@@ -609,6 +579,4 @@ WIAP:T:WPA;S:mynetwork;P:mypass;;
 
 静态IP地址方式：
 ETH:M:S;I:192.168.10.10;K:255.255.255.0;G:192.168.10.1;
-
-
 

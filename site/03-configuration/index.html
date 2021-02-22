@@ -70,13 +70,11 @@
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#_3">查询设备的配置项：</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_4">获取设备的配置：</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_4">配置设备</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_5">配置设备</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_5">配置说明</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_6">配置说明</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_7">二维码扫码配置项</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_6">二维码扫码配置项</a>
     </li>
         </ul>
     </li>
@@ -96,7 +94,7 @@
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../07-rule/">规则管理</a>
+                    <li class="toctree-l1"><a class="" href="../07-rule.md">规则管理</a>
                     </li>
                 </ul>
                 <ul>
@@ -160,127 +158,106 @@
 请求类型: POST
 HTTP头：token = , 使用登陆时返回的token</p>
 </blockquote>
-<p>终端模式时：</p>
-<blockquote>
-<p>请求类型: POST
-object = "config"
-HTTP头：token = , 使用登陆时返回的token
-消息体、返回体相关，无HTTP相关内容</p>
-</blockquote>
 <h4 id="_3">查询设备的配置项：</h4>
 <ul>
 <li>请求</li>
 </ul>
 <pre><code class="language-json">{
     &quot;action&quot;: &quot;config-list&quot;,
-    &quot;reqid&quot;:192839         // 透传值，设备内唯一
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;192839&quot;         // 透传值，设备内唯一
+    }
 }
 </code></pre>
 <ul>
 <li>响应</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;params&quot;: [
-    {
-        &quot;key&quot;:&quot;org-id&quot;,
-        &quot;value&quot;:&quot;Bashi Technology&quot;,
-        &quot;class&quot;:&quot;interactive&quot;,
-        &quot;desc&quot; : &quot;组织，与GMT 0 相差的分钟数&quot;,
-        &quot;options&quot; : &quot;cp&quot;
+    &quot;retcode&quot;: 0,
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;192839&quot;         // 透传值，设备内唯一
     },
+
+    &quot;body&quot;:{
+        &quot;configs&quot;:[
+        {
+            &quot;key&quot;:&quot;org-id&quot;,
+            &quot;value&quot;:&quot;Bashi Technology&quot;,
+            &quot;class&quot;:&quot;interactive&quot;,
+            &quot;desc&quot; : &quot;组织&quot;,
+            &quot;options&quot; : &quot;cp&quot;
+        },
         ...
-    {
-        &quot;key&quot;:&quot;door-id&quot;,
-        &quot;value&quot;:&quot;Build1 Door2&quot;,
-        &quot;class&quot;:&quot;interactive&quot;,
-        &quot;desc&quot; : &quot;当前门禁机管理的门的名称&quot;,
-        &quot;options&quot; : &quot;cp&quot;
-    },
-    ],
-    &quot;reqid&quot;:192839,         // 透传值，设备内唯一
-    &quot;retcode&quot;: 0
+        {
+            &quot;key&quot;:&quot;door-id&quot;,
+            &quot;value&quot;:&quot;Build1 Door2&quot;,
+            &quot;class&quot;:&quot;interactive&quot;,
+            &quot;desc&quot; : &quot;当前门禁机管理的门的名称&quot;,
+            &quot;options&quot; : &quot;cp&quot;
+        },
+        ],
+    }
 }
 </code></pre>
 <blockquote>
-<p>options: wr表示可配置可写，cp表壳可配置可写并且控制平台要用
+<p>options: wr表示可配置可写，cp表示可配置可写并且控制平台要用
  options: 使用时请与给的配置列表保持一致；</p>
 </blockquote>
-<h4 id="_4">获取设备的配置：</h4>
-<ul>
-<li>请求</li>
-</ul>
-<pre><code class="language-json">{
-    &quot;action&quot;: &quot;config-get&quot;,
-    &quot;reqid&quot;:192839,         // 透传值，设备内唯一
-    &quot;params&quot;: [
-        &quot;relay-mode&quot;,
-        &quot;therm-mode&quot;,
-        &quot;algm-threshold&quot;
-    ]
-}
-</code></pre>
-<blockquote>
-<p>params 数组内的数据项为请求的配置项，支持同时获取多个配置项</p>
-</blockquote>
-<ul>
-<li>响应</li>
-</ul>
-<pre><code class="language-json">{
-    &quot;params&quot;: [
-        {
-            &quot;relay-mode&quot;: &quot;enable&quot;
-        },
-        {
-            &quot;therm-mode&quot;: &quot;forehead&quot;
-        },
-        {
-            &quot;algm-threshold&quot;: &quot;0.8&quot;
-        }
-    ],
-    &quot;reqid&quot;:192839,         // 透传值，设备内唯一
-    &quot;retcode&quot;: 0
-}
-</code></pre>
-<h4 id="_5">配置设备</h4>
+<h4 id="_4">配置设备</h4>
 <ul>
 <li>请求</li>
 </ul>
 <pre><code class="language-json">{
     &quot;action&quot;: &quot;config-set&quot;,
-    &quot;reqid&quot;:192839,         // 透传值，设备内唯一
-    &quot;params&quot;: [
-        {
-            &quot;relay-mode&quot;: &quot;enable&quot;
-        },
-        {
-            &quot;therm-mode&quot;: &quot;wrist&quot;
-        },
-        {
-            &quot;algm-threshold&quot;: &quot;0.8&quot;
-        }
-    ]
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;192839&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;configs&quot;: [
+            {
+                &quot;relay-mode&quot;: &quot;enable&quot;
+            },
+            {
+                &quot;therm-mode&quot;: &quot;wrist&quot;
+            },
+            {
+                &quot;algm-threshold&quot;: &quot;0.8&quot;
+            }
+        ]
+    }
 }
 </code></pre>
 <ul>
 <li>响应</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;params&quot;: [
-        {
-            &quot;relay-mode&quot;: &quot;enable&quot;
-        },
-        {
-            &quot;therm-mode&quot;: &quot;wrist&quot;
-        },
-        {
-            &quot;algm-threshold&quot;: &quot;0.8&quot;
-        }
-    ],
-    &quot;reqid&quot;:192839,         // 透传值，设备内唯一
-    &quot;retcode&quot;: 0
+    &quot;retcode&quot;: 0,
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;192839&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;: {       // 返回成功配置好的配置项，配置失败的不返回
+        &quot;configs&quot;: [
+            {
+                &quot;relay-mode&quot;: &quot;enable&quot;
+            },
+
+            {
+                &quot;therm-mode&quot;: &quot;wrist&quot;
+            },
+
+            {
+                &quot;algm-threshold&quot;: &quot;0.8&quot;
+            }
+        ]
+    }
 }
 </code></pre>
-<h4 id="_6">配置说明</h4>
+<h4 id="_5">配置说明</h4>
 <p>以下为可配置数据与说明，实际使用时，同一类型的配置项最好一次下发，部分配置重启才能生效。对于多数场景，使用系统默认配置即可。</p>
 <pre><code class="language-json">{
     &quot;items&quot;:[
@@ -303,7 +280,7 @@ HTTP头：token = , 使用登陆时返回的token
 
     {
         &quot;key&quot;:&quot;show-mode&quot;,
-        &quot;value&quot;:&quot;desc&quot;,
+        &quot;value&quot;:&quot;none&quot;,
         &quot;class&quot;:&quot;interactive&quot;,
         &quot;desc&quot; : &quot;显示模式，user - 姓名/部门/图片, none - 不显示隐私信息&quot;,
         &quot;options&quot; : &quot;cp&quot;
@@ -321,7 +298,7 @@ HTTP头：token = , 使用登陆时返回的token
         &quot;key&quot;:&quot;voice-mode&quot;,
         &quot;value&quot;:&quot;default&quot;,
         &quot;class&quot;:&quot;interactive&quot;,
-        &quot;desc&quot; : &quot;声音模式， disable - 无语音提示，default - 默认语音提示，user - 用户自定义&quot;,
+        &quot;desc&quot; : &quot;声音模式， disable - 无语音提示，default - 默认语音提示&quot;,
         &quot;options&quot; : &quot;cp&quot;
     },
 
@@ -329,7 +306,7 @@ HTTP头：token = , 使用登陆时返回的token
         &quot;key&quot;:&quot;lang-mode&quot;,
         &quot;value&quot;:&quot;cn&quot;,
         &quot;class&quot;:&quot;interactive&quot;,
-        &quot;desc&quot; : &quot;语言配置，使用的文字、语音语言&quot;,
+        &quot;desc&quot; : &quot;语言配置，使用的文字、语音语言，支持cn/en&quot;,
         &quot;options&quot; : &quot;cp&quot;
     },
 
@@ -441,7 +418,7 @@ HTTP头：token = , 使用登陆时返回的token
         &quot;key&quot;:&quot;manager-mode&quot;,
         &quot;value&quot;:&quot;cloud&quot;,
         &quot;class&quot;:&quot;manager&quot;,
-        &quot;desc&quot; : &quot;管理模式，cloud - 接入云平台，local - 接入门禁控制器， none - 仅提供本地web api，wechat - 接入企业微信, websock - 接入websock服务&quot;,
+        &quot;desc&quot; : &quot;管理模式，cloud - 接入云平台，none - 仅提供本地web api，wechat - 接入企业微信, local - 接入websock服务&quot;,
         &quot;options&quot; : &quot;wr&quot;
     },
 
@@ -458,14 +435,6 @@ HTTP头：token = , 使用登陆时返回的token
         &quot;value&quot;:&quot;3000&quot;,
         &quot;class&quot;:&quot;manager&quot;,
         &quot;desc&quot; : &quot;管理服务器端口&quot;,
-        &quot;options&quot; : &quot;wr&quot;
-    },
-
-    {
-        &quot;key&quot;:&quot;manager-server-path&quot;,
-        &quot;value&quot;:&quot;report&quot;,
-        &quot;class&quot;:&quot;manager&quot;,
-        &quot;desc&quot; : &quot;管理服务器路径&quot;,
         &quot;options&quot; : &quot;wr&quot;
     },
 
@@ -625,7 +594,7 @@ HTTP头：token = , 使用登陆时返回的token
         &quot;key&quot;:&quot;auth-mode&quot;,
         &quot;value&quot;:&quot;single&quot;,
         &quot;class&quot;:&quot;algorithm&quot;,
-        &quot;desc&quot; : &quot;核验模式，single - 刷卡或人脸，card - 刷卡+人脸， therm - 人脸+测温&quot;,
+        &quot;desc&quot; : &quot;核验模式，single - 刷卡或人脸，card - 刷卡+人脸&quot;,
         &quot;options&quot; : &quot;cp&quot;
     },
 
@@ -729,7 +698,7 @@ HTTP头：token = , 使用登陆时返回的token
 }
 
 </code></pre>
-<h3 id="_7">二维码扫码配置项</h3>
+<h3 id="_6">二维码扫码配置项</h3>
 <p>用成的规则如下</p>
 <ol>
 <li>配置连接到WIFI网络</li>

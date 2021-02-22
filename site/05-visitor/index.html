@@ -90,7 +90,7 @@
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../07-rule/">规则管理</a>
+                    <li class="toctree-l1"><a class="" href="../07-rule.md">规则管理</a>
                     </li>
                 </ul>
                 <ul>
@@ -155,20 +155,13 @@ HTTP头：token = , 使用登陆时返回的token
 <p>请求URL: http://dev-ip-addr:port:/api/visitor
 HTTP头：token = , 使用登陆时返回的token</p>
 </blockquote>
-<p>终端模式时：</p>
-<blockquote>
-<p>请求类型: POST
-object = "user"
-HTTP头：token = , 使用登陆时返回的token
-消息体、返回体相关，无HTTP相关内容</p>
-</blockquote>
 <p><strong>vid 大小不超过32Bytes， code为6位数字</strong></p>
 <h4 id="_3">访客对象</h4>
 <pre><code class="language-json">{
     &quot;vid&quot;: &quot;98s0k9sksk&quot;,        // visitor id，全局唯一
     &quot;code&quot;: &quot;330669&quot;,           // 访客码，手输入密码（6位）或二维码（16位）
     &quot;effect&quot;: 1586429594,       // 生效时间
-    &quot;expire&quot;: 1586515994        // 过期时间
+    &quot;expire&quot;: 1586515994        // 过期时间， -1为永不过期
 }
 </code></pre>
 <h4 id="_4">添加访客</h4>
@@ -177,33 +170,53 @@ HTTP头：token = , 使用登陆时返回的token
 </ul>
 <pre><code class="language-json">{
     &quot;action&quot;: &quot;visitor-add&quot;,
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
     &quot;reqid&quot;:129393,
-    &quot;params&quot;: [
-        {
-            &quot;vid&quot;: &quot;98s0k9sksk&quot;,
-            &quot;code&quot;: &quot;330669&quot;,
-            &quot;effect&quot;: 1586429594,
-            &quot;expire&quot;: 1586515994
-        }
-    ]
+    &quot;body&quot;: {
+        &quot;visitors&quot;: [
+            {
+                &quot;vid&quot;: &quot;98s0k9sksk&quot;,
+                &quot;code&quot;: &quot;330669&quot;,
+                &quot;effect&quot;: 1586429594,
+                &quot;expire&quot;: 1586515994
+            },
+
+            {
+                &quot;vid&quot;: &quot;98s0k9sksk&quot;,
+                &quot;code&quot;: &quot;330669&quot;,
+                &quot;effect&quot;: 1586429594,
+                &quot;expire&quot;: 1586515994
+            },
+        ]
+    }
 }
 </code></pre>
 <ul>
 <li>响应</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;params&quot;: [
-        {
-            &quot;vid&quot;: &quot;90s0k9sbca&quot;,
-            &quot;ops&quot;:0
-        },
-        {
-            &quot;vid&quot;: &quot;98s0k9sksk&quot;,
-            &quot;ops&quot;:0
-        }
-    ],
-    &quot;reqid&quot;:129393,
-    &quot;retcode&quot;: 0
+    &quot;retcode&quot;: 0,
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;: {
+        &quot;visitors&quot;:[
+            {
+                &quot;vid&quot;: &quot;90s0k9sbca&quot;,
+                &quot;retcode&quot;: 0    // 本访客操作结果
+            },
+            {
+                &quot;vid&quot;: &quot;98s0k9sksk&quot;,
+                &quot;retcode&quot;: 0    // 本访客操作结果
+            }
+        ],
+    }
 }
 </code></pre>
 <h4 id="_5">删除访客</h4>
@@ -212,33 +225,47 @@ HTTP头：token = , 使用登陆时返回的token
 </ul>
 <pre><code class="language-json">{
     &quot;action&quot;: &quot;visitor-del&quot;,
-    &quot;reqid&quot;:129393,
-    &quot;params&quot;: [
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;: {
+        &quot;visitors&quot;:[
         {
             &quot;vid&quot;: &quot;98s0k9sksk&quot;,
         },
+
         {
             &quot;vid&quot;: &quot;90s0k9sbca&quot;,
         }
-    ]
+        ]
+    }
 }
 </code></pre>
 <ul>
 <li>响应</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;params&quot;: [
+    &quot;retcode&quot;: 0,
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;: {
+        &quot;visitors&quot;: [
         {
             &quot;vid&quot;: &quot;98s0k9sksk&quot;,
-            &quot;ops&quot;:0
+            &quot;retcode&quot;: 0    // 本访客操作结果
         },
+
         {
             &quot;vid&quot;: &quot;90s0k9sbca&quot;,
-            &quot;ops&quot;:0
+            &quot;retcode&quot;: 0    // 本访客操作结果
         }
-    ],
-    &quot;reqid&quot;:129393,
-    &quot;retcode&quot;: 0
+        ],
+    }
 }
 </code></pre>
               

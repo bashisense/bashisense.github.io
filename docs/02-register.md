@@ -145,7 +145,7 @@
 ```
 
 > 第三方平台，device-id 唯一标识一台设备
-> 设备签名，sha1(sort(device-id、sign-code、timestamp、nonce, "register"))。sort的含义是将参数值按照字母字典排序，然后从小到大拼接成一个字符串。public-key是云平台的公钥，所有设备与第三方平台都有的。本接口计算签名时，需要把字符串常量 “register”参与到计算之中，区别其他场景的签名。
+> 设备签名，sha1(sort(device-id、sign-code、timestamp、nonce, "register"))。sort的含义是将参数值按照字母字典排序，然后从小到大拼接成一个字符串。sign-code是public-key是云平台的公钥,生成base64字符串方式，所有设备与第三方平台都有的。本接口计算签名时，需要把字符串常量 “register”参与到计算之中，区别其他场景的签名。
 
 - 响应：
 
@@ -200,7 +200,7 @@
 }
 ```
 > 第三方平台，device-id 唯一标识一台设备
-> 设备签名，sha1(sort(device-id、sign-code、timestamp、nonce, "subscribe"))。sort的含义是将参数值按照字母字典排序，然后从小到大拼接成一个字符串。public-key是云平台的公钥，所有设备与第三方平台都有的。本接口计算签名时，需要把字符串常量 “subscribe”参与到计算之中，区别其他场景的签名。
+> 设备签名，sha1(sort(device-id、sign-code、timestamp、nonce, "subscribe"))。sort的含义是将参数值按照字母字典排序，然后从小到大拼接成一个字符串。sign-code是public-key是云平台的公钥,生成base64字符串方式，所有设备与第三方平台都有的。本接口计算签名时，需要把字符串常量 “subscribe”参与到计算之中，区别其他场景的签名。
 
 - 响应：
 

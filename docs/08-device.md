@@ -128,7 +128,9 @@
 {
     "reqid":1839292,
     "action":"device-opendoor",
-    "userid":"1avsoHu2EeqZmH943F8eUg=="
+    "userid":"1avsoHu2EeqZmH943F8eUg==",
+    "type":"open",   // "open" - 开门动作， "close“关门动作；不填默认为开门
+    "delay":12,     // 延时多久开门，不填只默认用户识别开门时间，-1为常开或常闭
 }
 ```
 
@@ -270,11 +272,11 @@
 {
     "reqid":1839292,
     "action":"device-mode",
-    "type":"lock",
+    "type":"acs",
 }
 ```
 
-> type : lock 门锁模式， acs 门禁模式， advt 广告模式，therm 测温模式,；
+> type : acs 门禁模式， advt 广告模式；
 
 - 响应
 
@@ -294,7 +296,7 @@
 ```json 
 {
     "reqid":1839292,
-    "action":"device-apply-network",
+    "action":"apply-network",
 }
 ```
 
@@ -309,4 +311,70 @@
 }
 ```
 
+
+#### 配置设备模式
+
+根据配置管理章节的说明配置好设备模式，通过以下命令清楚当前数据，并切换模式
+
+- 请求
+
+```json 
+{
+    "reqid":1839292,
+    "action":"apply-manager-mode",
+}
+```
+
+> 此命令将会重置设备，切换到指定的模式，当设备再次重置时，会保留此默认模式
+
+- 响应
+
+```json
+{
+    "reqid":1839292,
+    "retcode":0
+}
+```
+
+#### 主动读卡
+
+在用户使用小程序/app为用户添加卡的时候，需要控制设备读卡，设备读取卡数据后，上报读卡数据，上平台或app实现卡与用户的绑定，并下发到设备
+
+- 请求
+
+```json 
+{
+    "reqid":1839292,
+    "action":"device-read-card",
+    "timeout":20        // 超时后再有刷卡，不上报数据；当有卡被读到后，清除状态与定时器
+}
+```
+
+> 此命令返回并不等待读卡有数据返回，而是直接返回
+> 设备读到卡信息后，根据读卡状态上报卡信息给平台/app
+
+- 响应
+
+```json
+{
+    "reqid":1839292,
+    "retcode":0
+}
+```
+
+- 事件
+```json
+
+- 请求
+
+```json
+{
+    "action":"event",
+
+    "device-id":"device-id",    // 发出事件的设备ID
+    "type":"read-card",         // 事件的类型，读取到的卡数据
+    "timestamp":1587983490,     // 事件发生的时间戳，EPOCH时间*1000 + 毫秒数
+    "data":base64(data)         // 读到的卡数据的base64编码
+}
+```
 

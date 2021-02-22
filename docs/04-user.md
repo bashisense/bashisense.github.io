@@ -32,7 +32,11 @@
     "expire": 1619519996,       // 用户过期时间，不填则当前时刻+1年
     "rule": "Iksiwim",          // 用户开门规则，默认识别即通过，可不填写
     "state": 0,                 // 用户状态，暂内部使用，可不填写
-    "feature": "data...."       // base64编码的用户特征值，由设备计算，平台不填写
+    "face":{
+        "vendor":"bashi",
+        "version":"v2.1.0",
+        "feature": "data...."       // base64编码的用户特征值，由设备计算，平台不填写
+    }
 }
 ```
 
@@ -72,7 +76,7 @@
             "others": "17763548853",
             "rule": "Iksiwim",
             "state": 0,
-            "userid": "1avsoHu2EeqZmH943F8eUg=="
+            "userid": "1avsoHu2EeqZmH943F8eUg==",
         },
         {
             "create_datetime": "2020-04-27 18:39:56",
@@ -257,8 +261,8 @@
 
 ```json
 {
-    "action": "user-info",
     "reqid":129393,
+    "action": "user-info",
     "params": [
         {
             "userid": "1avsoHu2EeqZmH943F8eUg=="
@@ -287,7 +291,12 @@
             "rule": "Iksiwim",
             "state": 0,
             "userid": "1avsoHu2EeqZmH943F8eUg==",
-            "ops":0
+            "ops":0,
+            "face":{ 
+                "vendor":"bashi",
+                "version":"v2.1.0",
+                "feature": "data...."       // base64编码的用户特征值，由设备计算，平台不填写
+            }
         },
         {
             "create_datetime": "2020-04-27 18:39:56",
@@ -300,7 +309,12 @@
             "rule": "Iksiwim",
             "state": 0,
             "userid": "1aw6wHu2EeqZmH943F8eUg==",
-            "ops":0
+            "ops":0,
+            "face":{ 
+                "vendor":"bashi",
+                "version":"v2.1.0",
+                "feature": "data...."       // base64编码的用户特征值，由设备计算，平台不填写
+            }
         }
     ],
     "reqid":129393,

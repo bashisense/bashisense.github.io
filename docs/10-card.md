@@ -39,7 +39,7 @@
 
 ```json
 {
-    "action":"card-add",
+    "action":"card-insert",
     
     "header":{
         "reqid":"129393"         // 透传值，设备内唯一
@@ -92,7 +92,7 @@
 
 ```json
 {
-    "action":"card-del",
+    "action":"card-remove",
     
     "header":{
         "reqid":"129393"         // 透传值，设备内唯一
@@ -142,7 +142,7 @@
 
 ```json
 {
-    "action":"card-list",
+    "action":"card-fetch",
 
     "header":{
         "reqid":"129393"         // 透传值，设备内唯一

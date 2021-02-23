@@ -44,7 +44,7 @@
 
 ```json
 {
-    "action": "user-list",
+    "action": "user-fetch",
 
     "header":{
         "reqid":"129393"         // 透传值，设备内唯一
@@ -90,7 +90,7 @@
 
 ```json
 {
-    "action": "user-add",
+    "action": "user-insert",
 
     "header":{
         "reqid":"129393"         // 透传值，设备内唯一
@@ -142,7 +142,7 @@
 
 ```json
 {
-    "action": "user-del",
+    "action": "user-remove",
 
     "header":{
         "reqid":"129393"         // 透传值，设备内唯一
@@ -247,7 +247,7 @@
 
 ```json
 {
-    "action": "user-info",
+    "action": "user-lookup",
  
     "header":{
         "reqid":"129393"         // 透传值，设备内唯一

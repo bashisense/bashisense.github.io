@@ -31,7 +31,7 @@
 
 ```json
 {
-    "action": "visitor-add",
+    "action": "visitor-insert",
 
     "header":{
         "reqid":"129393"         // 透传值，设备内唯一
@@ -89,7 +89,7 @@
 
 ```json
 {
-    "action": "visitor-del",
+    "action": "visitor-remove",
 
     "header":{
         "reqid":"129393"         // 透传值，设备内唯一

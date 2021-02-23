@@ -78,15 +78,11 @@
                     </li>
                 </ul>
                 <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../08-device/">设备管理</a>
+                    </li>
+                </ul>
+                <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../03-configuration/">配置管理</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../04-user/">用户管理</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../05-visitor/">访客管理</a>
                     </li>
                 </ul>
                 <ul>
@@ -94,7 +90,11 @@
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../08-device/">设备管理</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../04-user/">用户管理</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../10-card/">门卡管理</a>
                     </li>
                 </ul>
                 <ul>
@@ -102,7 +102,7 @@
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../10-card/">门卡管理</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../05-visitor/">访客管理</a>
                     </li>
                 </ul>
                 <ul>
@@ -180,10 +180,12 @@
     },
 
     &quot;body&quot;:{                    // 3. 响应消息体
-        &quot;device-id&quot; : &quot;device-id&quot;,          // 硬件设备ID号
-        &quot;walos-version&quot; : &quot;v2.1.0&quot;,         // WalOS 操作系统版本号
-        &quot;algm-version&quot;  : &quot;v1.1.0&quot;,         // 算法版本号
-        &quot;hardware-version&quot; : &quot;v1.2.0&quot;,      // 硬件载体版本号
+        &quot;device-id&quot;:&quot;device-id&quot;,                // 设备ID
+        &quot;hardware-version&quot; : &quot;v1.2.0&quot;,          // 硬件载体版本号
+        &quot;walos-version&quot; : &quot;v2.1.0&quot;,             // WalOS 操作系统版本号
+        &quot;protocol-version&quot;: &quot;v2.2.0&quot;,           // 协议版本号
+        &quot;algm-vendor&quot; : &quot;bashi&quot;,                // 算法供应商
+        &quot;algm-version&quot;  : &quot;v1.1.0&quot;,             // 算法版本号
     }
 }
 </code></pre>

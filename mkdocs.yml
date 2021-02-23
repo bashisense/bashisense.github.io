@@ -4,13 +4,13 @@ nav:
 - 版本信息: 00-version.md
 - 系统简介: 01-introduction.md
 - 注册登陆: 02-register.md
-- 配置管理: 03-configuration.md
-- 用户管理: 04-user.md
-- 访客管理: 05-visitor.md
-- 事件管理: 06-event.md
 - 设备管理: 08-device.md
-- 广告管理: 09-advt.md
+- 配置管理: 03-configuration.md
+- 事件管理: 06-event.md
+- 用户管理: 04-user.md
 - 门卡管理: 10-card.md
+- 广告管理: 09-advt.md
+- 访客管理: 05-visitor.md
 - 附则: appendix.md
 
 theme: readthedocs

@@ -12,42 +12,6 @@
 >请求URL: http://dev-ip-addr:port:/api/device
 >HTTP头：token = , 使用登陆时返回的token
 
-
-#### 查询设备配置
-
-- 请求
-
-```json
-{
-    "action":"device-info",
-
-    "header":{
-        "reqid":"129393"         // 透传值，设备内唯一
-    },
-}
-```
-
--响应
-
-```json
-{
-    "retcode":0,
-
-    "header":{
-        "reqid":"129393"         // 透传值，设备内唯一
-    },
-
-    "body": {
-        "device-id":"device-id",                // 设备ID
-        "hardware-version" : "v1.2.0",          // 硬件载体版本号
-        "walos-version" : "v2.1.0",             // WalOS 操作系统版本号
-        "protocol-version": "v2.2.0",           // 协议版本号
-        "algm-vendor" : "bashi",                // 算法供应商
-        "algm-version"  : "v1.1.0",             // 算法版本号
-    }
-}
-```
-
 #### 设置时间
 
 - 请求

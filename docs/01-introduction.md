@@ -45,10 +45,12 @@ WalOS可以配置为多种管理模式，用于对接不同的平台，目前支
     },
 
     "body":{                    // 3. 响应消息体
-        "device-id" : "device-id",          // 硬件设备ID号
-        "walos-version" : "v2.1.0",         // WalOS 操作系统版本号
-        "algm-version"  : "v1.1.0",         // 算法版本号
-        "hardware-version" : "v1.2.0",      // 硬件载体版本号
+        "device-id":"device-id",                // 设备ID
+        "hardware-version" : "v1.2.0",          // 硬件载体版本号
+        "walos-version" : "v2.1.0",             // WalOS 操作系统版本号
+        "protocol-version": "v2.2.0",           // 协议版本号
+        "algm-vendor" : "bashi",                // 算法供应商
+        "algm-version"  : "v1.1.0",             // 算法版本号
     }
 }
 ```

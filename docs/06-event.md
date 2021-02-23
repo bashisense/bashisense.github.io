@@ -44,7 +44,7 @@
 
 ```json
 {
-    "action":"event-info",
+    "action":"event-lookup",
 
     "header":{
         "reqid":"129393"         // 透传值，设备内唯一

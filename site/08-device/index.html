@@ -63,8 +63,42 @@
                     <li class="toctree-l1"><a class="reference internal" href="../02-register/">注册登陆</a>
                     </li>
                 </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">设备管理</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_2">说明</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">设置时间</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_4">设备重启</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_5">设备重置</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_6">远程开门</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_7">上传升级文件</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_8">升级设备</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_9">传感器快照</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_10">下载快照文件</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_11">配置网络</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_12">配置设备模式</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_13">主动读卡</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
                 <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../03-configuration/">配置管理</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../06-event/">事件管理</a>
                     </li>
                 </ul>
                 <ul>
@@ -72,43 +106,7 @@
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../05-visitor/">访客管理</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../06-event/">事件管理</a>
-                    </li>
-                </ul>
-                <ul class="current">
-                    <li class="toctree-l1 current"><a class="reference internal current" href="./">设备管理</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#_2">说明</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_3">查询设备配置</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_4">设置时间</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_5">设备重启</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_6">设备重置</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_7">远程开门</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_8">上传升级文件</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_9">升级设备</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_10">传感器快照</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_11">下载快照文件</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_12">配置网络</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_13">配置设备模式</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_14">主动读卡</a>
-    </li>
-    </ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../10-card/">门卡管理</a>
                     </li>
                 </ul>
                 <ul>
@@ -116,7 +114,7 @@
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../10-card/">门卡管理</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../05-visitor/">访客管理</a>
                     </li>
                 </ul>
                 <ul>
@@ -169,37 +167,7 @@ HTTP头：token = , 使用登陆时返回的token
 <p>请求URL: http://dev-ip-addr:port:/api/device
 HTTP头：token = , 使用登陆时返回的token</p>
 </blockquote>
-<h4 id="_3">查询设备配置</h4>
-<ul>
-<li>请求</li>
-</ul>
-<pre><code class="language-json">{
-    &quot;action&quot;:&quot;device-info&quot;,
-
-    &quot;header&quot;:{
-        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
-    },
-}
-</code></pre>
-<p>-响应</p>
-<pre><code class="language-json">{
-    &quot;retcode&quot;:0,
-
-    &quot;header&quot;:{
-        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
-    },
-
-    &quot;body&quot;: {
-        &quot;device-id&quot;:&quot;device-id&quot;,                // 设备ID
-        &quot;hardware-version&quot; : &quot;v1.2.0&quot;,          // 硬件载体版本号
-        &quot;walos-version&quot; : &quot;v2.1.0&quot;,             // WalOS 操作系统版本号
-        &quot;protocol-version&quot;: &quot;v2.2.0&quot;,           // 协议版本号
-        &quot;algm-vendor&quot; : &quot;bashi&quot;,                // 算法供应商
-        &quot;algm-version&quot;  : &quot;v1.1.0&quot;,             // 算法版本号
-    }
-}
-</code></pre>
-<h4 id="_4">设置时间</h4>
+<h4 id="_3">设置时间</h4>
 <ul>
 <li>请求</li>
 </ul>
@@ -231,7 +199,7 @@ timestamp ： 1970.1.1 开始的毫秒数；</p>
     }
 }
 </code></pre>
-<h4 id="_5">设备重启</h4>
+<h4 id="_4">设备重启</h4>
 <ul>
 <li>请求</li>
 </ul>
@@ -254,7 +222,7 @@ timestamp ： 1970.1.1 开始的毫秒数；</p>
     }
 }
 </code></pre>
-<h4 id="_6">设备重置</h4>
+<h4 id="_5">设备重置</h4>
 <ul>
 <li>请求</li>
 </ul>
@@ -280,7 +248,7 @@ timestamp ： 1970.1.1 开始的毫秒数；</p>
     }
 }
 </code></pre>
-<h4 id="_7">远程开门</h4>
+<h4 id="_6">远程开门</h4>
 <ul>
 <li>请求</li>
 </ul>
@@ -309,7 +277,7 @@ timestamp ： 1970.1.1 开始的毫秒数；</p>
     }
 }
 </code></pre>
-<h4 id="_8">上传升级文件</h4>
+<h4 id="_7">上传升级文件</h4>
 <p><strong>上传文件，单次数据长度必须在256kB以内，其data数据在转base64前应以256kB长度切片</strong></p>
 <ul>
 <li>请求</li>
@@ -350,7 +318,7 @@ data : base64编码的数据</p>
     }
 }
 </code></pre>
-<h4 id="_9">升级设备</h4>
+<h4 id="_8">升级设备</h4>
 <ul>
 <li>请求</li>
 </ul>
@@ -377,7 +345,7 @@ data : base64编码的数据</p>
     }
 }
 </code></pre>
-<h4 id="_10">传感器快照</h4>
+<h4 id="_9">传感器快照</h4>
 <ul>
 <li>请求</li>
 </ul>
@@ -410,7 +378,7 @@ data : base64编码的数据</p>
 <blockquote>
 <p>timestamp 为获取快照的时间戳，下载快照时需要此数据</p>
 </blockquote>
-<h4 id="_11">下载快照文件</h4>
+<h4 id="_10">下载快照文件</h4>
 <ul>
 <li>请求</li>
 </ul>
@@ -454,7 +422,7 @@ chanel : 准备获取的摄像头通道</p>
     }
 }
 </code></pre>
-<h4 id="_12">配置网络</h4>
+<h4 id="_11">配置网络</h4>
 <p>根据配置管理章节的说明配置好网络参数（WIFI/ETHER/LTE)后，通过以下命令使能网络配置</p>
 <ul>
 <li>请求</li>
@@ -481,7 +449,7 @@ chanel : 准备获取的摄像头通道</p>
     },
 }
 </code></pre>
-<h4 id="_13">配置设备模式</h4>
+<h4 id="_12">配置设备模式</h4>
 <p>根据配置管理章节的说明配置好设备模式，通过以下命令清楚当前数据，并切换模式</p>
 <ul>
 <li>请求</li>
@@ -508,7 +476,7 @@ chanel : 准备获取的摄像头通道</p>
     },
 }
 </code></pre>
-<h4 id="_14">主动读卡</h4>
+<h4 id="_13">主动读卡</h4>
 <p>在用户使用小程序/app为用户添加卡的时候，需要控制设备读卡，设备读取卡数据后，上报读卡数据，上平台或app实现卡与用户的绑定，并下发到设备</p>
 <ul>
 <li>请求</li>
@@ -570,10 +538,10 @@ chanel : 准备获取的摄像头通道</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../09-advt/" class="btn btn-neutral float-right" title="广告管理">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../03-configuration/" class="btn btn-neutral float-right" title="配置管理">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../06-event/" class="btn btn-neutral" title="事件管理"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../02-register/" class="btn btn-neutral" title="注册登陆"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -599,10 +567,10 @@ chanel : 准备获取的摄像头通道</p>
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../06-event/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../02-register/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../09-advt/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../03-configuration/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

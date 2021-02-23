@@ -64,15 +64,11 @@
                     </li>
                 </ul>
                 <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../08-device/">设备管理</a>
+                    </li>
+                </ul>
+                <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../03-configuration/">配置管理</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../04-user/">用户管理</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../05-visitor/">访客管理</a>
                     </li>
                 </ul>
                 <ul class="current">
@@ -92,7 +88,11 @@
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../08-device/">设备管理</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../04-user/">用户管理</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../10-card/">门卡管理</a>
                     </li>
                 </ul>
                 <ul>
@@ -100,7 +100,7 @@
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../10-card/">门卡管理</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../05-visitor/">访客管理</a>
                     </li>
                 </ul>
                 <ul>
@@ -183,7 +183,7 @@ HTTP头：token = , 使用登陆时返回的token</p>
 
 ```json
 {
-    &quot;action&quot;:&quot;event-info&quot;,
+    &quot;action&quot;:&quot;event-lookup&quot;,
 
     &quot;header&quot;:{
         &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
@@ -318,10 +318,10 @@ count ： 获取条数；选填，默认10条</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../08-device/" class="btn btn-neutral float-right" title="设备管理">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../04-user/" class="btn btn-neutral float-right" title="用户管理">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../05-visitor/" class="btn btn-neutral" title="访客管理"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../03-configuration/" class="btn btn-neutral" title="配置管理"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -347,10 +347,10 @@ count ： 获取条数；选填，默认10条</p>
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../05-visitor/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../03-configuration/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../08-device/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../04-user/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

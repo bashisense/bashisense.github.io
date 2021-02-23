@@ -22,7 +22,7 @@
 
 ```json
 {
-    "action":"advt-add",
+    "action":"advt-insert",
 
     "header":{
         "reqid":"129393"         // 透传值，设备内唯一
@@ -62,7 +62,7 @@
 
 ```json
 {
-    "action":"advt-del",
+    "action":"advt-remove",
 
     "header":{
         "reqid":"129393"         // 透传值，设备内唯一
@@ -92,7 +92,7 @@
 
 ```json
 {
-    "action":"advt-list",
+    "action":"advt-fetch",
     
     "header":{
         "reqid":"129393"         // 透传值，设备内唯一

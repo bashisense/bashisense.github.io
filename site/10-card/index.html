@@ -64,15 +64,11 @@
                     </li>
                 </ul>
                 <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../08-device/">设备管理</a>
+                    </li>
+                </ul>
+                <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../03-configuration/">配置管理</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../04-user/">用户管理</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../05-visitor/">访客管理</a>
                     </li>
                 </ul>
                 <ul>
@@ -80,11 +76,7 @@
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../08-device/">设备管理</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../09-advt/">广告管理</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../04-user/">用户管理</a>
                     </li>
                 </ul>
                 <ul class="current">
@@ -101,6 +93,14 @@
     <li class="toctree-l2"><a class="reference internal" href="#_6">列举门禁卡</a>
     </li>
     </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../09-advt/">广告管理</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../05-visitor/">访客管理</a>
                     </li>
                 </ul>
                 <ul>
@@ -177,7 +177,7 @@ data : IC卡匹配数据，必填</p>
 <li>请求</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;action&quot;:&quot;card-add&quot;,
+    &quot;action&quot;:&quot;card-insert&quot;,
 
     &quot;header&quot;:{
         &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
@@ -226,7 +226,7 @@ data : IC卡匹配数据，必填</p>
 <li>请求</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;action&quot;:&quot;card-del&quot;,
+    &quot;action&quot;:&quot;card-remove&quot;,
 
     &quot;header&quot;:{
         &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
@@ -273,7 +273,7 @@ data : IC卡匹配数据，必填</p>
 <li>请求</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;action&quot;:&quot;card-list&quot;,
+    &quot;action&quot;:&quot;card-fetch&quot;,
 
     &quot;header&quot;:{
         &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
@@ -321,10 +321,10 @@ limit : 本次列举卡数量，默认10，不超过10
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../appendix/" class="btn btn-neutral float-right" title="附则">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../09-advt/" class="btn btn-neutral float-right" title="广告管理">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../09-advt/" class="btn btn-neutral" title="广告管理"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../04-user/" class="btn btn-neutral" title="用户管理"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -350,10 +350,10 @@ limit : 本次列举卡数量，默认10，不超过10
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../09-advt/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../04-user/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../appendix/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../09-advt/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

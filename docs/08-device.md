@@ -9,7 +9,7 @@
 >返回消息体:JSON, retcode = 0时正确， 非0时出错
 
 独立模式时：
->请求URL: http://dev-ip-addr:port:/api/device
+>请求URL: http://dev-ip-addr:port:/api/v3.x/device
 >HTTP头：token = , 使用登陆时返回的token
 
 #### 设置时间
@@ -18,7 +18,7 @@
 
 ```json
 {
-    "action":"device-time",
+    "action":"sync-time",
 
     "header":{
         "reqid":"129393"         // 透传值，设备内唯一

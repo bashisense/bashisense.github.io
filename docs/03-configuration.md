@@ -7,7 +7,7 @@
 >返回消息体:JSON, retcode = 0时正确， 非0时出错
 
 独立模式时：
->请求URL: http://dev-ip-addr:port:/api/config
+>请求URL: http://dev-ip-addr:port:/api/v3.x/device
 >请求类型: POST
 >HTTP头：token = , 使用登陆时返回的token
 
@@ -17,7 +17,7 @@
 
 ```json
 {
-    "action": "config-list",
+    "action": "config-fetch",
     "header":{
         "reqid":"192839"         // 透传值，设备内唯一
     }

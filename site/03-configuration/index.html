@@ -150,7 +150,7 @@
 </blockquote>
 <p>独立模式时：</p>
 <blockquote>
-<p>请求URL: http://dev-ip-addr:port:/api/config
+<p>请求URL: http://dev-ip-addr:port:/api/v3.x/device
 请求类型: POST
 HTTP头：token = , 使用登陆时返回的token</p>
 </blockquote>
@@ -159,7 +159,7 @@ HTTP头：token = , 使用登陆时返回的token</p>
 <li>请求</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;action&quot;: &quot;config-list&quot;,
+    &quot;action&quot;: &quot;config-fetch&quot;,
     &quot;header&quot;:{
         &quot;reqid&quot;:&quot;192839&quot;         // 透传值，设备内唯一
     }

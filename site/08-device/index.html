@@ -164,7 +164,7 @@ HTTP头：token = , 使用登陆时返回的token
 </blockquote>
 <p>独立模式时：</p>
 <blockquote>
-<p>请求URL: http://dev-ip-addr:port:/api/device
+<p>请求URL: http://dev-ip-addr:port:/api/v3.x/device
 HTTP头：token = , 使用登陆时返回的token</p>
 </blockquote>
 <h4 id="_3">设置时间</h4>
@@ -172,7 +172,7 @@ HTTP头：token = , 使用登陆时返回的token</p>
 <li>请求</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;action&quot;:&quot;device-time&quot;,
+    &quot;action&quot;:&quot;sync-time&quot;,
 
     &quot;header&quot;:{
         &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一

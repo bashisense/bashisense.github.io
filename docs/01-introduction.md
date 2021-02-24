@@ -76,7 +76,7 @@ WalOS可以配置为多种管理模式，用于对接不同的平台，目前支
 
 典型请求：
 
->请求URL: http://dev-ip-addr:port:/api/info
+>请求URL: http://dev-ip-addr:port:/api/v3.x/device
 >请求类型: POST
 >HTTP头：token = 登陆前获取info信息可不填写，其它必须填写登陆时返回的token值
 

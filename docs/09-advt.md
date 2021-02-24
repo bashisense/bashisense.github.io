@@ -9,7 +9,7 @@
 >返回消息体:JSON, retcode = 0时正确， 非0时出错
 
 独立模式时：
->请求URL: http://dev-ip-addr:port:/api/advt
+>请求URL: http://dev-ip-addr:port:/api/v3.x/acm
 >HTTP头：token = , 使用登陆时返回的token
 
 **id 大小不超过32Bytes**
@@ -97,6 +97,11 @@
     "header":{
         "reqid":"129393"         // 透传值，设备内唯一
     },
+
+    "body":{
+        "offset":0,
+        "limit":10
+    }
 }
 ```
 

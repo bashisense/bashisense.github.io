@@ -9,7 +9,7 @@
 >返回消息体:JSON, retcode = 0时正确， 非0时出错
 
 独立模式时：
->请求URL: http://dev-ip-addr:port:/api/visitor
+>请求URL: http://dev-ip-addr:port:/api/v3.x/acm
 >HTTP头：token = , 使用登陆时返回的token
 
 **vid 大小不超过32Bytes， code为6位数字**

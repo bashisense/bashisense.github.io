@@ -29,7 +29,7 @@
 #### 独立模式登陆
 设备配置成独立模式或另外几种模式时，设备均会启动WebAPI server，提供基于Http的API接口，此时对于接放的访问需要进行认证。
 
->请求URL: http://dev-ip-addr:port/api/auth
+>请求URL: http://dev-ip-addr:port/api/v3.x/auth
 >请求类型: POST
 >请求消息体:JSON
 >返回消息体:JSON, retcode = 0时正确， 非0时出错

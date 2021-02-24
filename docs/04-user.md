@@ -9,7 +9,7 @@
 >返回消息体:JSON, retcode = 0时正确， 非0时出错
 
 独立模式时：
->请求URL: http://dev-ip-addr:port:/api/user
+>请求URL: http://dev-ip-addr:port:/api/v3.x/acm
 >HTTP头：token = , 使用登陆时返回的token
 
 **限制条件： userid 不超过32字节， name不超过32字节， desc不超过32字节**
@@ -32,6 +32,10 @@
         "version":"v2.1.0",     // 人脸算法版本, double check使用
         "feature": "data...."   // base64编码的用户特征值，由设备计算，同类型设备，算法版本一致的可以直接下载，节省时间
     },
+
+    "elevator":{
+        "access":"data"         // base64编码的电梯信息，每bit表示为1表示当前层可开，为0表示无权限，data最多为16字节，可管理128层
+    }
 }
 ```
 

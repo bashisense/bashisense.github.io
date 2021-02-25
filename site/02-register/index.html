@@ -76,7 +76,7 @@
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#_7">获取设备签名密钥</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_8">获取设备激活码</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_8">注册设备</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#_9">获取激活状态</a>
     </li>
@@ -241,7 +241,7 @@
     &quot;retcode&quot;:0
 }
 </code></pre>
-<h2 id="_6">终端模式登陆</h2>
+<h4 id="_6">终端模式登陆</h4>
 <p>终端模式设备分为以下几个状态：
 1. 设备未连接状态：设备从未连接到管理平台，可能是网络配置或服务器地址配置问题导致设备未能接入管理平台，此时设备如果有显示屏，则显示网络配置信息，提示用户配置网络以使设备可以连接到管理平台；</p>
 <ol>
@@ -292,14 +292,14 @@ public-key 采用base64编码后的串
     },
 
     &quot;body&quot;:{
-        &quot;secret_code&quot;:&quot;xxxxxx&quot;,       // 签名码，字符串
+        &quot;sign_code&quot;:&quot;xxxxxx&quot;,       // 签名码，字符串
     }
 }
 </code></pre>
 <blockquote>
-<p>设备仅在第一次登陆平台时获取secret_code，并存储此值，直到设备被复位到出厂设备，后续一直使用此值签名；</p>
+<p>设备仅在第一次登陆平台时获取sign_code，并存储此值，直到设备被复位到出厂设备，后续一直使用此值签名；</p>
 </blockquote>
-<h5 id="_8">获取设备激活码</h5>
+<h5 id="_8">注册设备</h5>
 <ul>
 <li>请求：</li>
 </ul>
@@ -319,7 +319,7 @@ public-key 采用base64编码后的串
 </code></pre>
 <blockquote>
 <p>第三方平台，device-id 唯一标识一台设备
-设备签名，sha1(sort(device-id、secret_code、timestamp、nonce, "register"))。sort的含义是将参数值按照字母字典排序，然后从小到大拼接成一个字符串。本接口计算签名时，需要把字符串常量 “register”参与到计算之中，区别其他场景的签名。</p>
+设备签名，sha1(sort(device-id、sign_code、timestamp、nonce, "register"))。sort的含义是将参数值按照字母字典排序，然后从小到大拼接成一个字符串。本接口计算签名时，需要把字符串常量 “register”参与到计算之中，区别其他场景的签名。</p>
 </blockquote>
 <ul>
 <li>响应：</li>

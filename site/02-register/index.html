@@ -74,13 +74,15 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#_6">终端模式登陆</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_7">获取设备签名密钥</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_7">获取签名</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#_8">注册设备</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_9">获取激活状态</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_9">激活设备</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_10">订阅设备信息</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_10">订阅消息</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_11">心跳消息</a>
     </li>
         </ul>
     </li>
@@ -249,14 +251,16 @@
 <p>设备已连接状态：设备已接入到管理平台，网络处于连通状态，设备与管理平台进行以下操作：</p>
 </li>
 <li>
-<p>如果设备没有签名密钥，则请求平台获取签名密钥并存储到本地；如果已有此签名密钥，则转下一步；</p>
+<p>同步时间：设备向平台发送同步时间请求，请求格式见设备管理章节的设置时间；</p>
 </li>
-<li>如果设备没有激活码，则注册设备到平台获取激活码，存储到本地，并显示激活码二维码，供App或小程序激活；如果已有激活码则转下一步；</li>
-<li>设备轮询激活状态（每5秒一次），当获取设备激活时，则进入下一步，订阅平台消息；</li>
-<li>设备向平台发送订阅消息，订阅设备通知，设备进入正常工作状态；</li>
+<li>获取签名：如果设备没有签名密钥，则请求平台获取签名密钥并存储到本地；如果已有此签名密钥，则不执行此步骤；</li>
+<li>注册设备：如果设备没有激活码，则设备需要向平台注册，并获取激活码，存储到本地，同时显示激活码二维码，供App或小程序激活；如果已激活码则不执行此步骤；</li>
+<li>激活设备：设备轮询激活状态（每5秒一次），当获取设备密钥用于订阅；如果设备已经激活，则不执行此步骤；</li>
+<li>订阅消息：设备向平台发送订阅请求，订阅设备通知，设备进入正常工作状态；</li>
 </ol>
-<p>初次开机的设备会进行1/2/3/4步，已激活的设备直接进行第4步操作；</p>
-<h5 id="_7">获取设备签名密钥</h5>
+<p>当设备连接后，设备每5秒向平台发送一次心跳信息，连续5次平台没有响应心跳，则设备断开连接。</p>
+<p>初次开机的设备会进行1/2/3/4/5步，已激活的设备直接进行第1/5步操作；</p>
+<h5 id="_7">获取签名</h5>
 <ul>
 <li>请求：</li>
 </ul>
@@ -279,7 +283,7 @@
 <p>device-id 唯一标识一台设备
 设备签名，sha1(sort(device-id、public-key、timestamp、nonce, “signature”))。sort的含义是将参数值按照字母字典排序，然后从小到大拼接成一个字符串。public-key是云平台的公钥，所有设备与第三方平台都有的。本接口计算签名时，需要把字符串常量 “signature”参与到计算之中，区别其他场景的签名。
 public-key 采用base64编码后的串
-<strong><em>如平台无需求确认设备是否为我司产品，可以忽略此命令的签名，直接返回secret_code用于后续签名即可</em></strong></p>
+<strong><em>如平台无需求确认设备是否为我司产品，可以忽略此命令的签名，直接返回sign_code用于后续签名即可，此sign_code由平台自己生成并管理</em></strong></p>
 </blockquote>
 <ul>
 <li>响应：</li>
@@ -319,7 +323,8 @@ public-key 采用base64编码后的串
 </code></pre>
 <blockquote>
 <p>第三方平台，device-id 唯一标识一台设备
-设备签名，sha1(sort(device-id、sign_code、timestamp、nonce, "register"))。sort的含义是将参数值按照字母字典排序，然后从小到大拼接成一个字符串。本接口计算签名时，需要把字符串常量 “register”参与到计算之中，区别其他场景的签名。</p>
+设备签名，sha1(sort(device-id、sign_code、timestamp、nonce, "register"))。sort的含义是将参数值按照字母字典排序，然后从小到大拼接成一个字符串。本接口计算签名时，需要把字符串常量 “register”参与到计算之中，区别其他场景的签名。
+<strong><em>如平台无需求确认设备是否为已绑定到平台，可以忽略此命令的签名，直接返回active_code，此sactive_code由平台自己生成并管理</em></strong></p>
 </blockquote>
 <ul>
 <li>响应：</li>
@@ -338,7 +343,7 @@ public-key 采用base64编码后的串
 <blockquote>
 <p>设备会存储此激活码，每次注册到平台，返回的激活码应一致</p>
 </blockquote>
-<h5 id="_9">获取激活状态</h5>
+<h5 id="_9">激活设备</h5>
 <ul>
 <li>请求：</li>
 </ul>
@@ -373,7 +378,7 @@ public-key 采用base64编码后的串
 激活返回失败时，设备应该轮询激活，时延设定为5秒直到返回激活成功，或者直接收到激活指令；
 接收到激活指令后（body部分为secret），停止轮询，完成激活任务。应用平台retcode:0</p>
 </blockquote>
-<h5 id="_10">订阅设备信息</h5>
+<h5 id="_10">订阅消息</h5>
 <ul>
 <li>请求：</li>
 </ul>
@@ -398,13 +403,39 @@ public-key 采用base64编码后的串
         &quot;reqid&quot;:&quot;192839&quot;,         // 透传值，设备内唯一
     },
 
-    &quot;body&quot;:{        // 选填，订阅后平台可响应时间信息，设备自动校准时间
+    &quot;body&quot;:{                        // 选填，订阅后平台可响应时间信息，设备自动校准时间
         &quot;timestamp&quot;:15992901,       // 平台时间戳
         &quot;timezone&quot;:-480             // 平台时区，分钟数偏移，东区为负西区为正，-480为东八区
     }
 }
 </code></pre>
-<p>至此，设备进入被动模式，接收来自平台的指令，完成任务并返回响应</p>
+<blockquote>
+<p>至此，设备进入被动模式，接收来自平台的指令，完成任务并返回响应
+被动模式下，设备仅会向设备发送三种消息：1. 心跳，每5秒一次； 2. 同步时间，不定期，间隔1小时以上； 3. 事件上报；
+除上述指令外，设备执行平台的指令</p>
+</blockquote>
+<h5 id="_11">心跳消息</h5>
+<ul>
+<li>请求：</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;action&quot;:&quot;ping&quot;,
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;192839&quot;,         // 透传值，设备内唯一
+    },
+}
+</code></pre>
+<ul>
+<li>响应：</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;retcode&quot;:0,                 // 激活成功
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;192839&quot;,         // 透传值，设备内唯一
+    }
+}
+</code></pre>
               
             </div>
           </div>

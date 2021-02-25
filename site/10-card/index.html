@@ -90,7 +90,9 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#_5">删除门禁卡</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_6">列举门禁卡</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_6">查询门禁卡</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_7">列举门禁卡</a>
     </li>
     </ul>
                     </li>
@@ -268,7 +270,54 @@ data : IC卡匹配数据，必填</p>
     }
 }
 </code></pre>
-<h4 id="_6">列举门禁卡</h4>
+<h4 id="_6">查询门禁卡</h4>
+<ul>
+<li>请求</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;action&quot;:&quot;card-lookup&quot;,
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;cards&quot;:[
+            {
+            &quot;id&quot;:&quot;EeqZmH943F8&quot;,
+            },
+            {
+            &quot;id&quot;:&quot;AeqZmH943F9&quot;,
+            },
+        ]
+    }
+}
+</code></pre>
+<ul>
+<li>响应</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;retcode&quot;:0,
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;cards&quot;:[
+            {
+            &quot;id&quot;:&quot;EeqZmH943F8&quot;,
+            ... // 卡其它信息，详见本章卡对象说明
+            },
+            {
+            &quot;id&quot;:&quot;AeqZmH943F9&quot;,
+            ... // 卡其它信息，详见本章卡对象说明
+            },
+        ]
+    }
+}
+</code></pre>
+<h4 id="_7">列举门禁卡</h4>
 <ul>
 <li>请求</li>
 </ul>

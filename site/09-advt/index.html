@@ -92,7 +92,9 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#_4">删除广告图片</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_5">列举广告图片</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_5">查询广告图片</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_6">列举广告图片</a>
     </li>
     </ul>
                     </li>
@@ -218,7 +220,50 @@ duration : 此广告播放时间时延，默认设备配置页中的广告时延
     },
 }
 </code></pre>
-<h4 id="_5">列举广告图片</h4>
+<h4 id="_5">查询广告图片</h4>
+<ul>
+<li>请求</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;action&quot;:&quot;advt-lookup&quot;,
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;ads&quot;:[
+            { &quot;id&quot;:&quot;9ssosxlsiw&quot; },
+            { &quot;id&quot;:&quot;isjdwew938&quot; }
+        ]
+    }
+}
+</code></pre>
+<ul>
+<li>响应</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;retcode&quot;:0,
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;ads&quot;:[
+            {
+                &quot;id&quot;:&quot;9ssosxlsiw&quot;
+                ... // 其它信息，参考本章头部广告对象信息
+            },
+            {
+                &quot;id&quot;:&quot;isjdwew938&quot;
+                ... // 其它信息，参考本章头部广告对象信息
+            }
+        ]
+    }
+}
+</code></pre>
+<h4 id="_6">列举广告图片</h4>
 <ul>
 <li>请求</li>
 </ul>
@@ -247,8 +292,14 @@ duration : 此广告播放时间时延，默认设备配置页中的广告时延
 
     &quot;body&quot;:{
         &quot;ads&quot;:[
-            { &quot;id&quot;:&quot;9ssosxlsiw&quot; },
-            { &quot;id&quot;:&quot;isjdwew938&quot; }
+            {
+                &quot;id&quot;:&quot;9ssosxlsiw&quot;
+                ... // 其它信息，参考本章头部广告对象信息
+            },
+            {
+                &quot;id&quot;:&quot;isjdwew938&quot;
+                ... // 其它信息，参考本章头部广告对象信息
+            }
         ]
     }
 }

@@ -40,7 +40,7 @@
 
 ```json
 {
-    "action":"auth",
+    "action":"auth-login",
     
     "header":{
         "reqid":"192839",         // 透传值，设备内唯一
@@ -78,7 +78,7 @@
 
 ```json
 {
-    "action":"passwd",
+    "action":"auth-passwd",
 
     "header":{
         "reqid":"192839",         // 透传值，设备内唯一

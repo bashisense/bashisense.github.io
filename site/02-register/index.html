@@ -74,15 +74,17 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#_6">终端模式登陆</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_7">获取签名</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_7">同步时间</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_8">注册设备</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_8">获取签名</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_9">激活设备</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_9">注册设备</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_10">订阅消息</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_10">激活设备</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_11">心跳消息</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_11">订阅消息</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_12">心跳消息</a>
     </li>
         </ul>
     </li>
@@ -255,7 +257,39 @@
 </ol>
 <p>当设备连接后，设备每5秒向平台发送一次心跳信息，连续5次平台没有响应心跳，则设备断开连接。</p>
 <p>初次开机的设备会进行1/2/3/4/5步，已激活的设备直接进行第1/5步操作；</p>
-<h5 id="_7">获取签名</h5>
+<h5 id="_7">同步时间</h5>
+<ul>
+<li>请求</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;action&quot;:&quot;sync-time&quot;,
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    }
+}
+</code></pre>
+<ul>
+<li>响应</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;retcode&quot;:0,
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;timezone&quot;:-480,
+        &quot;timestamp&quot;:161589233
+    }
+}
+</code></pre>
+<blockquote>
+<p>timezone : 时区；与格林尼治时间差的分钟数，负数为东区，正数为西区，如不填写，则使用出厂默认设备东8区
+timestamp ： 1970.1.1 开始的毫秒数；</p>
+</blockquote>
+<h5 id="_8">获取签名</h5>
 <ul>
 <li>请求：</li>
 </ul>
@@ -298,7 +332,7 @@ public-key 采用base64编码后的串
 <blockquote>
 <p>设备仅在第一次登陆平台时获取sign_code，并存储此值，直到设备被复位到出厂设备，后续一直使用此值签名；</p>
 </blockquote>
-<h5 id="_8">注册设备</h5>
+<h5 id="_9">注册设备</h5>
 <ul>
 <li>请求：</li>
 </ul>
@@ -338,7 +372,7 @@ public-key 采用base64编码后的串
 <blockquote>
 <p>设备会存储此激活码，每次注册到平台，返回的激活码应一致</p>
 </blockquote>
-<h5 id="_9">激活设备</h5>
+<h5 id="_10">激活设备</h5>
 <ul>
 <li>请求：</li>
 </ul>
@@ -373,7 +407,7 @@ public-key 采用base64编码后的串
 激活返回失败时，设备应该轮询激活，时延设定为5秒直到返回激活成功，或者直接收到激活指令；
 接收到激活指令后（body部分为secret），停止轮询，完成激活任务。应用平台retcode:0</p>
 </blockquote>
-<h5 id="_10">订阅消息</h5>
+<h5 id="_11">订阅消息</h5>
 <ul>
 <li>请求：</li>
 </ul>
@@ -409,7 +443,7 @@ public-key 采用base64编码后的串
 被动模式下，设备仅会向设备发送三种消息：1. 心跳，每5秒一次； 2. 同步时间，不定期，间隔1小时以上； 3. 事件上报；
 除上述指令外，设备执行平台的指令</p>
 </blockquote>
-<h5 id="_11">心跳消息</h5>
+<h5 id="_12">心跳消息</h5>
 <ul>
 <li>请求：</li>
 </ul>

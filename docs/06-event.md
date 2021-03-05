@@ -36,7 +36,7 @@
     // 刷卡事件包括此项
     "data":"...",       // base64编码的刷卡值
 }
-````
+```
 
 #### 获取日志信息
 
@@ -44,7 +44,7 @@
 
 ```json
 {
-    "action":"event-lookup",
+    "action":"event-info",
 
     "header":{
         "reqid":"129393"         // 透传值，设备内唯一
@@ -83,13 +83,15 @@
 
     "body":{
         "seqnum":6,
-        "count":2
+        "limit":2
     }
 }
 ```
 
->seqnum : 起始日志序号；选填，默认最小日志序号
->count ： 获取条数；选填，默认10条
+> seqnum : 起始日志序号；选填，默认最小日志序号
+> offset : 起始偏移；选填，默认为0
+> limit  : 单次条数，默认10条
+> **seqnum与offset为二选一参数，如果全部都填写，默认为是seqnum; 如果全不填写，默认为offset = 0**
 
 - 响应
 

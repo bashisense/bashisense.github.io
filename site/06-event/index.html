@@ -78,11 +78,13 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#_3">事件对象</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_4">获取日志数据</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_4">获取日志信息</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_5">下载日志图片</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_5">获取日志数据</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_6">日志通知</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_6">下载日志图片</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_7">日志通知</a>
     </li>
     </ul>
                     </li>
@@ -175,15 +177,13 @@ HTTP头：token = , 使用登陆时返回的token</p>
     // 刷卡事件包括此项
     &quot;data&quot;:&quot;...&quot;,       // base64编码的刷卡值
 }
-````
-
-#### 获取日志信息
-
-- 请求
-
-```json
-{
-    &quot;action&quot;:&quot;event-lookup&quot;,
+</code></pre>
+<h4 id="_4">获取日志信息</h4>
+<ul>
+<li>请求</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;action&quot;:&quot;event-info&quot;,
 
     &quot;header&quot;:{
         &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
@@ -206,7 +206,7 @@ HTTP头：token = , 使用登陆时返回的token</p>
     }
 }
 </code></pre>
-<h4 id="_4">获取日志数据</h4>
+<h4 id="_5">获取日志数据</h4>
 <ul>
 <li>请求</li>
 </ul>
@@ -219,13 +219,15 @@ HTTP头：token = , 使用登陆时返回的token</p>
 
     &quot;body&quot;:{
         &quot;seqnum&quot;:6,
-        &quot;count&quot;:2
+        &quot;limit&quot;:2
     }
 }
 </code></pre>
 <blockquote>
 <p>seqnum : 起始日志序号；选填，默认最小日志序号
-count ： 获取条数；选填，默认10条</p>
+offset : 起始偏移；选填，默认为0
+limit  : 单次条数，默认10条
+<strong>seqnum与offset为二选一参数，如果全部都填写，默认为是seqnum; 如果全不填写，默认为offset = 0</strong></p>
 </blockquote>
 <ul>
 <li>响应</li>
@@ -251,7 +253,7 @@ count ： 获取条数；选填，默认10条</p>
     }
 }
 </code></pre>
-<h4 id="_5">下载日志图片</h4>
+<h4 id="_6">下载日志图片</h4>
 <ul>
 <li>请求</li>
 </ul>
@@ -293,7 +295,7 @@ count ： 获取条数；选填，默认10条</p>
     }
 }
 </code></pre>
-<h4 id="_6">日志通知</h4>
+<h4 id="_7">日志通知</h4>
 <ul>
 <li>请求</li>
 </ul>

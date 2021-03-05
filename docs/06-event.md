@@ -91,7 +91,8 @@
 > seqnum : 起始日志序号；选填，默认最小日志序号
 > offset : 起始偏移；选填，默认为0
 > limit  : 单次条数，默认10条
-> **seqnum与offset为二选一参数，如果全部都填写，默认为是seqnum; 如果全不填写，默认为offset = 0**
+
+**seqnum与offset为二选一参数，如果全部都填写，默认为是seqnum; 如果全不填写，默认为offset = 0**
 
 - 响应
 

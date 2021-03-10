@@ -400,7 +400,7 @@ data : base64编码的数据</p>
 </code></pre>
 <blockquote>
 <p>timestamp : 生成快照时返回的时间戳
-chanel : 准备获取的摄像头通道</p>
+chanel : 准备获取的摄像头通道，目前仅支持chanel 0，红外通道暂不支持</p>
 </blockquote>
 <ul>
 <li>响应</li>
@@ -415,7 +415,7 @@ chanel : 准备获取的摄像头通道</p>
     &quot;body&quot;: {
         &quot;type&quot;:&quot;snapshot&quot;,
         &quot;filesize&quot;:32678,
-        &quot;filename&quot;:&quot;SNAP0-1584518255389.nv12&quot;,
+        &quot;filename&quot;:&quot;SNAP0-1584518255389.jpg&quot;,
         &quot;offset&quot;:0,
         &quot;size&quot;: 32000,
         &quot;data&quot;:&quot;base64-encoded file data&quot;

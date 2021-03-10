@@ -264,7 +264,7 @@
 ```
 
 > timestamp : 生成快照时返回的时间戳
-> chanel : 准备获取的摄像头通道
+> chanel : 准备获取的摄像头通道，目前仅支持chanel 0，红外通道暂不支持
 
 - 响应
 
@@ -279,7 +279,7 @@
     "body": {
         "type":"snapshot",
         "filesize":32678,
-        "filename":"SNAP0-1584518255389.nv12",
+        "filename":"SNAP0-1584518255389.jpg",
         "offset":0,
         "size": 32000,
         "data":"base64-encoded file data"

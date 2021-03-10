@@ -162,10 +162,10 @@
     "body":{
         "users": [
         {
-            "userid": "1avsoHu2EeqZmH943F8eUg=="
+            "userid": "1avsoHu2EeqZmH943F8eUg"
         },
         {
-            "userid": "1aw6wHu2EeqZmH943F8eUg=="
+            "userid": "1aw6wHu2EeqZmH943F8eUg"
         }
         ]
     }
@@ -187,11 +187,11 @@
     "body":{
         "users": [
         {
-            "userid": "1avsoHu2EeqZmH943F8eUg==",
+            "userid": "1avsoHu2EeqZmH943F8eUg",
             "retcode": 0    // 本用户操作结果
         },
         {
-            "userid": "1aw6wHu2EeqZmH943F8eUg==",
+            "userid": "1aw6wHu2EeqZmH943F8eUg",
             "retcode": 0    // 本用户操作结果
         }
         ]
@@ -214,11 +214,11 @@
     "body":{
         "users": [
         {
-            "userid": "1avsoHu2EeqZmH943F8eUg==",
+            "userid": "1avsoHu2EeqZmH943F8eUg",
             ... // 用户的其它信息，请参照本章的用户对象说明
         },
         {
-            "userid": "1aw6wHu2EeqZmH943F8eUg==",
+            "userid": "1aw6wHu2EeqZmH943F8eUg",
             ... // 用户的其它信息，请参照本章的用户对象说明
         }
         ]
@@ -239,12 +239,12 @@
     "body": {
         "users": [
         {
-            "userid": "1avsoHu2EeqZmH943F8eUg==",
+            "userid": "1avsoHu2EeqZmH943F8eUg",
             "retcode": 0    // 本用户操作结果
         },
 
         {
-            "userid": "1aw6wHu2EeqZmH943F8eUg==",
+            "userid": "1aw6wHu2EeqZmH943F8eUg",
             "retcode": 0    // 本用户操作结果
         }
         ]
@@ -267,10 +267,10 @@
     "body":{
         "users": [
         {
-            "userid": "1avsoHu2EeqZmH943F8eUg==",
+            "userid": "1avsoHu2EeqZmH943F8eUg",
         },
         {
-            "userid": "1aw6wHu2EeqZmH943F8eUg==",
+            "userid": "1aw6wHu2EeqZmH943F8eUg",
         }
         ]
     }
@@ -291,11 +291,11 @@
     "body":{
         "users": [
         {
-            "userid": "1avsoHu2EeqZmH943F8eUg==",
+            "userid": "1avsoHu2EeqZmH943F8eUg",
             ... // 用户的其它信息，请参照本章的用户对象说明
         },
         {
-            "userid": "1aw6wHu2EeqZmH943F8eUg==",
+            "userid": "1aw6wHu2EeqZmH943F8eUg",
             ... // 用户的其它信息，请参照本章的用户对象说明
         }
         ]
@@ -319,8 +319,8 @@
 
     "body":{
         "filesize":32678,
-        "filename":"1aw6wHu2EeqZmH943F8eUg==.jpg", // 文件名后缀代表文件类型，支持nv12, jpg, png
-        "offset":4096,
+        "filename":"1aw6wHu2EeqZmH943F8eUg.jpg", // 文件名后缀代表文件类型，支持nv12, jpg, png
+        "offset":0,
         "size": 4096,
         "data":"base64-encoded file data"
     }

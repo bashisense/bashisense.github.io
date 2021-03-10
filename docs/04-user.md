@@ -360,7 +360,7 @@
     },
     
     "body":{
-        "userid": "1avsoHu2EeqZmH943F8eUg==",
+        "userid": "1avsoHu2EeqZmH943F8eUg",
     }
 }
 ```
@@ -376,7 +376,7 @@
     },
 
     "body": {
-        "userid": "1avsoHu2EeqZmH943F8eUg==",
+        "userid": "1avsoHu2EeqZmH943F8eUg",
 
         "face":{
             "vendor":"bashi",       // 人脸算法供应商，double check使用
@@ -399,7 +399,7 @@
     },
 
     "body":{
-        "filename":"1aw6wHu2EeqZmH943F8eUg==.nv12",
+        "filename":"1aw6wHu2EeqZmH943F8eUg.nv12",
         "offset":0,
         "size": 4096,
     }
@@ -420,7 +420,7 @@
     },
 
     "body" : {
-        "filename":"1aw6wHu2EeqZmH943F8eUg==.nv12",
+        "filename":"1aw6wHu2EeqZmH943F8eUg.nv12",
         "filesize":32678,   // 文件总体大小
         "offset":0,         // 本次下载的offset
         "size": 32000,      // 本次下载的大小

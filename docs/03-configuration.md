@@ -74,13 +74,16 @@
     "body":{
         "configs": [
             {
-                "relay-mode": "enable"
+                "key":"relay-mode",
+                "value":"enable"
             },
             {
-                "therm-mode": "wrist"
+                "key":"therm-mode",
+                "value":"wrist"
             },
             {
-                "algm-threshold": "0.8"
+                "key":"algm-threshold",
+                "value":"0.8"
             }
         ]
     }
@@ -100,20 +103,18 @@
     "body": {       // 返回成功配置好的配置项，配置失败的不返回
         "configs": [
             {
-                "relay-mode": "enable"
+                "key":"relay-mode",
             },
 
             {
-                "therm-mode": "wrist"
-            },
-
-            {
-                "algm-threshold": "0.8"
+                "key":"therm-mode",
             }
         ]
     }
 }
 ```
+
+> 成功的配置项会返回，未成功的则不回返
 
 ####  配置说明
 

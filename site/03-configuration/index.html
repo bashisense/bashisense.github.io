@@ -214,13 +214,16 @@ HTTP头：token = , 使用登陆时返回的token</p>
     &quot;body&quot;:{
         &quot;configs&quot;: [
             {
-                &quot;relay-mode&quot;: &quot;enable&quot;
+                &quot;key&quot;:&quot;relay-mode&quot;,
+                &quot;value&quot;:&quot;enable&quot;
             },
             {
-                &quot;therm-mode&quot;: &quot;wrist&quot;
+                &quot;key&quot;:&quot;therm-mode&quot;,
+                &quot;value&quot;:&quot;wrist&quot;
             },
             {
-                &quot;algm-threshold&quot;: &quot;0.8&quot;
+                &quot;key&quot;:&quot;algm-threshold&quot;,
+                &quot;value&quot;:&quot;0.8&quot;
             }
         ]
     }
@@ -239,20 +242,19 @@ HTTP头：token = , 使用登陆时返回的token</p>
     &quot;body&quot;: {       // 返回成功配置好的配置项，配置失败的不返回
         &quot;configs&quot;: [
             {
-                &quot;relay-mode&quot;: &quot;enable&quot;
+                &quot;key&quot;:&quot;relay-mode&quot;,
             },
 
             {
-                &quot;therm-mode&quot;: &quot;wrist&quot;
-            },
-
-            {
-                &quot;algm-threshold&quot;: &quot;0.8&quot;
+                &quot;key&quot;:&quot;therm-mode&quot;,
             }
         ]
     }
 }
 </code></pre>
+<blockquote>
+<p>成功的配置项会返回，未成功的则不回返</p>
+</blockquote>
 <h4 id="_5">配置说明</h4>
 <p>以下为可配置数据与说明，实际使用时，同一类型的配置项最好一次下发，部分配置重启才能生效。对于多数场景，使用系统默认配置即可。</p>
 <pre><code class="language-json">{

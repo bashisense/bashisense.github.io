@@ -305,7 +305,7 @@
 
 #### 上传用户文件
 
-**上传用户文件，单次数据长度必须在256kB以内，其data数据在转base64前应以256kB长度切片**
+**上传用户文件，单次数据长度必须在64kB以内，其data数据在转base64前应以64kB长度切片**
 
 - 请求
 
@@ -319,7 +319,7 @@
 
     "body":{
         "filesize":32678,
-        "filename":"1aw6wHu2EeqZmH943F8eUg==.nv12", // 文件名后缀代表文件类型，支持nv12, jpg, png
+        "filename":"1aw6wHu2EeqZmH943F8eUg==.jpg", // 文件名后缀代表文件类型，支持nv12, jpg, png
         "offset":4096,
         "size": 4096,
         "data":"base64-encoded file data"

@@ -435,7 +435,7 @@ limit : 本次列表的数量;</p>
 }
 </code></pre>
 <h4 id="_10">上传用户文件</h4>
-<p><strong>上传用户文件，单次数据长度必须在256kB以内，其data数据在转base64前应以256kB长度切片</strong></p>
+<p><strong>上传用户文件，单次数据长度必须在64kB以内，其data数据在转base64前应以64kB长度切片</strong></p>
 <ul>
 <li>请求</li>
 </ul>
@@ -448,7 +448,7 @@ limit : 本次列表的数量;</p>
 
     &quot;body&quot;:{
         &quot;filesize&quot;:32678,
-        &quot;filename&quot;:&quot;1aw6wHu2EeqZmH943F8eUg==.nv12&quot;, // 文件名后缀代表文件类型，支持nv12, jpg, png
+        &quot;filename&quot;:&quot;1aw6wHu2EeqZmH943F8eUg==.jpg&quot;, // 文件名后缀代表文件类型，支持nv12, jpg, png
         &quot;offset&quot;:4096,
         &quot;size&quot;: 4096,
         &quot;data&quot;:&quot;base64-encoded file data&quot;

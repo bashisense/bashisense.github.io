@@ -416,7 +416,15 @@ HTTP头：token = , 使用登陆时返回的token</p>
         &quot;key&quot;:&quot;manager-mode&quot;,
         &quot;value&quot;:&quot;cloud&quot;,
         &quot;class&quot;:&quot;manager&quot;,
-        &quot;desc&quot; : &quot;管理模式，cloud - 接入云平台，none - 仅提供本地web api，wechat - 接入企业微信, local - 接入websock服务&quot;,
+        &quot;desc&quot; : &quot;管理模式，none - 仅提供本地webapi，wechat - 接入企业微信, websock - 接入私有云平台&quot;,
+        &quot;options&quot; : &quot;wr&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;manager-server&quot;,
+        &quot;value&quot;:&quot;wss://192.168.2.165:8080/api/v3.x&quot;,
+        &quot;class&quot;:&quot;manager&quot;,
+        &quot;desc&quot; : &quot;管理服务器地址合集，相当于manager-server-address:manager-server-port/manager-server-path,若同时存在，仅manager-server有效&quot;,
         &quot;options&quot; : &quot;wr&quot;
     },
 
@@ -424,7 +432,7 @@ HTTP头：token = , 使用登陆时返回的token</p>
         &quot;key&quot;:&quot;manager-server-address&quot;,
         &quot;value&quot;:&quot;127.0.0.1&quot;,
         &quot;class&quot;:&quot;manager&quot;,
-        &quot;desc&quot; : &quot;管理服务器地址&quot;,
+        &quot;desc&quot; : &quot;管理服务器地址，兼容旧版本，请使用manager-server配置&quot;,
         &quot;options&quot; : &quot;wr&quot;
     },
 
@@ -432,7 +440,15 @@ HTTP头：token = , 使用登陆时返回的token</p>
         &quot;key&quot;:&quot;manager-server-port&quot;,
         &quot;value&quot;:&quot;3000&quot;,
         &quot;class&quot;:&quot;manager&quot;,
-        &quot;desc&quot; : &quot;管理服务器端口&quot;,
+        &quot;desc&quot; : &quot;管理服务器端口，兼容旧版本，请使用manager-server配置&quot;,
+        &quot;options&quot; : &quot;wr&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;manager-server-path&quot;,
+        &quot;value&quot;:&quot;report&quot;,
+        &quot;class&quot;:&quot;manager&quot;,
+        &quot;desc&quot; : &quot;管理服务器路径，兼容旧版本，请使用manager-server配置&quot;,
         &quot;options&quot; : &quot;wr&quot;
     },
 

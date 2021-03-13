@@ -280,7 +280,15 @@
         "key":"manager-mode",
         "value":"cloud",
         "class":"manager",
-        "desc" : "管理模式，cloud - 接入云平台，none - 仅提供本地web api，wechat - 接入企业微信, local - 接入websock服务",
+        "desc" : "管理模式，none - 仅提供本地webapi，wechat - 接入企业微信, websock - 接入私有云平台",
+        "options" : "wr"
+    },
+
+    {
+        "key":"manager-server",
+        "value":"wss://192.168.2.165:8080/api/v3.x",
+        "class":"manager",
+        "desc" : "管理服务器地址合集，相当于manager-server-address:manager-server-port/manager-server-path,若同时存在，仅manager-server有效",
         "options" : "wr"
     },
 
@@ -288,7 +296,7 @@
         "key":"manager-server-address",
         "value":"127.0.0.1",
         "class":"manager",
-        "desc" : "管理服务器地址",
+        "desc" : "管理服务器地址，兼容旧版本，请使用manager-server配置",
         "options" : "wr"
     },
 
@@ -296,7 +304,15 @@
         "key":"manager-server-port",
         "value":"3000",
         "class":"manager",
-        "desc" : "管理服务器端口",
+        "desc" : "管理服务器端口，兼容旧版本，请使用manager-server配置",
+        "options" : "wr"
+    },
+
+    {
+        "key":"manager-server-path",
+        "value":"report",
+        "class":"manager",
+        "desc" : "管理服务器路径，兼容旧版本，请使用manager-server配置",
         "options" : "wr"
     },
 

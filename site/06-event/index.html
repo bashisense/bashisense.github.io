@@ -160,14 +160,15 @@ HTTP头：token = , 使用登陆时返回的token</p>
     &quot;seqnum&quot;: 6,                // 事件编号，设备唯一
     &quot;timestamp&quot;: 1587985190,    // 事件发生时的时间戳, 精确到毫秒
 
-    &quot;type&quot;:&quot;logr&quot;,          // 事件类型，logr-识别，open - 开门状态， remote - 远程开门
-                            // fire -火警告警， disa - 防拆告警， card - 刷卡， visitor 访客，
+    &quot;event&quot;:&quot;face&quot;,          // 事件类型：face -人脸识别，door - 开门状态， remote - 远程开门, push - 按键开门， qrcode - 扫码事件
+                            // fire -火警告警， disa - 防拆告警， reset - 复位，card - 刷卡， visitor 访客， therm - 测温
+    &quot;sync&quot;:0,               // 是否已向服务器同步，仅企业微信版本有效
 
     // 访客事件包括此项
     &quot;vid&quot;: &quot;9sdkskw9&quot;, 
 
     // 人脸识别事件包括下面三项
-    &quot;userid&quot;: &quot;TUID-876991&quot;, // 识别出的用户ID，或陌生人 0000开头的ID
+    &quot;uid&quot;: &quot;TUID-876991&quot;, // 识别出的用户ID，或陌生人 0000开头的ID, 卡事件也包括此项
     &quot;score&quot;: 1,         //  识别相似度
     &quot;sharp&quot;: 0,         //  照片清晰度
 
@@ -175,7 +176,13 @@ HTTP头：token = , 使用登陆时返回的token</p>
     &quot;therm&quot;: 0,         //  测温值
 
     // 刷卡事件包括此项
-    &quot;data&quot;:&quot;...&quot;,       // base64编码的刷卡值
+    &quot;data&quot;:&quot;...&quot;,       // 卡ID值, 0xffae0846
+
+    // open/remote/push/fire/disa 事件包括此项
+    &quot;state&quot;:0,           // 告警事件场景：0 - 关闭 / 1 - 触发 ; 人脸/刷卡场景，表示用户状态
+
+    // 扫码事件包括此项
+    &quot;qrcode&quot;:&quot;aiwksieow&quot;    // 扫码值
 }
 </code></pre>
 <h4 id="_4">获取日志信息</h4>

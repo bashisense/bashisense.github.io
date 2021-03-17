@@ -16,10 +16,9 @@
 ```json
 {
     "device-id":"device-id",                // 设备ID
+    "product-id": "A1050.00",               // 设备型号
     "hardware-version" : "v1.2.0",          // 硬件载体版本号
     "walos-version" : "v2.1.0",             // WalOS 操作系统版本号
-    "protocol-version": "v2.2.0",           // 协议版本号
-    "algm-vendor" : "bashi",                // 算法供应商
     "algm-version"  : "v1.1.0",             // 算法版本号
 }
 ```

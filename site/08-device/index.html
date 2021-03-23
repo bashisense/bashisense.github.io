@@ -90,6 +90,8 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#_13">主动读卡</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_14">人脸识别起停</a>
+    </li>
     </ul>
                     </li>
                 </ul>
@@ -477,25 +479,23 @@ chanel : 准备获取的摄像头通道，目前仅支持chanel 0，红外通道
 }
 </code></pre>
 <h4 id="_13">主动读卡</h4>
-<p>在用户使用小程序/app为用户添加卡的时候，需要控制设备读卡，设备读取卡数据后，上报读卡数据，上平台或app实现卡与用户的绑定，并下发到设备</p>
+<p>在用户使用小程序/app为用户添加卡的时候，需要读取最后一次刷卡信息，平台或app实现卡与用户的绑定，并下发到设备</p>
 <ul>
 <li>请求</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;action&quot;:&quot;device-read-card&quot;,
+    &quot;action&quot;:&quot;device-last-card&quot;,
 
     &quot;header&quot;:{
         &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
     },
 
     &quot;body&quot;: {
-        &quot;timeout&quot;:20       // 超时后再有刷卡，不上报数据；当有卡被读到后，清除状态与定时器
     }
 }
 </code></pre>
 <blockquote>
-<p>此命令返回并不等待读卡有数据返回，而是直接返回
-设备读到卡信息后，根据读卡状态上报卡信息给平台/app</p>
+<p>返回最后一次读到卡信息</p>
 </blockquote>
 <ul>
 <li>响应</li>
@@ -508,26 +508,42 @@ chanel : 准备获取的摄像头通道，目前仅支持chanel 0，红外通道
     },
 
     &quot;body&quot;:{
+        &quot;timestamp&quot;:16092820, // 读卡时间
         &quot;data&quot;:... // base64编码的卡ID号
     }
 }
 </code></pre>
+<h4 id="_14">人脸识别起停</h4>
+<p>用户使用小程序/app控制设备开始/停止人脸识别，用于特殊场景的人脸识别控制</p>
 <ul>
-<li>事件</li>
+<li>请求</li>
 </ul>
-<p>独立模式时，通过事件上报卡信息</p>
 <pre><code class="language-json">{
-    &quot;action&quot;:&quot;event-read-card&quot;,
+    &quot;action&quot;:&quot;algm-control&quot;,
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;: {
+        &quot;type&quot;:&quot;fdr&quot;,       // fdr - 人脸识别
+        &quot;control&quot;:&quot;start&quot; // start,开始； stop,暂停； state,获取状态
+    }
+}
+</code></pre>
+<ul>
+<li>响应</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;retcode&quot;:0,
 
     &quot;header&quot;:{
         &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
     },
 
     &quot;body&quot;:{
-        &quot;device-id&quot;:&quot;device-id&quot;,    // 发出事件的设备ID
-        &quot;type&quot;:&quot;read-card&quot;,         // 事件的类型，读取到的卡数据
-        &quot;timestamp&quot;:1587983490,     // 事件发生的时间戳，EPOCH时间*1000 + 毫秒数
-        &quot;data&quot;:base64(data)         // 读到的卡数据的base64编码
+        &quot;type&quot;:&quot;fdr&quot;,
+        &quot;state&quot;:&quot;start&quot;     // 返回算法引擎状态
     }
 }
 </code></pre>

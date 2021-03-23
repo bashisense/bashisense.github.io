@@ -88,9 +88,7 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#_12">配置设备模式</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_13">主动读卡</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_14">人脸识别起停</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_13">人脸识别起停</a>
     </li>
     </ul>
                     </li>
@@ -478,42 +476,7 @@ chanel : 准备获取的摄像头通道，目前仅支持chanel 0，红外通道
     },
 }
 </code></pre>
-<h4 id="_13">主动读卡</h4>
-<p>在用户使用小程序/app为用户添加卡的时候，需要读取最后一次刷卡信息，平台或app实现卡与用户的绑定，并下发到设备</p>
-<ul>
-<li>请求</li>
-</ul>
-<pre><code class="language-json">{
-    &quot;action&quot;:&quot;device-last-card&quot;,
-
-    &quot;header&quot;:{
-        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
-    },
-
-    &quot;body&quot;: {
-    }
-}
-</code></pre>
-<blockquote>
-<p>返回最后一次读到卡信息</p>
-</blockquote>
-<ul>
-<li>响应</li>
-</ul>
-<pre><code class="language-json">{
-    &quot;retcode&quot;:0,
-
-    &quot;header&quot;:{
-        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
-    },
-
-    &quot;body&quot;:{
-        &quot;timestamp&quot;:16092820, // 读卡时间
-        &quot;data&quot;:... // base64编码的卡ID号
-    }
-}
-</code></pre>
-<h4 id="_14">人脸识别起停</h4>
+<h4 id="_13">人脸识别起停</h4>
 <p>用户使用小程序/app控制设备开始/停止人脸识别，用于特殊场景的人脸识别控制</p>
 <ul>
 <li>请求</li>

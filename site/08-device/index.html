@@ -90,6 +90,8 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#_13">人脸识别起停</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_14">应用人脸识别算法配置</a>
+    </li>
     </ul>
                     </li>
                 </ul>
@@ -507,6 +509,35 @@ chanel : 准备获取的摄像头通道，目前仅支持chanel 0，红外通道
     &quot;body&quot;:{
         &quot;type&quot;:&quot;fdr&quot;,
         &quot;state&quot;:&quot;start&quot;     // 返回算法引擎状态
+    }
+}
+</code></pre>
+<h4 id="_14">应用人脸识别算法配置</h4>
+<p>将配置项中algm-* 算法引擎配置项应用到算法引擎，如果不调用此接口，配置的算法参数将在重启后升效</p>
+<ul>
+<li>请求</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;action&quot;:&quot;apply-algm-conf&quot;,
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;: {}
+}
+</code></pre>
+<ul>
+<li>响应</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;retcode&quot;:0,
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
     }
 }
 </code></pre>

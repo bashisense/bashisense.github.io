@@ -92,6 +92,14 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#_14">应用人脸识别算法配置</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_15">打印运行日志到远程服务器</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_16">打印运行日志到文件</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_17">下载运行日志文件</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#4g-apn">配置4G APN</a>
+    </li>
     </ul>
                     </li>
                 </ul>
@@ -525,6 +533,136 @@ chanel : 准备获取的摄像头通道，目前仅支持chanel 0，红外通道
     },
 
     &quot;body&quot;: {}
+}
+</code></pre>
+<ul>
+<li>响应</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;retcode&quot;:0,
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+    }
+}
+</code></pre>
+<h4 id="_15">打印运行日志到远程服务器</h4>
+<ul>
+<li>请求</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;action&quot;:&quot;log-toremote&quot;,
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;: {
+        &quot;remote&quot;:&quot;192.168.2.100&quot;    // 远程服务器地址
+    }
+}
+</code></pre>
+<ul>
+<li>响应</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;retcode&quot;:0,
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+    }
+}
+</code></pre>
+<h4 id="_16">打印运行日志到文件</h4>
+<ul>
+<li>请求</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;action&quot;:&quot;log-tofile&quot;,
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;: {
+        &quot;enable&quot;:1    // 0 - 关闭打印到文件， 1 - 开启打印到文件
+    }
+}
+</code></pre>
+<ul>
+<li>响应</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;retcode&quot;:0,
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+    }
+}
+</code></pre>
+<h4 id="_17">下载运行日志文件</h4>
+<ul>
+<li>请求</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;action&quot;:&quot;log-download&quot;,
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;: {
+        &quot;logfile&quot;: &quot;logger.a&quot;,   // logger.a 或 logger.b 系统会交替使用这两个文件，打印超过10MB时切换
+        &quot;offset&quot;: 0,    // 读文件的偏移
+        &quot;size&quot;:1024,    // 读文件的大小，不超过64KB每次
+    }
+}
+</code></pre>
+<ul>
+<li>响应</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;retcode&quot;:0,
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;offset&quot;: 0,    // 读文件的偏移
+        &quot;size&quot;:1024,    // 本次读到的大小
+        &quot;data&quot;:&quot;sasdads...&quot;, // Base64编码的文件数据
+        &quot;filename&quot;:&quot;logger.a&quot;, // 本次读取的文件名
+        &quot;filesize&quot;:123928,  // 运行日志文件大小
+    }
+}
+</code></pre>
+<h4 id="4g-apn">配置4G APN</h4>
+<ul>
+<li>请求</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;action&quot;:&quot;apn-config&quot;,
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;: {
+        &quot;apn&quot;:&quot;public.vpdn&quot;,
+        &quot;user&quot;:&quot;admin@bashisense.com&quot;,
+        &quot;pass&quot;:&quot;@skd9kwdkk&quot;,
+        &quot;auth&quot;:0, // 0=none，1=pap，2=chap，3=pap，chap）
+    }
 }
 </code></pre>
 <ul>

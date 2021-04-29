@@ -419,3 +419,145 @@
     }
 }
 ```
+
+#### 打印运行日志到远程服务器
+
+- 请求
+
+```json 
+{
+    "action":"log-toremote",
+
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    },
+
+    "body": {
+        "remote":"192.168.2.100"    // 远程服务器地址
+    }
+}
+```
+
+- 响应
+
+```json
+{
+    "retcode":0,
+    
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    },
+
+    "body":{
+    }
+}
+```
+
+#### 打印运行日志到文件
+
+- 请求
+
+```json 
+{
+    "action":"log-tofile",
+
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    },
+
+    "body": {
+        "enable":1    // 0 - 关闭打印到文件， 1 - 开启打印到文件
+    }
+}
+```
+
+- 响应
+
+```json
+{
+    "retcode":0,
+    
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    },
+
+    "body":{
+    }
+}
+```
+
+#### 下载运行日志文件
+
+- 请求
+
+```json 
+{
+    "action":"log-download",
+
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    },
+
+    "body": {
+        "logfile": "logger.a",   // logger.a 或 logger.b 系统会交替使用这两个文件，打印超过10MB时切换
+        "offset": 0,    // 读文件的偏移
+        "size":1024,    // 读文件的大小，不超过64KB每次
+    }
+}
+```
+
+- 响应
+
+```json
+{
+    "retcode":0,
+    
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    },
+
+    "body":{
+        "offset": 0,    // 读文件的偏移
+        "size":1024,    // 本次读到的大小
+        "data":"sasdads...", // Base64编码的文件数据
+        "filename":"logger.a", // 本次读取的文件名
+        "filesize":123928,  // 运行日志文件大小
+    }
+}
+```
+
+#### 配置4G APN
+
+- 请求
+
+```json 
+{
+    "action":"apn-config",
+
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    },
+
+    "body": {
+        "apn":"public.vpdn",
+        "user":"admin@bashisense.com",
+        "pass":"@skd9kwdkk",
+        "auth":0, // 0=none，1=pap，2=chap，3=pap，chap）
+    }
+}
+```
+
+- 响应
+
+```json
+{
+    "retcode":0,
+    
+    "header":{
+        "reqid":"129393"         // 透传值，设备内唯一
+    },
+
+    "body":{
+    }
+}
+```

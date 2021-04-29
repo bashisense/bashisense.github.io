@@ -149,7 +149,8 @@
     },
 
     "body":{
-        "cards":[
+        "uid":"9xosiqlsqoq",    // 查询UID查询卡信息，可不填写
+        "cards":[               // 根据卡ID查询卡信息，可不填写
             {
             "id":"EeqZmH943F8",
             },
@@ -172,7 +173,7 @@
     },
     
     "body":{
-        "cards":[
+        "cards":[ 
             {
             "id":"EeqZmH943F8",
             ... // 卡其它信息，详见本章卡对象说明

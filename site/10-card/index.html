@@ -163,17 +163,13 @@ HTTP头：token = , 使用登陆时返回的token</p>
         &quot;id&quot;:&quot;EeqZmH943F8&quot;,
         &quot;type&quot;: &quot;ic&quot;,       // 卡类型，默认IC卡，可以为CPU，crypto等
         &quot;userid&quot;: &quot;1avsoHu2EeqZmH943F8eUg==&quot;,   // 卡对应的用户ID
-        &quot;effect&quot;:192923,
-        &quot;expire&quot;:150938992,
         &quot;data&quot;: &quot;...&quot;   // 卡数据
     }
 </code></pre>
 <blockquote>
 <p>id : 唯一标志卡的ID，仅内部使用，必填
 userid : 唯一标志用户的ID，不超过32字节的文本字符串；选填，离线使用时人脸+卡匹配
-rule : 开门策略，配置的开发策略； 选填，如不填侧使用默认配置，全时段可刷卡开门
-effect: 使能时间
-expire : 用户过期时间，格式需要保持一致；必填
+type": 卡类型，默认IC卡，可以为CPU，crypto等
 data : IC卡匹配数据，必填</p>
 </blockquote>
 <h4 id="_4">添加门禁卡</h4>

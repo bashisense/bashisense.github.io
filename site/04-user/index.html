@@ -183,9 +183,23 @@ HTTP头：token = , 使用登陆时返回的token</p>
         &quot;feature&quot;: &quot;data....&quot;   // base64编码的用户特征值，由设备计算，同类型设备，算法版本一致的可以直接下载，节省时间
     },
 
-    &quot;elevator&quot;:{
-        &quot;access&quot;:&quot;data&quot;         // base64编码的电梯信息，每bit表示为1表示当前层可开，为0表示无权限，data最多为16字节，可管理128层
-    }
+    &quot;cards&quot;:[   // 添加与用户绑定的卡信息，也可以单独绑定卡，详情见门卡管理章节
+        {
+            &quot;id&quot;:&quot;EeqZmH943F8&quot;,
+            &quot;type&quot;: &quot;ic&quot;,       // 卡类型，默认IC卡，可以为CPU，crypto等
+            &quot;userid&quot;: &quot;1avsoHu2EeqZmH943F8eUg&quot;,   // 卡对应的用户ID
+            &quot;data&quot;: &quot;...&quot;   // 卡数据
+        },
+
+        {
+            &quot;id&quot;:&quot;2scZmH943a3&quot;,
+            &quot;type&quot;: &quot;ic&quot;,       // 卡类型，默认IC卡，可以为CPU，crypto等
+            &quot;userid&quot;: &quot;1avsoHu2EeqZmH943F8eUg&quot;,   // 卡对应的用户ID
+            &quot;data&quot;: &quot;...&quot;   // 卡数据
+        },
+    ],
+
+    &quot;elevator&quot;:&quot;data&quot;         // base64编码的电梯信息，每bit表示为1表示当前层可开，为0表示无权限，data最多为16字节，可管理128层
 }
 </code></pre>
 <blockquote>
@@ -228,11 +242,9 @@ limit : 本次列表的数量;</p>
         &quot;users&quot;: [
             {
                 &quot;userid&quot;: &quot;1avsoHu2EeqZmH943F8eUg&quot;,
-                ... // 用户的其它信息，请参照本章的用户对象说明
             },
             {
                 &quot;userid&quot;: &quot;1aw6wHu2EeqZmH943F8eUg&quot;,
-                ... // 用户的其它信息，请参照本章的用户对象说明
             }
         ],
     }

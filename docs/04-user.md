@@ -33,9 +33,23 @@
         "feature": "data...."   // base64编码的用户特征值，由设备计算，同类型设备，算法版本一致的可以直接下载，节省时间
     },
 
-    "elevator":{
-        "access":"data"         // base64编码的电梯信息，每bit表示为1表示当前层可开，为0表示无权限，data最多为16字节，可管理128层
-    }
+    "cards":[   // 添加与用户绑定的卡信息，也可以单独绑定卡，详情见门卡管理章节
+        {
+            "id":"EeqZmH943F8",
+            "type": "ic",       // 卡类型，默认IC卡，可以为CPU，crypto等
+            "userid": "1avsoHu2EeqZmH943F8eUg",   // 卡对应的用户ID
+            "data": "..."   // 卡数据
+        },
+
+        {
+            "id":"2scZmH943a3",
+            "type": "ic",       // 卡类型，默认IC卡，可以为CPU，crypto等
+            "userid": "1avsoHu2EeqZmH943F8eUg",   // 卡对应的用户ID
+            "data": "..."   // 卡数据
+        },
+    ],
+
+    "elevator":"data"         // base64编码的电梯信息，每bit表示为1表示当前层可开，为0表示无权限，data最多为16字节，可管理128层
 }
 ```
 
@@ -85,11 +99,9 @@
         "users": [
             {
                 "userid": "1avsoHu2EeqZmH943F8eUg",
-                ... // 用户的其它信息，请参照本章的用户对象说明
             },
             {
                 "userid": "1aw6wHu2EeqZmH943F8eUg",
-                ... // 用户的其它信息，请参照本章的用户对象说明
             }
         ],
     }

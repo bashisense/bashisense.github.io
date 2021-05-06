@@ -145,7 +145,6 @@
     },
 
     "body":{
-        "uid":"9xosiqlsqoq",    // 查询UID查询卡信息，可不填写
         "cards":[               // 根据卡ID查询卡信息，可不填写
             {
             "id":"EeqZmH943F8",

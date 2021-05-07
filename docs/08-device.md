@@ -382,7 +382,7 @@
 
     "body":{
         "type":"fdr",
-        "state":"start"     // 返回算法引擎状态
+        "state":"running"     // 返回算法引擎状态: running, stop
     }
 }
 ```

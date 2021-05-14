@@ -88,6 +88,20 @@
     </li>
         </ul>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#mqtt">MQTT模式登陆</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#mqtt_1">MQTT连接信息：</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_13">设备需要订阅主题接收消息：</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_14">设备向平台发送消息主题为：</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_15">设备连接步骤如下：</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_16">消息格式</a>
+    </li>
+        </ul>
+    </li>
     </ul>
                     </li>
                 </ul>
@@ -240,8 +254,11 @@
 <li>响应：</li>
 </ul>
 <pre><code class="language-json">{
-    &quot;reqid&quot;:192839,         // 透传值，设备内唯一
-    &quot;retcode&quot;:0
+    &quot;retcode&quot;:0,
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;192839&quot;,         // 透传值，设备内唯一
+    }
 }
 </code></pre>
 <h4 id="_6">终端模式登陆</h4>
@@ -352,7 +369,7 @@ public-key 采用base64编码后的串
 <blockquote>
 <p>第三方平台，device-id 唯一标识一台设备
 设备签名，sha1(sort(device-id、sign_code、timestamp、nonce, "register"))。sort的含义是将参数值按照字母字典排序，然后从小到大拼接成一个字符串。本接口计算签名时，需要把字符串常量 “register”参与到计算之中，区别其他场景的签名。
-<strong><em>如平台无需求确认设备是否为已绑定到平台，可以忽略此命令的签名，直接返回active_code，此sactive_code由平台自己生成并管理</em></strong></p>
+<strong><em>如平台无需求确认设备是否为已绑定到平台，可以忽略此命令的签名，直接返回active_code，此active_code由平台自己生成并管理</em></strong></p>
 </blockquote>
 <ul>
 <li>响应：</li>
@@ -464,6 +481,65 @@ public-key 采用base64编码后的串
     }
 }
 </code></pre>
+<h4 id="mqtt">MQTT模式登陆</h4>
+<h5 id="mqtt_1">MQTT连接信息：</h5>
+<ol>
+<li>心跳(mqtt协议心跳，非应用层心跳)：MQTT本身的心跳设置为1分钟；</li>
+<li>QOS:QOS设为0</li>
+<li>Retain:Retain设为0</li>
+<li>Cleansession:Cleansession设为1</li>
+<li>用户名密码:无</li>
+<li>重连时间：30秒</li>
+</ol>
+<h5 id="_13">设备需要订阅主题接收消息：</h5>
+<p>topic/device-<strong>device-id</strong>，如：topic/device-00155n0497K27</p>
+<h5 id="_14">设备向平台发送消息主题为：</h5>
+<p>topic/service</p>
+<h5 id="_15">设备连接步骤如下：</h5>
+<ol>
+<li>同步时间：设备向平台发送同步时间请求，请求格式见设备管理章节的设置时间；</li>
+<li>获取签名：如果设备没有签名密钥，则请求平台获取签名密钥并存储到本地；如果已有此签名密钥，则不执行此步骤；</li>
+<li>注册设备：如果设备没有激活码，则设备需要向平台注册，并获取激活码，存储到本地，同时显示激活码二维码，供App或小程序激活；如果已激活码则不执行此步骤；</li>
+<li>激活设备：设备轮询激活状态（每5秒一次），当获取设备密钥用于订阅；如果设备已经激活，则不执行此步骤；</li>
+<li>订阅消息：设备向平台发送订阅请求，订阅设备通知，设备进入正常工作状态；</li>
+</ol>
+<p>接入步骤协议内容，参考本章《终端模式登陆》过程</p>
+<p>当设备连接后，设备每30秒向平台发送一次心跳信息，连续3次平台没有响应心跳，则设备断开连接。</p>
+<p>初次开机的设备会进行1/2/3/4/5步，已激活的设备直接进行第1/5步操作；</p>
+<h5 id="_16">消息格式</h5>
+<ul>
+<li>请求：</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;action&quot;:&quot;action-id&quot;,   // 命令字
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;192839&quot;,           // 透传值，设备内唯一
+        &quot;devid&quot;:&quot;00155n0497K27&quot;,    // 设备ID号
+    },
+
+    &quot;body&quot;:{
+        // 消息内容
+    }
+}
+</code></pre>
+<ul>
+<li>响应：</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;retcode&quot;:0,                 // 返回消息执行结果
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;192839&quot;,           // 透传值，设备内唯一
+        &quot;devid&quot;:&quot;00155n0497K27&quot;,    // 设备ID号
+    },
+
+    &quot;body&quot;:{
+        // 消息内容
+    }
+}
+</code></pre>
+<p>在本文档的后续章节中，所有的消息header在MQTT协议场景下，均需要添加devid，不再赘述。</p>
               
             </div>
           </div>

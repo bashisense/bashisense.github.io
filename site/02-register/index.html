@@ -96,9 +96,19 @@
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#_14">设备向平台发送消息主题为：</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_15">设备连接步骤如下：</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_15">设备注册步骤如下：</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_16">消息格式</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_16">设备登陆步骤如下：</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_17">消息格式</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_18">同步时间</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_19">注册设备</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_20">激活设备</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_21">订阅消息</a>
     </li>
         </ul>
     </li>
@@ -488,25 +498,39 @@ public-key 采用base64编码后的串
 <li>QOS:QOS设为0</li>
 <li>Retain:Retain设为0</li>
 <li>Cleansession:Cleansession设为1</li>
-<li>用户名密码:无</li>
 <li>重连时间：30秒</li>
 </ol>
 <h5 id="_13">设备需要订阅主题接收消息：</h5>
-<p>topic/device-<strong>device-id</strong>，如：topic/device-00155n0497K27</p>
+<ol>
+<li>
+<p>首次注册订阅
+topic/register/<strong>device-id</strong>，如：topic/register/00155n0497K27</p>
+</li>
+<li>
+<p>正常登陆订阅
+topic/device/<strong>device-id</strong>，如：topic/device/00155n0497K27</p>
+</li>
+</ol>
 <h5 id="_14">设备向平台发送消息主题为：</h5>
 <p>topic/service</p>
-<h5 id="_15">设备连接步骤如下：</h5>
+<h5 id="_15">设备注册步骤如下：</h5>
 <ol>
-<li>同步时间：设备向平台发送同步时间请求，请求格式见设备管理章节的设置时间；</li>
-<li>获取签名：如果设备没有签名密钥，则请求平台获取签名密钥并存储到本地；如果已有此签名密钥，则不执行此步骤；</li>
-<li>注册设备：如果设备没有激活码，则设备需要向平台注册，并获取激活码，存储到本地，同时显示激活码二维码，供App或小程序激活；如果已激活码则不执行此步骤；</li>
-<li>激活设备：设备轮询激活状态（每5秒一次），当获取设备密钥用于订阅；如果设备已经激活，则不执行此步骤；</li>
-<li>订阅消息：设备向平台发送订阅请求，订阅设备通知，设备进入正常工作状态；</li>
+<li>建立链接：MQTT建立连接，用户名/密码设置为空，登陆平台并订阅消息topic/register/<strong>device-id</strong>消息</li>
+<li>同步时间：设备向topic/service发送同步时间消息，更新本机时间；</li>
+<li>注册设备：设备向topic/service发送注册设备消息，获取登陆密钥/激活码；如果已有登陆密钥/激活码则不执行此步骤；</li>
+<li>断开连接：断开当前连接，完成设备注册过程。
+<strong>设备仅在首次开机时进行登陆平台操作，后续设备进行登陆操作</strong></li>
 </ol>
-<p>接入步骤协议内容，参考本章《终端模式登陆》过程</p>
+<h5 id="_16">设备登陆步骤如下：</h5>
+<ol>
+<li>建立链接：MQTT建立连接，用户名为设备ID，密钥为注册过程获取的密钥，登陆平台并订阅消息topic/device/<strong>device-id</strong>消息</li>
+<li>同步时间：设备向平台发送同步时间请求，请求格式见设备管理章节的设置时间；</li>
+<li>激活设备：设备轮询激活状态（小于30秒一次），获取订阅密钥；如果设备已经激活，则不执行此步骤；</li>
+<li>订阅消息：设备向平台发送订阅请求，订阅设备通知，设备进入正常工作状态；
+<strong>设备激活后，仅执行0/1/3步骤，对于无屏设备或定制型号，步聚2由用户平台直接返回，即设备出厂即激活状态</strong></li>
+</ol>
 <p>当设备连接后，设备每30秒向平台发送一次心跳信息，连续3次平台没有响应心跳，则设备断开连接。</p>
-<p>初次开机的设备会进行1/2/3/4/5步，已激活的设备直接进行第1/5步操作；</p>
-<h5 id="_16">消息格式</h5>
+<h5 id="_17">消息格式</h5>
 <ul>
 <li>请求：</li>
 </ul>
@@ -540,6 +564,124 @@ public-key 采用base64编码后的串
 }
 </code></pre>
 <p><strong><em> 在本文档的后续章节中，所有的消息header在MQTT协议场景下，均需要添加devid，不再赘述。</em></strong></p>
+<h5 id="_18">同步时间</h5>
+<p>参考本章同步时间消息</p>
+<h5 id="_19">注册设备</h5>
+<ul>
+<li>请求：</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;action&quot;:&quot;register&quot;,
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;192839&quot;,         // 透传值，设备内唯一
+        &quot;devid&quot;:&quot;00155n0497K27&quot;,    // 设备ID号
+    },
+
+    &quot;body&quot;:{
+        &quot;device-id&quot;:&quot;device-id&quot;,    // 设备ID
+        &quot;timestamp&quot;:1560392020,     // 当时时间戳，计算签名时请转成字符串
+        &quot;nonce&quot; : 19283892,         // 随机数，计算 签名时请转成字符串
+        &quot;signature&quot;:&quot;xxxxx&quot;         // 设备签名
+    }
+}
+</code></pre>
+<blockquote>
+<p>第三方平台，device-id 唯一标识一台设备
+设备签名，sha1(sort(device-id、sign_code、timestamp、nonce, "register"))。sort的含义是将参数值按照字母字典排序，然后从小到大拼接成一个字符串。本接口计算签名时，需要把字符串常量 “register”参与到计算之中，区别其他场景的签名。
+<strong><em>如平台无需求确认设备是否为已绑定到平台，可以忽略此命令的签名，直接返回passwd, active_code，此passwd,active_code由平台自己生成并管理</em></strong>
+<strong><em>sign_code为设备内出厂存储的公钥，第三方平台可联系我司获取此公钥</em></strong></p>
+</blockquote>
+<ul>
+<li>响应：</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;retcode&quot;:0,                 // 获取成功
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;192839&quot;,         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;passwd&quot;:&quot;xxxxx&quot;,           // MQTT登陆密码，登陆用户名为设备ID
+        &quot;active_code&quot;:&quot;xxxxxx&quot;,     // 激活码，字符串
+    }
+}
+</code></pre>
+<blockquote>
+<p>设备会存储此激活码，每次注册到平台，返回的激活码应一致</p>
+</blockquote>
+<h5 id="_20">激活设备</h5>
+<ul>
+<li>请求：</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;action&quot;:&quot;active&quot;,
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;192839&quot;,         // 透传值，设备内唯一
+        &quot;devid&quot;:&quot;00155n0497K27&quot;,    // 设备ID号
+    },
+
+    &quot;body&quot;:{
+        &quot;active_code&quot;:&quot;xxxxxx&quot;,     // 激活码，字符串
+    }
+}
+</code></pre>
+<ul>
+<li>响应：</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;retcode&quot;:0,                 // 激活成功
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;192839&quot;,         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;secret&quot;:&quot;xxxxxx&quot;,          // 凭证密钥，用于订阅系统
+    }
+}
+</code></pre>
+<blockquote>
+<p>设备存储secret值，用于登陆后的订阅命令；
+已激活的设备，在连接入平台时，不再发送激活指令，直到设备解绑定；
+激活返回失败时，设备应该轮询激活，时延设定为5秒直到返回激活成功，或者直接收到激活指令；
+接收到激活指令后（body部分为secret），停止轮询，完成激活任务。应用平台retcode:0</p>
+</blockquote>
+<h5 id="_21">订阅消息</h5>
+<ul>
+<li>请求：</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;action&quot;:&quot;subscribe&quot;,
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;192839&quot;,         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;secret&quot;:&quot;xxxxxx&quot;,      // 凭证密钥，用于登陆系统
+    }
+}
+</code></pre>
+<ul>
+<li>响应：</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;retcode&quot;:0,                 // 激活成功
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;192839&quot;,         // 透传值，设备内唯一
+        &quot;devid&quot;:&quot;00155n0497K27&quot;,    // 设备ID号
+    },
+
+    &quot;body&quot;:{                        // 选填，订阅后平台可响应时间信息，设备自动校准时间
+        &quot;timestamp&quot;:15992901,       // 平台时间戳
+        &quot;timezone&quot;:-480             // 平台时区，分钟数偏移，东区为负西区为正，-480为东八区
+    }
+}
+</code></pre>
+<blockquote>
+<p>至此，设备进入被动模式，接收来自平台的指令，完成任务并返回响应
+被动模式下，设备仅会向设备发送三种消息：1. 心跳，每5秒一次； 2. 同步时间，不定期，间隔1小时以上； 3. 事件上报；
+除上述指令外，设备执行平台的指令</p>
+</blockquote>
               
             </div>
           </div>

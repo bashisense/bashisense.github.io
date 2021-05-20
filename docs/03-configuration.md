@@ -38,7 +38,7 @@
         "configs":[
         {
             "key":"org-id",
-            "value":"Bashi Technology",
+            "value":"xxx Technology",
             "class":"interactive",
             "desc" : "组织",
             "options" : "cp"
@@ -126,7 +126,7 @@
 
     {
         "key":"org-id",
-        "value":"Bashi Technology",
+        "value":"xxx Technology",
         "class":"interactive",
         "desc" : "组织，与GMT 0 相差的分钟数",
         "options" : "cp"

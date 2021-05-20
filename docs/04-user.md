@@ -28,7 +28,7 @@
     "state": 0,                 // 用户状态，正常用户是正值，负值为黑名单，定制产品使用，可不填写
     
     "face":{
-        "vendor":"bashi",       // 人脸算法供应商，double check使用
+        "vendor":"xxxx",       // 人脸算法供应商，double check使用
         "version":"v2.1.0",     // 人脸算法版本, double check使用
         "feature": "data...."   // base64编码的用户特征值，由设备计算，同类型设备，算法版本一致的可以直接下载，节省时间
     },
@@ -393,7 +393,7 @@
         "userid": "1avsoHu2EeqZmH943F8eUg",
 
         "face":{
-            "vendor":"bashi",       // 人脸算法供应商，double check使用
+            "vendor":"xxxx",       // 人脸算法供应商，double check使用
             "version":"v2.1.0",     // 人脸算法版本, double check使用
             "feature": "data...."   // base64编码的用户特征值，由设备计算，同类型设备，算法版本一致的可以直接下载，节省时间
         }

@@ -540,7 +540,7 @@
 
     "body": {
         "apn":"public.vpdn",
-        "user":"admin@bashisense.com",
+        "user":"admin@xxxx.com",
         "pass":"@skd9kwdkk",
         "auth":0, // 0=none，1=pap，2=chap，3=pap，chap）
     }

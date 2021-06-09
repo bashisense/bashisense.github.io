@@ -133,30 +133,6 @@
     },
 
     {
-        "key":"door-id",
-        "value":"Build1 Door2",
-        "class":"interactive",
-        "desc" : "当前门禁机管理的门的名称",
-        "options" : "cp"
-    },
-
-    {
-        "key":"show-mode",
-        "value":"none",
-        "class":"interactive",
-        "desc" : "显示模式，user - 姓名/部门/图片, none - 不显示隐私信息",
-        "options" : "cp"
-    },
-
-    {
-        "key":"device-mode",
-        "value":"advt",
-        "class":"interactive",
-        "desc" : "设备模式，acs - 门禁模式，advt - 广告模式",
-        "options" : "cp"
-    },
-
-    {
         "key":"voice-mode",
         "value":"default",
         "class":"interactive",
@@ -227,14 +203,6 @@
         "desc" : "4G模式，disable - 不支持，enable - 支持",
         "options" : "wr"
     },
-
-    {
-        "key":"ble-mode",
-        "value":"none",
-        "class":"network",
-        "desc" : "蓝牙模式，none - 不支持，door - 远程开门， attendance - 考勤",
-        "options" : "wr"
-    },
     
     {
         "key":"wifi-mode",
@@ -277,42 +245,10 @@
     },
 
     {
-        "key":"manager-mode",
-        "value":"cloud",
-        "class":"manager",
-        "desc" : "管理模式，none - 仅提供本地webapi，wechat - 接入企业微信, websock - 接入私有云平台",
-        "options" : "wr"
-    },
-
-    {
         "key":"manager-server",
         "value":"wss://192.168.2.165:8080/api/v3.x",
         "class":"manager",
         "desc" : "管理服务器地址合集，相当于manager-server-address:manager-server-port/manager-server-path,若同时存在，仅manager-server有效",
-        "options" : "wr"
-    },
-
-    {
-        "key":"manager-server-address",
-        "value":"127.0.0.1",
-        "class":"manager",
-        "desc" : "管理服务器地址，兼容旧版本，请使用manager-server配置",
-        "options" : "wr"
-    },
-
-    {
-        "key":"manager-server-port",
-        "value":"3000",
-        "class":"manager",
-        "desc" : "管理服务器端口，兼容旧版本，请使用manager-server配置",
-        "options" : "wr"
-    },
-
-    {
-        "key":"manager-server-path",
-        "value":"report",
-        "class":"manager",
-        "desc" : "管理服务器路径，兼容旧版本，请使用manager-server配置",
         "options" : "wr"
     },
 
@@ -332,102 +268,6 @@
         "options" : "cp"
     },
 
-    {
-        "key":"relay-mode",
-        "value":"enable",
-        "class":"peripherals",
-        "desc" : "继电器模式， disable - 继电器不工作，enable - 继电器工作",
-        "options" : "cp"
-    },
-
-    {
-        "key":"therm-mode",
-        "value":"none",
-        "class":"peripherals",
-        "desc" : "测温模式， none - 不工作，wrist - 腕温，forehead - 额温",
-        "options" : "cp"
-    },
-
-    {
-        "key":"therm-fix",
-        "value":"0",
-        "class":"peripherals",
-        "desc" : "测温修正值",
-        "options":"cp"
-    },
-
-    {
-        "key":"therm-normal",
-        "value":"32.0",
-        "class":"peripherals",
-        "desc" : "测温最低有效值",
-        "options":"cp"
-    },
-
-    {
-        "key":"therm-alarm",
-        "value":"37.5",
-        "class":"peripherals",
-        "desc" : "测温报警值",
-        "options":"cp"
-    },
-
-    {
-        "key":"alarm-door",
-         "value":"disable",
-         "class":"peripherals",
-         "desc" : "报警输入-开门状态，disable - 不使能，enable - 使能",
-         "options" : "cp"
-    },
-
-    {
-        "key":"alarm-fire",
-         "value":"disable",
-         "class":"peripherals",
-         "desc" : "报警输入-火警状态，disable - 不使能，enable - 使能",
-         "options" : "cp"
-    },
-
-    {
-        "key":"alarm-disassemble",
-         "value":"disable",
-         "class":"peripherals",
-         "desc" : "报警输入-防拆状态，disable - 不使能，enable - 使能",
-         "options" : "cp"
-    },
-
-    {
-        "key":"alarm-push",
-         "value":"disable",
-         "class":"peripherals",
-         "desc" : "报警输入-开门开关，disable - 不使能，enable - 使能",
-         "options" : "cp"
-    },
-
-    {
-        "key":"wigan",
-         "value":"disable",
-         "class":"peripherals",
-         "desc" : "韦根口，disable - 不使能，enable - 使能",
-         "options" : "cp"
-    },
-
-    {
-        "key":"card-mode",
-        "value":"none",
-        "class":"peripherals",
-        "desc" : "刷卡模式， none - 无刷卡，id - id卡， en - 加密卡， as - 非对称加密卡",
-        "options": "cp"
-    },
-
-    {
-        "key":"visitor-mode",
-        "value":"none",
-        "class":"peripherals",
-        "desc" : "访客模式，none - 不支持，qrcode - 二维码读头， code - 密码输入， all - 都支持",
-        "options" : "cp"
-    },
-    
     {
         "key":"volume-in",
         "value":"100",
@@ -457,22 +297,6 @@
         "value":"100",
         "class":"peripherals",
         "desc" : "补光灯强弱，红外补光大小，1～100",
-        "options" : "cp"
-    },
-
-    {
-        "key":"lcd-light",
-        "value":"100",
-        "class":"peripherals",
-        "desc" : "屏幕背光亮度，1～100",
-        "options" : "cp"
-    },
-
-    {
-        "key":"auth-mode",
-        "value":"single",
-        "class":"algorithm",
-        "desc" : "核验模式，single - 刷卡或人脸，card - 刷卡+人脸",
         "options" : "cp"
     },
 
@@ -576,24 +400,4 @@
 }
 
 ```
-
-
-### 二维码扫码配置项
-
-用成的规则如下
-
-1. 配置连接到WIFI网络
-
-WIFI:T:WPA;S:mynetwork;P:mypass;;
-
-2. 配置本机为WIFI热点
-
-WIAP:T:WPA;S:mynetwork;P:mypass;;
-
-3. 配置以太网
-
-动态IP地址方式：ETH:M:D;
-
-静态IP地址方式：
-ETH:M:S;I:192.168.10.10;K:255.255.255.0;G:192.168.10.1;
 

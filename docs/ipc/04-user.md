@@ -12,44 +12,20 @@
 >请求URL: http://dev-ip-addr:port:/api/v3.x/acm
 >HTTP头：token = , 使用登陆时返回的token
 
-**限制条件： userid 不超过32字节， name不超过32字节， desc不超过32字节**
+**限制条件： uid与gid 不超过32字节,建议采用base58编码UUID为24字节字符串方案**
 
 #### 用户对象
 
 ```json
 {
-    "userid": "1avsoHu2EeqZmH943F8eUg",     // 用户ID，全局唯一
-    "name": "李四",     // 用户姓名，必填
-    "desc": "研发部",   // 用户部门/住宅门牌号等，可不填写，平台可以发用户最近的组织名
+    "uid": "1avsoHu2EeqZmH943F8eUg",    // 用户ID，全局唯一
+    "gid": "abvsoHu2EqZmH942dadebA",    // 用户所在组ID
 
-    "effect": 1619019996,       // 用户生效时间，不填则默认为0，部分情况设备掉电丢失时间，此值填写有核验失败风险
-    "expire": 1619519996,       // 用户过期时间，不填则当前时刻+1年，建议填写一个较大值如果不用的话，-1为不限制过期
-    
-    "state": 0,                 // 用户状态，正常用户是正值，负值为黑名单，定制产品使用，可不填写
-    
     "face":{
         "vendor":"xxxx",       // 人脸算法供应商，double check使用
         "version":"v2.1.0",     // 人脸算法版本, double check使用
         "feature": "data...."   // base64编码的用户特征值，由设备计算，同类型设备，算法版本一致的可以直接下载，节省时间
     },
-
-    "cards":[   // 添加与用户绑定的卡信息，也可以单独绑定卡，详情见门卡管理章节
-        {
-            "id":"EeqZmH943F8",
-            "type": "ic",       // 卡类型，默认IC卡，可以为CPU，crypto等
-            "userid": "1avsoHu2EeqZmH943F8eUg",   // 卡对应的用户ID
-            "data": "..."   // 卡数据
-        },
-
-        {
-            "id":"2scZmH943a3",
-            "type": "ic",       // 卡类型，默认IC卡，可以为CPU，crypto等
-            "userid": "1avsoHu2EeqZmH943F8eUg",   // 卡对应的用户ID
-            "data": "..."   // 卡数据
-        },
-    ],
-
-    "elevator":"data"         // base64编码的电梯信息，每bit表示为1表示当前层可开，为0表示无权限，data最多为16字节，可管理128层
 }
 ```
 
@@ -98,10 +74,10 @@
     "body":{
         "users": [
             {
-                "userid": "1avsoHu2EeqZmH943F8eUg",
+                "uid": "1avsoHu2EeqZmH943F8eUg",
             },
             {
-                "userid": "1aw6wHu2EeqZmH943F8eUg",
+                "uid": "1aw6wHu2EeqZmH943F8eUg",
             }
         ],
     }
@@ -122,11 +98,11 @@
     "body":{
         "users": [
             {
-                "userid": "1avsoHu2EeqZmH943F8eUg",
+                "uid": "1avsoHu2EeqZmH943F8eUg",
                 ... // 用户的其它信息，请参照本章的用户对象说明
             },
             {
-                "userid": "1aw6wHu2EeqZmH943F8eUg",
+                "uid": "1aw6wHu2EeqZmH943F8eUg",
                 ... // 用户的其它信息，请参照本章的用户对象说明
             }
         ]
@@ -147,11 +123,11 @@
     "body":{
         "users": [
             { 
-                "userid":"1avsoHu2EeqZmH943F8eUg",
+                "uid":"1avsoHu2EeqZmH943F8eUg",
                 "retcode": 0    // 本用户操作结果
             },
             {
-                "userid":"1aw6wHu2EeqZmH943F8eUg",
+                "uid":"1aw6wHu2EeqZmH943F8eUg",
                 "retcode": 0    // 本用户操作结果
             }
         ]
@@ -174,17 +150,17 @@
     "body":{
         "users": [
         {
-            "userid": "1avsoHu2EeqZmH943F8eUg"
+            "uid": "1avsoHu2EeqZmH943F8eUg"
         },
         {
-            "userid": "1aw6wHu2EeqZmH943F8eUg"
+            "uid": "1aw6wHu2EeqZmH943F8eUg"
         }
         ]
     }
 }
 ```
 
->userid : 唯一标志用户的ID，不超过32字节的文本字符串；必填
+>uid : 唯一标志用户的ID，不超过32字节的文本字符串；必填
 
 - 响应
 
@@ -199,11 +175,11 @@
     "body":{
         "users": [
         {
-            "userid": "1avsoHu2EeqZmH943F8eUg",
+            "uid": "1avsoHu2EeqZmH943F8eUg",
             "retcode": 0    // 本用户操作结果
         },
         {
-            "userid": "1aw6wHu2EeqZmH943F8eUg",
+            "uid": "1aw6wHu2EeqZmH943F8eUg",
             "retcode": 0    // 本用户操作结果
         }
         ]
@@ -226,11 +202,11 @@
     "body":{
         "users": [
         {
-            "userid": "1avsoHu2EeqZmH943F8eUg",
+            "uid": "1avsoHu2EeqZmH943F8eUg",
             ... // 用户的其它信息，请参照本章的用户对象说明
         },
         {
-            "userid": "1aw6wHu2EeqZmH943F8eUg",
+            "uid": "1aw6wHu2EeqZmH943F8eUg",
             ... // 用户的其它信息，请参照本章的用户对象说明
         }
         ]
@@ -251,12 +227,12 @@
     "body": {
         "users": [
         {
-            "userid": "1avsoHu2EeqZmH943F8eUg",
+            "uid": "1avsoHu2EeqZmH943F8eUg",
             "retcode": 0    // 本用户操作结果
         },
 
         {
-            "userid": "1aw6wHu2EeqZmH943F8eUg",
+            "uid": "1aw6wHu2EeqZmH943F8eUg",
             "retcode": 0    // 本用户操作结果
         }
         ]
@@ -279,12 +255,11 @@
     "body":{
         "users": [
         {
-            "userid": "1avsoHu2EeqZmH943F8eUg",
-            "card":1,   // 查询信息是否附加绑定到用户的卡信息，不填或0则不添加，1为添加查询卡信息
+            "uid": "1avsoHu2EeqZmH943F8eUg",
             "face":1,   // 查询信息是否附加用户的人脸特征信息，不填或0则不添加，1为添加查询人脸特征信息
         },
         {
-            "userid": "1aw6wHu2EeqZmH943F8eUg",
+            "uid": "1aw6wHu2EeqZmH943F8eUg",
         }
         ]
     }
@@ -305,11 +280,11 @@
     "body":{
         "users": [
         {
-            "userid": "1avsoHu2EeqZmH943F8eUg",
+            "uid": "1avsoHu2EeqZmH943F8eUg",
             ... // 用户的其它信息，请参照本章的用户对象说明
         },
         {
-            "userid": "1aw6wHu2EeqZmH943F8eUg",
+            "uid": "1aw6wHu2EeqZmH943F8eUg",
             ... // 用户的其它信息，请参照本章的用户对象说明
         }
         ]
@@ -359,9 +334,9 @@
 }
 ```
 
-#### 生成用户文件
+#### 生成用户数据
 
-根据上传的用户数据，生成所需要的UI与识别特征码数据
+根据上传的用户数据，生成用户识别特征码数据
 
 - 请求
 
@@ -374,7 +349,7 @@
     },
     
     "body":{
-        "userid": "1avsoHu2EeqZmH943F8eUg",
+        "uid": "1avsoHu2EeqZmH943F8eUg",
     }
 }
 ```
@@ -390,55 +365,13 @@
     },
 
     "body": {
-        "userid": "1avsoHu2EeqZmH943F8eUg",
+        "uid": "1avsoHu2EeqZmH943F8eUg",
 
         "face":{
             "vendor":"xxxx",       // 人脸算法供应商，double check使用
             "version":"v2.1.0",     // 人脸算法版本, double check使用
             "feature": "data...."   // base64编码的用户特征值，由设备计算，同类型设备，算法版本一致的可以直接下载，节省时间
         }
-    }
-}
-```
-
-#### 下载帐户文件
-
-- 请求
-
-```json
-{
-    "action":"user-download",
-    "header":{
-        "reqid":"129393"         // 透传值，设备内唯一
-    },
-
-    "body":{
-        "filename":"1aw6wHu2EeqZmH943F8eUg.nv12",
-        "offset":0,
-        "size": 4096,
-    }
-}
-```
-
-> filename : 用户ID+文件后缀名，.nv12/.jpg/.png 上传的用户文件, _ui.png, _ui.jpg 为生成的UI文件
-> UI文件一般仅支持_ui.png或_ui.bmp
-
-- 响应
-
-```json
-{
-    "retcode":0,
-
-    "header":{
-        "reqid":"129393"         // 透传值，设备内唯一
-    },
-
-    "body" : {
-        "filename":"1aw6wHu2EeqZmH943F8eUg.nv12",
-        "filesize":32678,   // 文件总体大小
-        "offset":0,         // 本次下载的offset
-        "size": 32000,      // 本次下载的大小
-        "data":"base64-encoded file data"
     }
 }
 ```

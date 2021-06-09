@@ -99,8 +99,6 @@
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#_5">配置说明</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_6">二维码扫码配置项</a>
-    </li>
         </ul>
     </li>
     </ul>
@@ -278,30 +276,6 @@ HTTP头：token = , 使用登陆时返回的token</p>
     },
 
     {
-        &quot;key&quot;:&quot;door-id&quot;,
-        &quot;value&quot;:&quot;Build1 Door2&quot;,
-        &quot;class&quot;:&quot;interactive&quot;,
-        &quot;desc&quot; : &quot;当前门禁机管理的门的名称&quot;,
-        &quot;options&quot; : &quot;cp&quot;
-    },
-
-    {
-        &quot;key&quot;:&quot;show-mode&quot;,
-        &quot;value&quot;:&quot;none&quot;,
-        &quot;class&quot;:&quot;interactive&quot;,
-        &quot;desc&quot; : &quot;显示模式，user - 姓名/部门/图片, none - 不显示隐私信息&quot;,
-        &quot;options&quot; : &quot;cp&quot;
-    },
-
-    {
-        &quot;key&quot;:&quot;device-mode&quot;,
-        &quot;value&quot;:&quot;advt&quot;,
-        &quot;class&quot;:&quot;interactive&quot;,
-        &quot;desc&quot; : &quot;设备模式，acs - 门禁模式，advt - 广告模式&quot;,
-        &quot;options&quot; : &quot;cp&quot;
-    },
-
-    {
         &quot;key&quot;:&quot;voice-mode&quot;,
         &quot;value&quot;:&quot;default&quot;,
         &quot;class&quot;:&quot;interactive&quot;,
@@ -374,14 +348,6 @@ HTTP头：token = , 使用登陆时返回的token</p>
     },
 
     {
-        &quot;key&quot;:&quot;ble-mode&quot;,
-        &quot;value&quot;:&quot;none&quot;,
-        &quot;class&quot;:&quot;network&quot;,
-        &quot;desc&quot; : &quot;蓝牙模式，none - 不支持，door - 远程开门， attendance - 考勤&quot;,
-        &quot;options&quot; : &quot;wr&quot;
-    },
-
-    {
         &quot;key&quot;:&quot;wifi-mode&quot;,
         &quot;value&quot;:&quot;ap&quot;,
         &quot;class&quot;:&quot;network&quot;,
@@ -422,42 +388,10 @@ HTTP头：token = , 使用登陆时返回的token</p>
     },
 
     {
-        &quot;key&quot;:&quot;manager-mode&quot;,
-        &quot;value&quot;:&quot;cloud&quot;,
-        &quot;class&quot;:&quot;manager&quot;,
-        &quot;desc&quot; : &quot;管理模式，none - 仅提供本地webapi，wechat - 接入企业微信, websock - 接入私有云平台&quot;,
-        &quot;options&quot; : &quot;wr&quot;
-    },
-
-    {
         &quot;key&quot;:&quot;manager-server&quot;,
         &quot;value&quot;:&quot;wss://192.168.2.165:8080/api/v3.x&quot;,
         &quot;class&quot;:&quot;manager&quot;,
         &quot;desc&quot; : &quot;管理服务器地址合集，相当于manager-server-address:manager-server-port/manager-server-path,若同时存在，仅manager-server有效&quot;,
-        &quot;options&quot; : &quot;wr&quot;
-    },
-
-    {
-        &quot;key&quot;:&quot;manager-server-address&quot;,
-        &quot;value&quot;:&quot;127.0.0.1&quot;,
-        &quot;class&quot;:&quot;manager&quot;,
-        &quot;desc&quot; : &quot;管理服务器地址，兼容旧版本，请使用manager-server配置&quot;,
-        &quot;options&quot; : &quot;wr&quot;
-    },
-
-    {
-        &quot;key&quot;:&quot;manager-server-port&quot;,
-        &quot;value&quot;:&quot;3000&quot;,
-        &quot;class&quot;:&quot;manager&quot;,
-        &quot;desc&quot; : &quot;管理服务器端口，兼容旧版本，请使用manager-server配置&quot;,
-        &quot;options&quot; : &quot;wr&quot;
-    },
-
-    {
-        &quot;key&quot;:&quot;manager-server-path&quot;,
-        &quot;value&quot;:&quot;report&quot;,
-        &quot;class&quot;:&quot;manager&quot;,
-        &quot;desc&quot; : &quot;管理服务器路径，兼容旧版本，请使用manager-server配置&quot;,
         &quot;options&quot; : &quot;wr&quot;
     },
 
@@ -474,102 +408,6 @@ HTTP头：token = , 使用登陆时返回的token</p>
         &quot;value&quot;:&quot;none&quot;,
         &quot;class&quot;:&quot;peripherals&quot;,
         &quot;desc&quot; : &quot;继电器模式， none - 不工作，door - 开门，voice - 语音输出， therm - 测温， user - 用户定义&quot;,
-        &quot;options&quot; : &quot;cp&quot;
-    },
-
-    {
-        &quot;key&quot;:&quot;relay-mode&quot;,
-        &quot;value&quot;:&quot;enable&quot;,
-        &quot;class&quot;:&quot;peripherals&quot;,
-        &quot;desc&quot; : &quot;继电器模式， disable - 继电器不工作，enable - 继电器工作&quot;,
-        &quot;options&quot; : &quot;cp&quot;
-    },
-
-    {
-        &quot;key&quot;:&quot;therm-mode&quot;,
-        &quot;value&quot;:&quot;none&quot;,
-        &quot;class&quot;:&quot;peripherals&quot;,
-        &quot;desc&quot; : &quot;测温模式， none - 不工作，wrist - 腕温，forehead - 额温&quot;,
-        &quot;options&quot; : &quot;cp&quot;
-    },
-
-    {
-        &quot;key&quot;:&quot;therm-fix&quot;,
-        &quot;value&quot;:&quot;0&quot;,
-        &quot;class&quot;:&quot;peripherals&quot;,
-        &quot;desc&quot; : &quot;测温修正值&quot;,
-        &quot;options&quot;:&quot;cp&quot;
-    },
-
-    {
-        &quot;key&quot;:&quot;therm-normal&quot;,
-        &quot;value&quot;:&quot;32.0&quot;,
-        &quot;class&quot;:&quot;peripherals&quot;,
-        &quot;desc&quot; : &quot;测温最低有效值&quot;,
-        &quot;options&quot;:&quot;cp&quot;
-    },
-
-    {
-        &quot;key&quot;:&quot;therm-alarm&quot;,
-        &quot;value&quot;:&quot;37.5&quot;,
-        &quot;class&quot;:&quot;peripherals&quot;,
-        &quot;desc&quot; : &quot;测温报警值&quot;,
-        &quot;options&quot;:&quot;cp&quot;
-    },
-
-    {
-        &quot;key&quot;:&quot;alarm-door&quot;,
-         &quot;value&quot;:&quot;disable&quot;,
-         &quot;class&quot;:&quot;peripherals&quot;,
-         &quot;desc&quot; : &quot;报警输入-开门状态，disable - 不使能，enable - 使能&quot;,
-         &quot;options&quot; : &quot;cp&quot;
-    },
-
-    {
-        &quot;key&quot;:&quot;alarm-fire&quot;,
-         &quot;value&quot;:&quot;disable&quot;,
-         &quot;class&quot;:&quot;peripherals&quot;,
-         &quot;desc&quot; : &quot;报警输入-火警状态，disable - 不使能，enable - 使能&quot;,
-         &quot;options&quot; : &quot;cp&quot;
-    },
-
-    {
-        &quot;key&quot;:&quot;alarm-disassemble&quot;,
-         &quot;value&quot;:&quot;disable&quot;,
-         &quot;class&quot;:&quot;peripherals&quot;,
-         &quot;desc&quot; : &quot;报警输入-防拆状态，disable - 不使能，enable - 使能&quot;,
-         &quot;options&quot; : &quot;cp&quot;
-    },
-
-    {
-        &quot;key&quot;:&quot;alarm-push&quot;,
-         &quot;value&quot;:&quot;disable&quot;,
-         &quot;class&quot;:&quot;peripherals&quot;,
-         &quot;desc&quot; : &quot;报警输入-开门开关，disable - 不使能，enable - 使能&quot;,
-         &quot;options&quot; : &quot;cp&quot;
-    },
-
-    {
-        &quot;key&quot;:&quot;wigan&quot;,
-         &quot;value&quot;:&quot;disable&quot;,
-         &quot;class&quot;:&quot;peripherals&quot;,
-         &quot;desc&quot; : &quot;韦根口，disable - 不使能，enable - 使能&quot;,
-         &quot;options&quot; : &quot;cp&quot;
-    },
-
-    {
-        &quot;key&quot;:&quot;card-mode&quot;,
-        &quot;value&quot;:&quot;none&quot;,
-        &quot;class&quot;:&quot;peripherals&quot;,
-        &quot;desc&quot; : &quot;刷卡模式， none - 无刷卡，id - id卡， en - 加密卡， as - 非对称加密卡&quot;,
-        &quot;options&quot;: &quot;cp&quot;
-    },
-
-    {
-        &quot;key&quot;:&quot;visitor-mode&quot;,
-        &quot;value&quot;:&quot;none&quot;,
-        &quot;class&quot;:&quot;peripherals&quot;,
-        &quot;desc&quot; : &quot;访客模式，none - 不支持，qrcode - 二维码读头， code - 密码输入， all - 都支持&quot;,
         &quot;options&quot; : &quot;cp&quot;
     },
 
@@ -602,22 +440,6 @@ HTTP头：token = , 使用登陆时返回的token</p>
         &quot;value&quot;:&quot;100&quot;,
         &quot;class&quot;:&quot;peripherals&quot;,
         &quot;desc&quot; : &quot;补光灯强弱，红外补光大小，1～100&quot;,
-        &quot;options&quot; : &quot;cp&quot;
-    },
-
-    {
-        &quot;key&quot;:&quot;lcd-light&quot;,
-        &quot;value&quot;:&quot;100&quot;,
-        &quot;class&quot;:&quot;peripherals&quot;,
-        &quot;desc&quot; : &quot;屏幕背光亮度，1～100&quot;,
-        &quot;options&quot; : &quot;cp&quot;
-    },
-
-    {
-        &quot;key&quot;:&quot;auth-mode&quot;,
-        &quot;value&quot;:&quot;single&quot;,
-        &quot;class&quot;:&quot;algorithm&quot;,
-        &quot;desc&quot; : &quot;核验模式，single - 刷卡或人脸，card - 刷卡+人脸&quot;,
         &quot;options&quot; : &quot;cp&quot;
     },
 
@@ -721,22 +543,6 @@ HTTP头：token = , 使用登陆时返回的token</p>
 }
 
 </code></pre>
-<h3 id="_6">二维码扫码配置项</h3>
-<p>用成的规则如下</p>
-<ol>
-<li>配置连接到WIFI网络</li>
-</ol>
-<p>WIFI:T:WPA;S:mynetwork;P:mypass;;</p>
-<ol>
-<li>配置本机为WIFI热点</li>
-</ol>
-<p>WIAP:T:WPA;S:mynetwork;P:mypass;;</p>
-<ol>
-<li>配置以太网</li>
-</ol>
-<p>动态IP地址方式：ETH:M:D;</p>
-<p>静态IP地址方式：
-ETH:M:S;I:192.168.10.10;K:255.255.255.0;G:192.168.10.1;</p>
               
             </div>
           </div>

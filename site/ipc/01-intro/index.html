@@ -89,18 +89,6 @@
                     </li>
                     <li class="toctree-l1 current"><a class="reference internal current" href="./">系统简介</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#_2">管理模式</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_3">协议消息格式</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_4">终端模式</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_5">独立模式</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_6">行文约定</a>
-    </li>
     </ul>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../02-config/">配置管理</a>
@@ -152,108 +140,6 @@
               
                 <h1 id="_1">系统介绍</h1>
 <hr />
-<p>WalOS（Walnut OS）是基于深度学习算法的边缘计算嵌入式操作系统，主要用于集成有人脸识别、人脸抓拍、人形检测、非机动机检测、行为分析等AI算法的嵌入式产品，包括人脸识别门禁产品、考勤机产品；人脸抓拍、人形检测与跟踪等智能相机产品；车牌识别、非机动车检测等智能相机产品。</p>
-<p>WalOS分为几个子系统，包括:</p>
-<ol>
-<li>图像处理子系统: 集成有ISP调节算法，图像处理算法等；</li>
-<li>AI算法子系统: 集成有人脸检测算法、人脸特征提取算法、人形检测算法、非机动机检测算法、车牌识别算法等视频结构化算法；</li>
-<li>控制子系统: 集成外设控制，包括刷卡、雷达、二维码读头、人体测温等模块，并可控制继电器、RS485接口外设、韦根口门禁、梯控等；</li>
-<li>管理子系统: 集成webapi服务，可对接智云平台、门禁控制器、企业微信以及大量第三方应用平台软件；</li>
-<li>交互子系统: 通过图形界面、语音、触摸屏等实现用用户的交互； </li>
-</ol>
-<h2 id="_2">管理模式</h2>
-<p>WalOS可以配置为多种管理模式，用于对接不同的平台，目前支持Websocket协议，Http协议。</p>
-<h3 id="_3">协议消息格式</h3>
-<p>典型的协议消息体：
-- 请求， 服务器向设备发送请求</p>
-<pre><code class="language-json">{
-    &quot;action&quot;: &quot;info&quot;,           // 1. 请求命令字
-
-    &quot;header&quot;:{                  // 2. 消息头信息
-        &quot;reqid&quot;:&quot;192839&quot;        // 2.1 请求ID，透传值，由发起方设置，接受方处理后连同消息一块返回。
-    },
-
-    &quot;body&quot;:{                    // 3. 消息体，包括与命令字相关的消息内容，如果命令无消息内容则此项不存在
-
-    }
-}
-</code></pre>
-<ul>
-<li>响应，设备向服务器发送响应</li>
-</ul>
-<pre><code class="language-json">{
-    &quot;retcode&quot;:0,                // 1. 响应状态码，0 为成功，其它值为失败错误码，错误码见附录
-
-    &quot;header&quot;:{                  // 2. 消息头信息
-        &quot;reqid&quot;:&quot;192839&quot;        // 2.1 请求ID，透传值，由发起方设置，接受方处理后连同消息一块返回。
-    },
-
-    &quot;body&quot;:{                    // 3. 响应消息体
-        &quot;device-id&quot;:&quot;device-id&quot;,                // 设备ID
-        &quot;hardware-version&quot; : &quot;v1.2.0&quot;,          // 硬件载体版本号
-        &quot;walos-version&quot; : &quot;v2.1.0&quot;,             // WalOS 操作系统版本号
-        &quot;protocol-version&quot;: &quot;v2.2.0&quot;,           // 协议版本号
-        &quot;algm-vendor&quot; : &quot;xxxx&quot;,                // 算法供应商
-        &quot;algm-version&quot;  : &quot;v1.1.0&quot;,             // 算法版本号
-    }
-}
-</code></pre>
-<h3 id="_4">终端模式</h3>
-<p>采用websocket协议连接第三方平台，设备做为客户端使用，主要交互过程：</p>
-<ul>
-<li>
-<ol>
-<li>设备通过向服务端发起连接，并注册设备到服务端，订阅设备消息；</li>
-</ol>
-</li>
-<li>
-<ol>
-<li>设备定时向服务端发送心跳数据，服务端响应心跳数据；</li>
-</ol>
-</li>
-<li>
-<ol>
-<li>服务端向设备发送任务请求，设备处理请求并返回结果；</li>
-</ol>
-</li>
-<li>
-<ol>
-<li>设备向服务端提交运行告警事件、识别事件等；</li>
-</ol>
-</li>
-<li>
-<ol>
-<li>设备向服务端请求数据（对时等）；</li>
-</ol>
-</li>
-</ul>
-<h3 id="_5">独立模式</h3>
-<p>独立模式在设备启动后直接以服务器方式运行，平台以客户端方式通过HTTP API访问设备，主要交互过程：</p>
-<ul>
-<li>
-<ol>
-<li>采用扫描程序，发现局域网内设备或通过固定IP地址连接设备，请登陆设备；</li>
-</ol>
-</li>
-<li>
-<ol>
-<li>向设备发送http请求，设备接收请求、处理任务并返回处理结果；</li>
-</ol>
-</li>
-<li>
-<ol>
-<li>如果设备配置为独立模式，则设备向manager-server提交运行告警事件、识别事件。</li>
-</ol>
-</li>
-</ul>
-<p>典型请求：</p>
-<blockquote>
-<p>请求URL: http://dev-ip-addr:port:/api/v3.x/device
-请求类型: POST
-HTTP头：token = 登陆前获取info信息可不填写，其它必须填写登陆时返回的token值</p>
-</blockquote>
-<h2 id="_6">行文约定</h2>
-<p>本文后续部分，主要为请求-响应的数据包格式，直接对应到终端模式中的websocket的请求-响应，独立模式的请求-响应，以及终端模式的获取任务的响应信息-结果提交部分，这两部分的内容基本上是一致的，仅仅是因为模式不同，与传输有关的地方有差异而已。  </p>
               
             </div>
           </div>

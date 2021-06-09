@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>配置管理 - 八识科技 开发文档</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "\u914d\u7f6e\u7ba1\u7406";
+    var mkdocs_page_input_path = "ipc/02-config.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> 八识科技 开发文档</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../00-intro/">首页</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">公共接口文档</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../01-intro/">总体说明</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../02-regist/">注册登陆</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../03-config/">配置管理</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../04-device/">设备管理</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">智能门禁开发文档</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../acs/00-version/">版本信息</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../acs/01-intro/">系统简介</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../acs/02-config/">配置管理</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../acs/03-device/">设备管理</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../acs/04-user/">用户管理</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../acs/05-card/">门卡管理</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../acs/06-visitor/">访客管理</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../acs/07-advt/">广告管理</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../acs/08-event/">事件管理</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">智能相机开发文档</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../00-version/">版本信息</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../01-intro/">系统简介</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">配置管理</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_2">说明</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#_3">查询设备的配置项：</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_4">配置设备</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_5">配置说明</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_6">二维码扫码配置项</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../04-user/">用户管理</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../08-event/">事件管理</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../appendix/">附则</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">八识科技 开发文档</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>智能相机开发文档 &raquo;</li>
+        
+      
+    
+    <li>配置管理</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="_1">配置管理</h1>
+<hr />
+<h2 id="_2">说明</h2>
+<blockquote>
+<p>请求消息体:JSON
+返回消息体:JSON, retcode = 0时正确， 非0时出错</p>
+</blockquote>
+<p>独立模式时：</p>
+<blockquote>
+<p>请求URL: http://dev-ip-addr:port:/api/v3.x/device
+请求类型: POST
+HTTP头：token = , 使用登陆时返回的token</p>
+</blockquote>
+<h4 id="_3">查询设备的配置项：</h4>
+<ul>
+<li>请求</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;action&quot;: &quot;config-fetch&quot;,
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;192839&quot;         // 透传值，设备内唯一
+    }
+}
+</code></pre>
+<ul>
+<li>响应</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;retcode&quot;: 0,
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;192839&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;configs&quot;:[
+        {
+            &quot;key&quot;:&quot;org-id&quot;,
+            &quot;value&quot;:&quot;xxx Technology&quot;,
+            &quot;class&quot;:&quot;interactive&quot;,
+            &quot;desc&quot; : &quot;组织&quot;,
+            &quot;options&quot; : &quot;cp&quot;
+        },
+        ...
+        {
+            &quot;key&quot;:&quot;door-id&quot;,
+            &quot;value&quot;:&quot;Build1 Door2&quot;,
+            &quot;class&quot;:&quot;interactive&quot;,
+            &quot;desc&quot; : &quot;当前门禁机管理的门的名称&quot;,
+            &quot;options&quot; : &quot;cp&quot;
+        },
+        ],
+    }
+}
+</code></pre>
+<blockquote>
+<p>options: wr表示可配置可写，cp表示可配置可写并且控制平台要用
+ options: 使用时请与给的配置列表保持一致；</p>
+</blockquote>
+<h4 id="_4">配置设备</h4>
+<ul>
+<li>请求</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;action&quot;: &quot;config-set&quot;,
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;192839&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;configs&quot;: [
+            {
+                &quot;key&quot;:&quot;relay-mode&quot;,
+                &quot;value&quot;:&quot;enable&quot;
+            },
+            {
+                &quot;key&quot;:&quot;therm-mode&quot;,
+                &quot;value&quot;:&quot;wrist&quot;
+            },
+            {
+                &quot;key&quot;:&quot;algm-threshold&quot;,
+                &quot;value&quot;:&quot;0.8&quot;
+            }
+        ]
+    }
+}
+</code></pre>
+<ul>
+<li>响应</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;retcode&quot;: 0,
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;192839&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;: {       // 返回成功配置好的配置项，配置失败的不返回
+        &quot;configs&quot;: [
+            {
+                &quot;key&quot;:&quot;relay-mode&quot;,
+            },
+
+            {
+                &quot;key&quot;:&quot;therm-mode&quot;,
+            }
+        ]
+    }
+}
+</code></pre>
+<blockquote>
+<p>成功的配置项会返回，未成功的则不回返</p>
+</blockquote>
+<h4 id="_5">配置说明</h4>
+<p>以下为可配置数据与说明，实际使用时，同一类型的配置项最好一次下发，部分配置重启才能生效。对于多数场景，使用系统默认配置即可。</p>
+<pre><code class="language-json">{
+    &quot;items&quot;:[
+
+    {
+        &quot;key&quot;:&quot;org-id&quot;,
+        &quot;value&quot;:&quot;xxx Technology&quot;,
+        &quot;class&quot;:&quot;interactive&quot;,
+        &quot;desc&quot; : &quot;组织，与GMT 0 相差的分钟数&quot;,
+        &quot;options&quot; : &quot;cp&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;door-id&quot;,
+        &quot;value&quot;:&quot;Build1 Door2&quot;,
+        &quot;class&quot;:&quot;interactive&quot;,
+        &quot;desc&quot; : &quot;当前门禁机管理的门的名称&quot;,
+        &quot;options&quot; : &quot;cp&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;show-mode&quot;,
+        &quot;value&quot;:&quot;none&quot;,
+        &quot;class&quot;:&quot;interactive&quot;,
+        &quot;desc&quot; : &quot;显示模式，user - 姓名/部门/图片, none - 不显示隐私信息&quot;,
+        &quot;options&quot; : &quot;cp&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;device-mode&quot;,
+        &quot;value&quot;:&quot;advt&quot;,
+        &quot;class&quot;:&quot;interactive&quot;,
+        &quot;desc&quot; : &quot;设备模式，acs - 门禁模式，advt - 广告模式&quot;,
+        &quot;options&quot; : &quot;cp&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;voice-mode&quot;,
+        &quot;value&quot;:&quot;default&quot;,
+        &quot;class&quot;:&quot;interactive&quot;,
+        &quot;desc&quot; : &quot;声音模式， disable - 无语音提示，default - 默认语音提示&quot;,
+        &quot;options&quot; : &quot;cp&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;lang-mode&quot;,
+        &quot;value&quot;:&quot;cn&quot;,
+        &quot;class&quot;:&quot;interactive&quot;,
+        &quot;desc&quot; : &quot;语言配置，使用的文字、语音语言，支持cn/en&quot;,
+        &quot;options&quot; : &quot;cp&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;timezone&quot;,
+        &quot;value&quot;:&quot;-480&quot;,
+        &quot;class&quot;:&quot;interactive&quot;,
+        &quot;desc&quot; : &quot;时区，与GMT 0 相差的分钟数&quot;,
+        &quot;options&quot;:&quot;cp&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;ether-ipv4-address-mode&quot;,
+        &quot;value&quot;:&quot;dynamic&quot;,
+        &quot;class&quot;:&quot;network&quot;,
+        &quot;desc&quot; : &quot;以太网模式，dynamic - 动态获取IP，static - 静态IP地址模式&quot;,
+        &quot;options&quot; : &quot;wr&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;ether-ipv4-address&quot;,
+        &quot;value&quot;:&quot;192.168.20.10&quot;,
+        &quot;class&quot;:&quot;network&quot;,
+        &quot;desc&quot; : &quot;以太网地址，静态IP地址模式时配置的本机IP地址&quot;,
+        &quot;options&quot; : &quot;wr&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;ether-ipv4-mask&quot;,
+        &quot;value&quot;:&quot;255.255.255.0&quot;,
+        &quot;class&quot;:&quot;network&quot;,
+        &quot;desc&quot; : &quot;以太网掩码，静态IP地址模式时配置的本机IP地址掩码&quot;,
+        &quot;options&quot; : &quot;wr&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;ether-ipv4-gw&quot;,
+        &quot;value&quot;:&quot;192.168.20.1&quot;,
+        &quot;class&quot;:&quot;network&quot;,
+        &quot;desc&quot; : &quot;以太网网关，静态IP地址模式时配置的网关&quot;,
+        &quot;options&quot; : &quot;wr&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;ether-dns-server&quot;,
+        &quot;value&quot;:&quot;114.114.114.114&quot;,
+        &quot;class&quot;:&quot;network&quot;,
+        &quot;desc&quot; : &quot;以太网网关，静态IP地址模式时配置的DNS服务器&quot;,
+        &quot;options&quot; : &quot;wr&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;4g-mode&quot;,
+        &quot;value&quot;:&quot;disable&quot;,
+        &quot;class&quot;:&quot;network&quot;,
+        &quot;desc&quot; : &quot;4G模式，disable - 不支持，enable - 支持&quot;,
+        &quot;options&quot; : &quot;wr&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;ble-mode&quot;,
+        &quot;value&quot;:&quot;none&quot;,
+        &quot;class&quot;:&quot;network&quot;,
+        &quot;desc&quot; : &quot;蓝牙模式，none - 不支持，door - 远程开门， attendance - 考勤&quot;,
+        &quot;options&quot; : &quot;wr&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;wifi-mode&quot;,
+        &quot;value&quot;:&quot;ap&quot;,
+        &quot;class&quot;:&quot;network&quot;,
+        &quot;desc&quot; : &quot;WIFI模式，none 不使能wifi, ap - 热点模式，sta - 站点模式&quot;,
+        &quot;options&quot; : &quot;wr&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;wifiap-ssid&quot;,
+        &quot;value&quot;:&quot;wos-devid&quot;,
+        &quot;class&quot;:&quot;network&quot;,
+        &quot;desc&quot; : &quot;WIFI热点模式SSID，热点模式时配置&quot;,
+        &quot;options&quot; : &quot;wr&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;wifiap-passwd&quot;,
+        &quot;value&quot;:&quot;1234567890&quot;,
+        &quot;class&quot;:&quot;network&quot;,
+        &quot;desc&quot; : &quot;WIFI热点模式密码，热点模式时配置&quot;,
+        &quot;options&quot; : &quot;wr&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;wifista-ssid&quot;,
+        &quot;value&quot;:&quot;wifi-ap-ssid&quot;,
+        &quot;class&quot;:&quot;network&quot;,
+        &quot;desc&quot; : &quot;WIFI站点模式时连接的热点SSID&quot;,
+        &quot;options&quot; : &quot;wr&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;wifista-passwd&quot;,
+        &quot;value&quot;:&quot;1234567890&quot;,
+        &quot;class&quot;:&quot;network&quot;,
+        &quot;desc&quot; : &quot;WIFI站点模式时连接的热点密码&quot;,
+        &quot;options&quot; : &quot;wr&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;manager-mode&quot;,
+        &quot;value&quot;:&quot;cloud&quot;,
+        &quot;class&quot;:&quot;manager&quot;,
+        &quot;desc&quot; : &quot;管理模式，none - 仅提供本地webapi，wechat - 接入企业微信, websock - 接入私有云平台&quot;,
+        &quot;options&quot; : &quot;wr&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;manager-server&quot;,
+        &quot;value&quot;:&quot;wss://192.168.2.165:8080/api/v3.x&quot;,
+        &quot;class&quot;:&quot;manager&quot;,
+        &quot;desc&quot; : &quot;管理服务器地址合集，相当于manager-server-address:manager-server-port/manager-server-path,若同时存在，仅manager-server有效&quot;,
+        &quot;options&quot; : &quot;wr&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;manager-server-address&quot;,
+        &quot;value&quot;:&quot;127.0.0.1&quot;,
+        &quot;class&quot;:&quot;manager&quot;,
+        &quot;desc&quot; : &quot;管理服务器地址，兼容旧版本，请使用manager-server配置&quot;,
+        &quot;options&quot; : &quot;wr&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;manager-server-port&quot;,
+        &quot;value&quot;:&quot;3000&quot;,
+        &quot;class&quot;:&quot;manager&quot;,
+        &quot;desc&quot; : &quot;管理服务器端口，兼容旧版本，请使用manager-server配置&quot;,
+        &quot;options&quot; : &quot;wr&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;manager-server-path&quot;,
+        &quot;value&quot;:&quot;report&quot;,
+        &quot;class&quot;:&quot;manager&quot;,
+        &quot;desc&quot; : &quot;管理服务器路径，兼容旧版本，请使用manager-server配置&quot;,
+        &quot;options&quot; : &quot;wr&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;hearbeat-duration&quot; ,
+        &quot;value&quot;: &quot;5&quot;,
+        &quot;class&quot;:&quot;manager&quot;,
+        &quot;desc&quot; : &quot;心跳间隔，三次心跳丢失会断开重连接&quot;,
+        &quot;options&quot; : &quot;wr&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;rs485-mode&quot;,
+        &quot;value&quot;:&quot;none&quot;,
+        &quot;class&quot;:&quot;peripherals&quot;,
+        &quot;desc&quot; : &quot;继电器模式， none - 不工作，door - 开门，voice - 语音输出， therm - 测温， user - 用户定义&quot;,
+        &quot;options&quot; : &quot;cp&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;relay-mode&quot;,
+        &quot;value&quot;:&quot;enable&quot;,
+        &quot;class&quot;:&quot;peripherals&quot;,
+        &quot;desc&quot; : &quot;继电器模式， disable - 继电器不工作，enable - 继电器工作&quot;,
+        &quot;options&quot; : &quot;cp&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;therm-mode&quot;,
+        &quot;value&quot;:&quot;none&quot;,
+        &quot;class&quot;:&quot;peripherals&quot;,
+        &quot;desc&quot; : &quot;测温模式， none - 不工作，wrist - 腕温，forehead - 额温&quot;,
+        &quot;options&quot; : &quot;cp&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;therm-fix&quot;,
+        &quot;value&quot;:&quot;0&quot;,
+        &quot;class&quot;:&quot;peripherals&quot;,
+        &quot;desc&quot; : &quot;测温修正值&quot;,
+        &quot;options&quot;:&quot;cp&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;therm-normal&quot;,
+        &quot;value&quot;:&quot;32.0&quot;,
+        &quot;class&quot;:&quot;peripherals&quot;,
+        &quot;desc&quot; : &quot;测温最低有效值&quot;,
+        &quot;options&quot;:&quot;cp&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;therm-alarm&quot;,
+        &quot;value&quot;:&quot;37.5&quot;,
+        &quot;class&quot;:&quot;peripherals&quot;,
+        &quot;desc&quot; : &quot;测温报警值&quot;,
+        &quot;options&quot;:&quot;cp&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;alarm-door&quot;,
+         &quot;value&quot;:&quot;disable&quot;,
+         &quot;class&quot;:&quot;peripherals&quot;,
+         &quot;desc&quot; : &quot;报警输入-开门状态，disable - 不使能，enable - 使能&quot;,
+         &quot;options&quot; : &quot;cp&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;alarm-fire&quot;,
+         &quot;value&quot;:&quot;disable&quot;,
+         &quot;class&quot;:&quot;peripherals&quot;,
+         &quot;desc&quot; : &quot;报警输入-火警状态，disable - 不使能，enable - 使能&quot;,
+         &quot;options&quot; : &quot;cp&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;alarm-disassemble&quot;,
+         &quot;value&quot;:&quot;disable&quot;,
+         &quot;class&quot;:&quot;peripherals&quot;,
+         &quot;desc&quot; : &quot;报警输入-防拆状态，disable - 不使能，enable - 使能&quot;,
+         &quot;options&quot; : &quot;cp&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;alarm-push&quot;,
+         &quot;value&quot;:&quot;disable&quot;,
+         &quot;class&quot;:&quot;peripherals&quot;,
+         &quot;desc&quot; : &quot;报警输入-开门开关，disable - 不使能，enable - 使能&quot;,
+         &quot;options&quot; : &quot;cp&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;wigan&quot;,
+         &quot;value&quot;:&quot;disable&quot;,
+         &quot;class&quot;:&quot;peripherals&quot;,
+         &quot;desc&quot; : &quot;韦根口，disable - 不使能，enable - 使能&quot;,
+         &quot;options&quot; : &quot;cp&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;card-mode&quot;,
+        &quot;value&quot;:&quot;none&quot;,
+        &quot;class&quot;:&quot;peripherals&quot;,
+        &quot;desc&quot; : &quot;刷卡模式， none - 无刷卡，id - id卡， en - 加密卡， as - 非对称加密卡&quot;,
+        &quot;options&quot;: &quot;cp&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;visitor-mode&quot;,
+        &quot;value&quot;:&quot;none&quot;,
+        &quot;class&quot;:&quot;peripherals&quot;,
+        &quot;desc&quot; : &quot;访客模式，none - 不支持，qrcode - 二维码读头， code - 密码输入， all - 都支持&quot;,
+        &quot;options&quot; : &quot;cp&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;volume-in&quot;,
+        &quot;value&quot;:&quot;100&quot;,
+        &quot;class&quot;:&quot;peripherals&quot;,
+        &quot;desc&quot; : &quot;声音输入，输入音频大小，1～100&quot;,
+        &quot;options&quot; : &quot;cp&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;volume-out&quot;,
+        &quot;value&quot;:&quot;100&quot;,
+        &quot;class&quot;:&quot;peripherals&quot;,
+        &quot;desc&quot; : &quot;声音输出，输出音频大小，1～100&quot;,
+        &quot;options&quot; : &quot;cp&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;light-rgb&quot;,
+        &quot;value&quot;:&quot;100&quot;,
+        &quot;class&quot;:&quot;peripherals&quot;,
+        &quot;desc&quot; : &quot;补光灯强弱，白光补光大小，1～100&quot;,
+        &quot;options&quot; : &quot;cp&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;light-ir&quot;,
+        &quot;value&quot;:&quot;100&quot;,
+        &quot;class&quot;:&quot;peripherals&quot;,
+        &quot;desc&quot; : &quot;补光灯强弱，红外补光大小，1～100&quot;,
+        &quot;options&quot; : &quot;cp&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;lcd-light&quot;,
+        &quot;value&quot;:&quot;100&quot;,
+        &quot;class&quot;:&quot;peripherals&quot;,
+        &quot;desc&quot; : &quot;屏幕背光亮度，1～100&quot;,
+        &quot;options&quot; : &quot;cp&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;auth-mode&quot;,
+        &quot;value&quot;:&quot;single&quot;,
+        &quot;class&quot;:&quot;algorithm&quot;,
+        &quot;desc&quot; : &quot;核验模式，single - 刷卡或人脸，card - 刷卡+人脸&quot;,
+        &quot;options&quot; : &quot;cp&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;algm-threshold&quot;,
+        &quot;value&quot;:&quot;0.5&quot;,
+        &quot;class&quot;:&quot;algorithm&quot;,
+        &quot;desc&quot; : &quot;识别阈值，根据算法不同，此值不同&quot;,
+        &quot;options&quot; : &quot;cp&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;algm-alive&quot;,
+        &quot;value&quot;:&quot;enable&quot;,
+        &quot;class&quot;:&quot;algorithm&quot;,
+        &quot;desc&quot; : &quot;是否带活体检测，disable - 无活体检测， enable - 带活体检测&quot;,
+        &quot;options&quot; : &quot;cp&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;algm-face-size-min&quot;,
+        &quot;value&quot;:&quot;120&quot;,
+        &quot;class&quot;:&quot;algorithm&quot;,
+        &quot;desc&quot; : &quot;人脸像素数，最小值&quot;,
+        &quot;options&quot; : &quot;cp&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;algm-face-size-max&quot;,
+        &quot;value&quot;:&quot;1080&quot;,
+        &quot;class&quot;:&quot;algorithm&quot;,
+        &quot;desc&quot; : &quot;人脸像素数，最大值&quot;,
+        &quot;options&quot; : &quot;cp&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;algm-face-clear&quot;,
+        &quot;value&quot;:&quot;92&quot;,
+        &quot;class&quot;:&quot;algorithm&quot;,
+        &quot;desc&quot; : &quot;人脸清晰度阈值，用于人脸特征提取&quot;,
+        &quot;options&quot; : &quot;cp&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;algm-face-zone-x&quot;,
+        &quot;value&quot;:&quot;0&quot;,
+        &quot;class&quot;:&quot;algorithm&quot;,
+        &quot;desc&quot; : &quot;人脸识别与人脸检测区域范围，像素数。x,y,w,h&quot;,
+        &quot;options&quot; : &quot;cp&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;algm-face-zone-y&quot;,
+        &quot;value&quot;:&quot;0&quot;,
+        &quot;class&quot;:&quot;algorithm&quot;,
+        &quot;desc&quot; : &quot;人脸识别与人脸检测区域范围，像素数。x,y,w,h&quot;,
+        &quot;options&quot; : &quot;cp&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;algm-face-zone-w&quot;,
+        &quot;value&quot;:&quot;1080&quot;,
+        &quot;class&quot;:&quot;algorithm&quot;,
+        &quot;desc&quot; : &quot;人脸识别与人脸检测区域范围，像素数。x,y,w,h&quot;,
+        &quot;options&quot; : &quot;cp&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;algm-face-zone-h&quot;,
+        &quot;value&quot;:&quot;1920&quot;,
+        &quot;class&quot;:&quot;algorithm&quot;,
+        &quot;desc&quot; : &quot;人脸识别与人脸检测区域范围，像素数。x,y,w,h&quot;,
+        &quot;options&quot; : &quot;cp&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;algm-face-angle-yaw&quot;,
+        &quot;value&quot;:&quot;45&quot;,
+        &quot;class&quot;:&quot;algorithm&quot;,
+        &quot;desc&quot; : &quot;人脸角度， yaw - 偏航角(-90, 90)正左转；负右转&quot;,
+        &quot;options&quot; : &quot;cp&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;algm-face-angle-roll&quot;,
+        &quot;value&quot;:&quot;45&quot;,
+        &quot;class&quot;:&quot;algorithm&quot;,
+        &quot;desc&quot; : &quot;人脸角度， roll - 横滚角(-90, 90)正：左低右高；负：左高右低&quot;,
+        &quot;options&quot; : &quot;cp&quot;
+    },
+
+    {
+        &quot;key&quot;:&quot;algm-face-angle-pitch&quot;,
+        &quot;value&quot;:&quot;30&quot;,
+        &quot;class&quot;:&quot;algorithm&quot;,
+        &quot;desc&quot; : &quot;人脸角度， pitch - 仰角(-90, 90)正：仰视；负：俯视&quot;,
+        &quot;options&quot; : &quot;cp&quot;
+    }
+
+    ]
+}
+
+</code></pre>
+<h3 id="_6">二维码扫码配置项</h3>
+<p>用成的规则如下</p>
+<ol>
+<li>配置连接到WIFI网络</li>
+</ol>
+<p>WIFI:T:WPA;S:mynetwork;P:mypass;;</p>
+<ol>
+<li>配置本机为WIFI热点</li>
+</ol>
+<p>WIAP:T:WPA;S:mynetwork;P:mypass;;</p>
+<ol>
+<li>配置以太网</li>
+</ol>
+<p>动态IP地址方式：ETH:M:D;</p>
+<p>静态IP地址方式：
+ETH:M:S;I:192.168.10.10;K:255.255.255.0;G:192.168.10.1;</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../04-user/" class="btn btn-neutral float-right" title="用户管理">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../01-intro/" class="btn btn-neutral" title="系统简介"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../01-intro/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../04-user/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

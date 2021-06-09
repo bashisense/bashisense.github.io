@@ -1,16 +1,27 @@
-site_name: BaShi Develop Docs
+site_name: 八识科技 开发文档
 nav:
-- 首页: index.md
-- 版本信息: 00-version.md
-- 系统简介: 01-introduction.md
-- 注册登陆: 02-register.md
-- 设备管理: 08-device.md
-- 配置管理: 03-configuration.md
-- 事件管理: 06-event.md
-- 用户管理: 04-user.md
-- 门卡管理: 10-card.md
-- 广告管理: 09-advt.md
-- 访客管理: 05-visitor.md
+- 首页: 00-intro.md
+- 公共接口文档:
+  - 总体说明: 01-intro.md
+  - 注册登陆: 02-regist.md
+  - 配置管理: 03-config.md
+  - 设备管理: 04-device.md
+- 智能门禁开发文档:
+  - 版本信息: acs/00-version.md
+  - 系统简介: acs/01-intro.md
+  - 配置管理: acs/02-config.md
+  - 设备管理: acs/03-device.md
+  - 用户管理: acs/04-user.md
+  - 门卡管理: acs/05-card.md
+  - 访客管理: acs/06-visitor.md
+  - 广告管理: acs/07-advt.md
+  - 事件管理: acs/08-event.md
+- 智能相机开发文档:
+  - 版本信息: ipc/00-version.md
+  - 系统简介: ipc/01-intro.md
+  - 配置管理: ipc/02-config.md
+  - 用户管理: ipc/04-user.md
+  - 事件管理: ipc/08-event.md
 - 附则: appendix.md
 
 theme: readthedocs

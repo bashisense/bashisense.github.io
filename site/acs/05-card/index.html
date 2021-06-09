@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>门卡管理 - 八识科技 开发文档</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "\u95e8\u5361\u7ba1\u7406";
+    var mkdocs_page_input_path = "acs/05-card.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> 八识科技 开发文档</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../00-intro/">首页</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">公共接口文档</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../01-intro/">总体说明</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../02-regist/">注册登陆</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../03-config/">配置管理</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../04-device/">设备管理</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">智能门禁开发文档</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../00-version/">版本信息</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../01-intro/">系统简介</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../02-config/">配置管理</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03-device/">设备管理</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../04-user/">用户管理</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">门卡管理</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_2">说明</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">卡对象</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_4">添加门禁卡</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_5">删除门禁卡</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_6">查询门禁卡</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_7">列举门禁卡</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_8">主动读卡</a>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../06-visitor/">访客管理</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../07-advt/">广告管理</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../08-event/">事件管理</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">智能相机开发文档</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../ipc/00-version/">版本信息</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../ipc/01-intro/">系统简介</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../ipc/02-config/">配置管理</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../ipc/04-user/">用户管理</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../ipc/08-event/">事件管理</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../appendix/">附则</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">八识科技 开发文档</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>智能门禁开发文档 &raquo;</li>
+        
+      
+    
+    <li>门卡管理</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="_1">门卡管理</h1>
+<hr />
+<h4 id="_2">说明</h4>
+<blockquote>
+<p>请求类型: POST
+HTTP头：token = , 使用登陆时返回的token
+请求消息体:JSON
+返回消息体:JSON, retcode = 0时正确， 非0时出错</p>
+</blockquote>
+<p>独立模式时：</p>
+<blockquote>
+<p>请求URL: http://dev-ip-addr:port:/api/v3.x/acm
+HTTP头：token = , 使用登陆时返回的token</p>
+</blockquote>
+<p><strong>id 大小不超过32Bytes, userid不超过32字节， rule不超过32字节</strong></p>
+<h4 id="_3">卡对象</h4>
+<pre><code class="language-json">    {
+        &quot;id&quot;:&quot;EeqZmH943F8&quot;,
+        &quot;type&quot;: &quot;ic&quot;,       // 卡类型，默认IC卡，可以为CPU，crypto等
+        &quot;userid&quot;: &quot;1avsoHu2EeqZmH943F8eUg==&quot;,   // 卡对应的用户ID
+        &quot;data&quot;: &quot;...&quot;   // 卡数据
+    }
+</code></pre>
+<blockquote>
+<p>id : 唯一标志卡的ID，仅内部使用，必填
+userid : 唯一标志用户的ID，不超过32字节的文本字符串；选填，离线使用时人脸+卡匹配
+type": 卡类型，默认IC卡，可以为CPU，crypto等
+data : IC卡匹配数据，必填</p>
+</blockquote>
+<h4 id="_4">添加门禁卡</h4>
+<ul>
+<li>请求</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;action&quot;:&quot;card-insert&quot;,
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;cards&quot;:[
+            {
+            &quot;id&quot;:&quot;EeqZmH943F8&quot;,
+            ... // 卡其它信息，详见本章卡对象说明
+            },
+            {
+            &quot;id&quot;:&quot;AeqZmH943F9&quot;,
+            ... // 卡其它信息，详见本章卡对象说明
+            },
+        ]
+    }
+}
+</code></pre>
+<ul>
+<li>响应</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;retcode&quot;:0,
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;cards&quot;:[
+            {
+            &quot;id&quot;:&quot;EeqZmH943F8&quot;,
+            &quot;retcode&quot;: 0
+            },
+            {
+            &quot;id&quot;:&quot;AeqZmH943F9&quot;,
+            &quot;retcode&quot;: 0
+            },
+        ]
+    }
+}
+</code></pre>
+<h4 id="_5">删除门禁卡</h4>
+<ul>
+<li>请求</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;action&quot;:&quot;card-remove&quot;,
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;cards&quot;:[
+            {
+            &quot;id&quot;:&quot;EeqZmH943F8&quot;,
+            },
+            {
+            &quot;id&quot;:&quot;AeqZmH943F9&quot;,
+            },
+        ]
+    }
+}
+</code></pre>
+<ul>
+<li>响应</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;retcode&quot;:0,
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;cards&quot;:[
+            {
+            &quot;id&quot;:&quot;EeqZmH943F8&quot;,
+            &quot;retcode&quot;: 0
+            },
+            {
+            &quot;id&quot;:&quot;AeqZmH943F9&quot;,
+            &quot;retcode&quot;: 0
+            },
+        ]
+    }
+}
+</code></pre>
+<h4 id="_6">查询门禁卡</h4>
+<ul>
+<li>请求</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;action&quot;:&quot;card-lookup&quot;,
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;cards&quot;:[               // 根据卡ID查询卡信息，可不填写
+            {
+            &quot;id&quot;:&quot;EeqZmH943F8&quot;,
+            },
+            {
+            &quot;id&quot;:&quot;AeqZmH943F9&quot;,
+            },
+        ]
+    }
+}
+</code></pre>
+<ul>
+<li>响应</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;retcode&quot;:0,
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;cards&quot;:[ 
+            {
+            &quot;id&quot;:&quot;EeqZmH943F8&quot;,
+            ... // 卡其它信息，详见本章卡对象说明
+            },
+            {
+            &quot;id&quot;:&quot;AeqZmH943F9&quot;,
+            ... // 卡其它信息，详见本章卡对象说明
+            },
+        ]
+    }
+}
+</code></pre>
+<h4 id="_7">列举门禁卡</h4>
+<ul>
+<li>请求</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;action&quot;:&quot;card-fetch&quot;,
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;offset&quot;: 18,
+        &quot;limit&quot;:2
+    }
+}
+</code></pre>
+<blockquote>
+<p>offset : 数据库起始点，默认0
+limit : 本次列举卡数量，默认10，不超过10
+</p>
+</blockquote>
+<ul>
+<li>响应</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;retcode&quot;:0,
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;cards&quot;:[
+            {
+            &quot;id&quot;:&quot;EeqZmH943F8&quot;,
+            ... // 卡其它信息，详见本章卡对象说明
+            },
+            {
+            &quot;id&quot;:&quot;AeqZmH943F9&quot;,
+            ... // 卡其它信息，详见本章卡对象说明
+            },
+        ]
+    }
+}
+</code></pre>
+<h4 id="_8">主动读卡</h4>
+<p>在用户使用小程序/app为用户添加卡的时候，需要读取最后一次刷卡信息，平台或app实现卡与用户的绑定，并下发到设备。此命令返回设备内最后一次刷卡器读卡数据。</p>
+<ul>
+<li>请求</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;action&quot;:&quot;card-read&quot;,
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;: {
+    }
+}
+</code></pre>
+<blockquote>
+<p>返回最后一次读到卡信息与时间戳</p>
+</blockquote>
+<ul>
+<li>响应</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;retcode&quot;:0,
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;timestamp&quot;:16092820, // 读卡时间
+        &quot;type&quot;:&quot;ic&quot;,    // 目前支持的卡类型, ic为ID卡，en为加密卡
+        &quot;data&quot;:...      // base64编码的卡信息，目前为卡ID号
+    }
+}
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../06-visitor/" class="btn btn-neutral float-right" title="访客管理">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../04-user/" class="btn btn-neutral" title="用户管理"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../04-user/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../06-visitor/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

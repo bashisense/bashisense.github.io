@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>用户管理 - 八识科技 开发文档</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "\u7528\u6237\u7ba1\u7406";
+    var mkdocs_page_input_path = "acs/04-user.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> 八识科技 开发文档</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../00-intro/">首页</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">公共接口文档</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../01-intro/">总体说明</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../02-regist/">注册登陆</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../03-config/">配置管理</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../04-device/">设备管理</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">智能门禁开发文档</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../00-version/">版本信息</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../01-intro/">系统简介</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../02-config/">配置管理</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03-device/">设备管理</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">用户管理</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_2">说明</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">用户对象</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_4">添加用户流程</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_5">列举用户</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_6">添加用户</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_7">删除用户</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_8">修改用户</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_9">查询用户</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_10">上传用户文件</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_11">生成用户文件</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_12">下载帐户文件</a>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../05-card/">门卡管理</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../06-visitor/">访客管理</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../07-advt/">广告管理</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../08-event/">事件管理</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">智能相机开发文档</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../ipc/00-version/">版本信息</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../ipc/01-intro/">系统简介</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../ipc/02-config/">配置管理</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../ipc/04-user/">用户管理</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../ipc/08-event/">事件管理</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../appendix/">附则</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">八识科技 开发文档</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>智能门禁开发文档 &raquo;</li>
+        
+      
+    
+    <li>用户管理</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="_1">帐户管理</h1>
+<hr />
+<h4 id="_2">说明</h4>
+<blockquote>
+<p>请求类型: POST
+HTTP头：token = , 使用登陆时返回的token
+请求消息体:JSON
+返回消息体:JSON, retcode = 0时正确， 非0时出错</p>
+</blockquote>
+<p>独立模式时：</p>
+<blockquote>
+<p>请求URL: http://dev-ip-addr:port:/api/v3.x/acm
+HTTP头：token = , 使用登陆时返回的token</p>
+</blockquote>
+<p><strong>限制条件： userid 不超过32字节， name不超过32字节， desc不超过32字节</strong></p>
+<h4 id="_3">用户对象</h4>
+<pre><code class="language-json">{
+    &quot;userid&quot;: &quot;1avsoHu2EeqZmH943F8eUg&quot;,     // 用户ID，全局唯一
+    &quot;name&quot;: &quot;李四&quot;,     // 用户姓名，必填
+    &quot;desc&quot;: &quot;研发部&quot;,   // 用户部门/住宅门牌号等，可不填写，平台可以发用户最近的组织名
+
+    &quot;effect&quot;: 1619019996,       // 用户生效时间，不填则默认为0，部分情况设备掉电丢失时间，此值填写有核验失败风险
+    &quot;expire&quot;: 1619519996,       // 用户过期时间，不填则当前时刻+1年，建议填写一个较大值如果不用的话，-1为不限制过期
+
+    &quot;state&quot;: 0,                 // 用户状态，正常用户是正值，负值为黑名单，定制产品使用，可不填写
+
+    &quot;face&quot;:{
+        &quot;vendor&quot;:&quot;xxxx&quot;,       // 人脸算法供应商，double check使用
+        &quot;version&quot;:&quot;v2.1.0&quot;,     // 人脸算法版本, double check使用
+        &quot;feature&quot;: &quot;data....&quot;   // base64编码的用户特征值，由设备计算，同类型设备，算法版本一致的可以直接下载，节省时间
+    },
+
+    &quot;cards&quot;:[   // 添加与用户绑定的卡信息，也可以单独绑定卡，详情见门卡管理章节
+        {
+            &quot;id&quot;:&quot;EeqZmH943F8&quot;,
+            &quot;type&quot;: &quot;ic&quot;,       // 卡类型，默认IC卡，可以为CPU，crypto等
+            &quot;userid&quot;: &quot;1avsoHu2EeqZmH943F8eUg&quot;,   // 卡对应的用户ID
+            &quot;data&quot;: &quot;...&quot;   // 卡数据
+        },
+
+        {
+            &quot;id&quot;:&quot;2scZmH943a3&quot;,
+            &quot;type&quot;: &quot;ic&quot;,       // 卡类型，默认IC卡，可以为CPU，crypto等
+            &quot;userid&quot;: &quot;1avsoHu2EeqZmH943F8eUg&quot;,   // 卡对应的用户ID
+            &quot;data&quot;: &quot;...&quot;   // 卡数据
+        },
+    ],
+
+    &quot;elevator&quot;:&quot;data&quot;         // base64编码的电梯信息，每bit表示为1表示当前层可开，为0表示无权限，data最多为16字节，可管理128层
+}
+</code></pre>
+<blockquote>
+<p>对用户的操作与数据库的CRUD类似，增加了枚举设备中的所有用户，所有的信息以此为准
+后续行文为了简化，直接给出用户信息的缩略版本</p>
+</blockquote>
+<h4 id="_4">添加用户流程</h4>
+<p><img alt="添加用户流程" src="../../images/acs-user.png" /></p>
+<h4 id="_5">列举用户</h4>
+<ul>
+<li>请求</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;action&quot;: &quot;user-fetch&quot;,
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;offset&quot;: 1,
+        &quot;limit&quot;: 2
+    }
+}
+</code></pre>
+<blockquote>
+<p>offset : 本次列表开始的位置；
+limit : 本次列表的数量;</p>
+</blockquote>
+<ul>
+<li>响应</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;retcode&quot;:0,                // 激活成功
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;,       // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;users&quot;: [
+            {
+                &quot;userid&quot;: &quot;1avsoHu2EeqZmH943F8eUg&quot;,
+            },
+            {
+                &quot;userid&quot;: &quot;1aw6wHu2EeqZmH943F8eUg&quot;,
+            }
+        ],
+    }
+</code></pre>
+<h4 id="_6">添加用户</h4>
+<ul>
+<li>请求</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;action&quot;: &quot;user-insert&quot;,
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;users&quot;: [
+            {
+                &quot;userid&quot;: &quot;1avsoHu2EeqZmH943F8eUg&quot;,
+                ... // 用户的其它信息，请参照本章的用户对象说明
+            },
+            {
+                &quot;userid&quot;: &quot;1aw6wHu2EeqZmH943F8eUg&quot;,
+                ... // 用户的其它信息，请参照本章的用户对象说明
+            }
+        ]
+    }
+}
+</code></pre>
+<ul>
+<li>响应</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;retcode&quot;: 0,   // 当有任意一项成功时，返回成功
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;users&quot;: [
+            { 
+                &quot;userid&quot;:&quot;1avsoHu2EeqZmH943F8eUg&quot;,
+                &quot;retcode&quot;: 0    // 本用户操作结果
+            },
+            {
+                &quot;userid&quot;:&quot;1aw6wHu2EeqZmH943F8eUg&quot;,
+                &quot;retcode&quot;: 0    // 本用户操作结果
+            }
+        ]
+    }
+}
+</code></pre>
+<h4 id="_7">删除用户</h4>
+<ul>
+<li>请求</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;action&quot;: &quot;user-remove&quot;,
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;users&quot;: [
+        {
+            &quot;userid&quot;: &quot;1avsoHu2EeqZmH943F8eUg&quot;
+        },
+        {
+            &quot;userid&quot;: &quot;1aw6wHu2EeqZmH943F8eUg&quot;
+        }
+        ]
+    }
+}
+</code></pre>
+<blockquote>
+<p>userid : 唯一标志用户的ID，不超过32字节的文本字符串；必填</p>
+</blockquote>
+<ul>
+<li>响应</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;retcode&quot;: 0,   // 当有任意一项成功时，返回成功
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;users&quot;: [
+        {
+            &quot;userid&quot;: &quot;1avsoHu2EeqZmH943F8eUg&quot;,
+            &quot;retcode&quot;: 0    // 本用户操作结果
+        },
+        {
+            &quot;userid&quot;: &quot;1aw6wHu2EeqZmH943F8eUg&quot;,
+            &quot;retcode&quot;: 0    // 本用户操作结果
+        }
+        ]
+    }
+}
+</code></pre>
+<h4 id="_8">修改用户</h4>
+<ul>
+<li>请求</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;action&quot;: &quot;user-update&quot;,
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;users&quot;: [
+        {
+            &quot;userid&quot;: &quot;1avsoHu2EeqZmH943F8eUg&quot;,
+            ... // 用户的其它信息，请参照本章的用户对象说明
+        },
+        {
+            &quot;userid&quot;: &quot;1aw6wHu2EeqZmH943F8eUg&quot;,
+            ... // 用户的其它信息，请参照本章的用户对象说明
+        }
+        ]
+    }
+}
+</code></pre>
+<ul>
+<li>响应</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;retcode&quot;: 0,   // 当有任意一项成功时，返回成功
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;: {
+        &quot;users&quot;: [
+        {
+            &quot;userid&quot;: &quot;1avsoHu2EeqZmH943F8eUg&quot;,
+            &quot;retcode&quot;: 0    // 本用户操作结果
+        },
+
+        {
+            &quot;userid&quot;: &quot;1aw6wHu2EeqZmH943F8eUg&quot;,
+            &quot;retcode&quot;: 0    // 本用户操作结果
+        }
+        ]
+    },
+}
+</code></pre>
+<h4 id="_9">查询用户</h4>
+<ul>
+<li>请求</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;action&quot;: &quot;user-lookup&quot;,
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;users&quot;: [
+        {
+            &quot;userid&quot;: &quot;1avsoHu2EeqZmH943F8eUg&quot;,
+            &quot;card&quot;:1,   // 查询信息是否附加绑定到用户的卡信息，不填或0则不添加，1为添加查询卡信息
+            &quot;face&quot;:1,   // 查询信息是否附加用户的人脸特征信息，不填或0则不添加，1为添加查询人脸特征信息
+        },
+        {
+            &quot;userid&quot;: &quot;1aw6wHu2EeqZmH943F8eUg&quot;,
+        }
+        ]
+    }
+}
+</code></pre>
+<ul>
+<li>响应</li>
+</ul>
+<pre><code class="language-json">
+{
+    &quot;retcode&quot;: 0,   // 当有任意一项成功时，返回成功
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;users&quot;: [
+        {
+            &quot;userid&quot;: &quot;1avsoHu2EeqZmH943F8eUg&quot;,
+            ... // 用户的其它信息，请参照本章的用户对象说明
+        },
+        {
+            &quot;userid&quot;: &quot;1aw6wHu2EeqZmH943F8eUg&quot;,
+            ... // 用户的其它信息，请参照本章的用户对象说明
+        }
+        ]
+    }
+}
+</code></pre>
+<h4 id="_10">上传用户文件</h4>
+<p><strong>上传用户文件，单次数据长度必须在64kB以内，其data数据在转base64前应以64kB长度切片</strong></p>
+<ul>
+<li>请求</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;action&quot;:&quot;user-upload&quot;,
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;filesize&quot;:32678,
+        &quot;filename&quot;:&quot;1aw6wHu2EeqZmH943F8eUg.jpg&quot;, // 文件名后缀代表文件类型，支持nv12, jpg, png
+        &quot;offset&quot;:0,
+        &quot;size&quot;: 4096,
+        &quot;data&quot;:&quot;base64-encoded file data&quot;
+    }
+}
+</code></pre>
+<blockquote>
+<p>filename : 用户ID + 后缀, nv12时为nv12文件，使用512x512的人脸图片，做底库使用。jpg, png时，人脸图片最大边（长或宽）不超过400像素，人脸大小大于200像素
+filesize : 文件总的长度
+offset : 当前数据片段起始位置
+size : 当前数据片段长度
+data : base64编码的数据</p>
+</blockquote>
+<ul>
+<li>响应</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;retcode&quot;:0,
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+}
+</code></pre>
+<h4 id="_11">生成用户文件</h4>
+<p>根据上传的用户数据，生成所需要的UI与识别特征码数据</p>
+<ul>
+<li>请求</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;action&quot;: &quot;user-gen&quot;,
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;userid&quot;: &quot;1avsoHu2EeqZmH943F8eUg&quot;,
+    }
+}
+</code></pre>
+<ul>
+<li>响应</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;retcode&quot;:0,
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;: {
+        &quot;userid&quot;: &quot;1avsoHu2EeqZmH943F8eUg&quot;,
+
+        &quot;face&quot;:{
+            &quot;vendor&quot;:&quot;xxxx&quot;,       // 人脸算法供应商，double check使用
+            &quot;version&quot;:&quot;v2.1.0&quot;,     // 人脸算法版本, double check使用
+            &quot;feature&quot;: &quot;data....&quot;   // base64编码的用户特征值，由设备计算，同类型设备，算法版本一致的可以直接下载，节省时间
+        }
+    }
+}
+</code></pre>
+<h4 id="_12">下载帐户文件</h4>
+<ul>
+<li>请求</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;action&quot;:&quot;user-download&quot;,
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;filename&quot;:&quot;1aw6wHu2EeqZmH943F8eUg.nv12&quot;,
+        &quot;offset&quot;:0,
+        &quot;size&quot;: 4096,
+    }
+}
+</code></pre>
+<blockquote>
+<p>filename : 用户ID+文件后缀名，.nv12/.jpg/.png 上传的用户文件, _ui.png, _ui.jpg 为生成的UI文件
+UI文件一般仅支持_ui.png或_ui.bmp</p>
+</blockquote>
+<ul>
+<li>响应</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;retcode&quot;:0,
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot; : {
+        &quot;filename&quot;:&quot;1aw6wHu2EeqZmH943F8eUg.nv12&quot;,
+        &quot;filesize&quot;:32678,   // 文件总体大小
+        &quot;offset&quot;:0,         // 本次下载的offset
+        &quot;size&quot;: 32000,      // 本次下载的大小
+        &quot;data&quot;:&quot;base64-encoded file data&quot;
+    }
+}
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../05-card/" class="btn btn-neutral float-right" title="门卡管理">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../03-device/" class="btn btn-neutral" title="设备管理"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../03-device/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../05-card/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

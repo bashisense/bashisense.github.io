@@ -1,6 +1,6 @@
 site_name: 八识科技 开发文档
 nav:
-- 首页: 00-intro.md
+- 首页: index.md
 - 公共接口文档:
   - 总体说明: 01-intro.md
   - 注册登陆: 02-regist.md

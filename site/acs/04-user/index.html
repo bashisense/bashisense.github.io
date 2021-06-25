@@ -82,19 +82,21 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#_5">列举用户</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_6">添加用户</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_6">批量添加用户</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_7">删除用户</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_7">添加用户</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_8">修改用户</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_8">删除用户</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_9">查询用户</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_9">修改用户</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_10">上传用户文件</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_10">查询用户</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_11">生成用户文件</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_11">上传用户文件</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_12">下载帐户文件</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_12">生成用户文件</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_13">下载帐户文件</a>
     </li>
     </ul>
                     </li>
@@ -258,7 +260,57 @@ limit : 本次列表的数量;</p>
         ],
     }
 </code></pre>
-<h4 id="_6">添加用户</h4>
+<h4 id="_6">批量添加用户</h4>
+<p>批量添加用户时，对添加的数据不做校验，数据库关闭同步写入功能，需要保证批量添加数据时设备不掉电，否则会有数据丢失的风险。批量添加数据的性能是正常添加用户的10倍性能或更高</p>
+<ul>
+<li>请求</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;action&quot;: &quot;user-batch&quot;,
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;users&quot;: [
+            {
+                &quot;userid&quot;: &quot;1avsoHu2EeqZmH943F8eUg&quot;,
+                ... // 用户的其它信息，请参照本章的用户对象说明
+            },
+            {
+                &quot;userid&quot;: &quot;1aw6wHu2EeqZmH943F8eUg&quot;,
+                ... // 用户的其它信息，请参照本章的用户对象说明
+            }
+        ]
+    }
+}
+</code></pre>
+<ul>
+<li>响应</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;retcode&quot;: 0,   // 当有任意一项成功时，返回成功
+
+    &quot;header&quot;:{
+        &quot;reqid&quot;:&quot;129393&quot;         // 透传值，设备内唯一
+    },
+
+    &quot;body&quot;:{
+        &quot;users&quot;: [
+            { 
+                &quot;userid&quot;:&quot;1avsoHu2EeqZmH943F8eUg&quot;,
+                &quot;retcode&quot;: 0    // 本用户操作结果
+            },
+            {
+                &quot;userid&quot;:&quot;1aw6wHu2EeqZmH943F8eUg&quot;,
+                &quot;retcode&quot;: 0    // 本用户操作结果
+            }
+        ]
+    }
+}
+</code></pre>
+<h4 id="_7">添加用户</h4>
 <ul>
 <li>请求</li>
 </ul>
@@ -307,7 +359,7 @@ limit : 本次列表的数量;</p>
     }
 }
 </code></pre>
-<h4 id="_7">删除用户</h4>
+<h4 id="_8">删除用户</h4>
 <ul>
 <li>请求</li>
 </ul>
@@ -357,7 +409,7 @@ limit : 本次列表的数量;</p>
     }
 }
 </code></pre>
-<h4 id="_8">修改用户</h4>
+<h4 id="_9">修改用户</h4>
 <ul>
 <li>请求</li>
 </ul>
@@ -407,7 +459,7 @@ limit : 本次列表的数量;</p>
     },
 }
 </code></pre>
-<h4 id="_9">查询用户</h4>
+<h4 id="_10">查询用户</h4>
 <ul>
 <li>请求</li>
 </ul>
@@ -457,7 +509,7 @@ limit : 本次列表的数量;</p>
     }
 }
 </code></pre>
-<h4 id="_10">上传用户文件</h4>
+<h4 id="_11">上传用户文件</h4>
 <p><strong>上传用户文件，单次数据长度必须在64kB以内，其data数据在转base64前应以64kB长度切片</strong></p>
 <ul>
 <li>请求</li>
@@ -496,7 +548,7 @@ data : base64编码的数据</p>
     },
 }
 </code></pre>
-<h4 id="_11">生成用户文件</h4>
+<h4 id="_12">生成用户文件</h4>
 <p>根据上传的用户数据，生成所需要的UI与识别特征码数据</p>
 <ul>
 <li>请求</li>
@@ -534,7 +586,7 @@ data : base64编码的数据</p>
     }
 }
 </code></pre>
-<h4 id="_12">下载帐户文件</h4>
+<h4 id="_13">下载帐户文件</h4>
 <ul>
 <li>请求</li>
 </ul>

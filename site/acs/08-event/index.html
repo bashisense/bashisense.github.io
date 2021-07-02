@@ -188,7 +188,12 @@ HTTP头：token = , 使用登陆时返回的token</p>
     &quot;data&quot;:&quot;...&quot;,       // 卡ID值, 0xffae0846
 
     // open/remote/push/fire/disa 事件包括此项
-    &quot;state&quot;:0,           // 告警事件场景：0 - 关闭 / 1 - 触发 ; 人脸/刷卡场景，表示用户状态
+    &quot;state&quot;:0,           // 告警事件场景：
+                         // 0 - 关闭 / 1 - 触发 ; 
+
+                         //人脸/刷卡场景，表示用户状态
+                         // 0 - 未知； 1 - 权限未使能; 2 - 权限过期; 3 - 无权限; 4 - 合验成功
+}wcp_user_state_e;
 
     // 扫码事件包括此项
     &quot;qrcode&quot;:&quot;aiwksieow&quot;    // 扫码值

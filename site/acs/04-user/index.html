@@ -210,7 +210,9 @@ HTTP头：token = , 使用登陆时返回的token</p>
         },
     ],
 
-    &quot;elevator&quot;:&quot;data&quot;         // base64编码的电梯信息，每bit表示为1表示当前层可开，为0表示无权限，data最多为16字节，可管理128层
+    &quot;elevator&quot;:&quot;0000000001000000&quot;   // 字符串表示的梯控数据，一般不超过16字节，转为二进制为8字节，每个Bits表示一层楼；
+                        // 如：0000000000000004, - 表示可开3楼，
+                        // 如：0000000000008000, - 表示可开16楼
 }
 </code></pre>
 <blockquote>
